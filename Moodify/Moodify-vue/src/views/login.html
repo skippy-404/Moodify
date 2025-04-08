@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登陆</title>
+  <link rel="stylesheet" href="../assets/styles/Loginstyle.css">
+  <link rel="stylesheet" href="../assets/styles/dark-mode.css">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <script type="module">
+    import { setAuthToken } from '../utils/auth.js';
+    window.setAuthToken = setAuthToken;
+  </script>
+</head>
+
+<body>
+  <!-- 主题切换按钮 -->
+  <button class="theme-toggle" id="themeToggle">
+    <span class="material-symbols-outlined">dark_mode</span>
+  </button>
+
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <!-- 品牌标识 -->
+    <div class="brand">
+      <div class="brand-logo">
+        <span>M</span>
+      </div>
+      <div class="brand-name">Moodify</div>
+    </div>
+
+    <!-- 导航菜单 -->
+    <div class="nav-items">
+      <div class="top-item" onclick="home()">
+        <span class="top-text">Home</span>
+      </div>
+      <div class="top-item active" onclick="login()">
+        <span class="top-text">Login</span>
+      </div>
+      <div class="top-item" onclick="showRegister()">
+        <span class="top-text">Register</span>
+      </div>
+      <div class="top-item">
+        <span class="top-text">Contact</span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="content">
+    <div class="left">
+      <img src="../assets/images/img2.png" class="people p-animtion" alt="people">
+      <img src="../assets/images/img1.png" class="sphere s-animtion" alt="sphere">
+    </div>
+    <div class="right">
+      <div class="top">
+        <div class="top-item" onclick="home()">
+          <!-- 跳转到主页 -->
+          <span class="top-text">Home</span>
+        </div>
+        <div class="top-item" onclick="showRegister()">
+          <span class="top-text">Register</span>
+        </div>
+        <div class="top-item">
+          <span class="top-text">Contact Us</span>
+        </div>
+        <div class="top-item">
+          <span class="top-text">Help</span>
+        </div>
+      </div>
+      <div class="form-wrappepr">
+        <h1>Moodify</h1>
+        <input type="text" class="inputs user" placeholder="Enter Your Username">
+        <input type="password" class="inputs pwd" placeholder="Password">
+        <span class="tips">Recovery Password</span>
+        <button id="loginBtn">Sigin In</button>
+      </div>
+      <div class="form-wrappepr" id="registerForm" style="display:none;">
+        <h1>Create Account</h1>
+        <input type="email" class="inputs" id="regEmail" placeholder="Email">
+        <input type="text" class="inputs" id="username" placeholder="Username">
+        <input type="password" class="inputs" id="regPassword" placeholder="Password">
+        <input type="password" class="inputs" id="confirmPassword" placeholder="Confirm Password">
+        <button id="registerBtn">Sign Up</button>
+        <span class="tips" onclick="showLogin()">Already have an account? Sign In</span>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  function home() {
+    window.location.href = 'index.html';
+  }
+  function showRegister() {
+    document.querySelector('#registerForm').style.display = 'block';
+    document.querySelector('.form-wrappepr').style.display = 'none';
+  }
+
+  function showLogin() {
+    document.querySelector('.form-wrappepr').style.display = 'block';
+    document.querySelector('#registerForm').style.display = 'none';
+  }
+  document.querySelector("#registerBtn").addEventListener("click", async () => {
+    const email = document.querySelector('#regEmail').value;
+    const username = document.querySelector('#username').value;
+    const password = document.querySelector('#regPassword').value;
+    const confirmPassword = document.querySelector('#confirmPassword').value;
+
+    // 前端验证
+    if (!email || !username || !password || !confirmPassword) {
+      alert('所有字段必须填写');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert('两次密码输入不一致');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:8080/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          username: username,
+          password: password
+        })
+      });
+
+      const result = await response.json();
+
+      if (result.code === 1) {
+        alert('注册成功！');
+        showLogin(); // 自动跳转回登录
+      } else {
+        alert(`注册失败：${result.message}`);
+      }
+    } catch (error) {
+      console.error('请求错误:', error);
+      alert('注册请求失败');
+    }
+  });
+
+  document.querySelector(".people").addEventListener('animationend', function () {
+    this.classList.remove('p-animtion');
+    this.classList.add('p-other-animtion')
+  });
+  document.querySelector(".sphere").addEventListener('animationend', function () {
+    this.classList.remove('s-animtion');
+    this.classList.add('s-other-animtion')
+  });
+
+
+  document.querySelector("#loginBtn").addEventListener("click", async () => {
+    const username = document.querySelector('.user').value;
+    const password = document.querySelector('.pwd').value;
+
+    // 简单的前端验证
+    if (!username || !password) {
+      alert('请输入用户名和密码');
+      return;
+    }
+
+    try {
+      console.log('正在发送登录请求...');
+      const response = await fetch('http://localhost:8080/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password
+        })
+      });
+
+      console.log('收到服务器响应:', response);
+      const result = await response.json();
+      console.log('解析响应数据:', result);
+
+      if (result.code === 1 || (result.data && result.data.code === 1)) {
+        alert('登录成功！');
+        // 保存token到localStorage
+        if (result.data && result.data.token) {
+          setAuthToken(result.data.token);
+        }
+        // 跳转到主页
+        window.location.href = '/';
+      } else {
+        alert(`登录失败：${result.message || '未知错误'}`);
+      }
+    } catch (error) {
+      console.error('登录请求错误:', error);
+      alert('网络请求失败，请检查网络连接或稍后重试');
+    }
+  });
+
+
+  // 主题切换功能
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = themeToggle.querySelector('.material-symbols-outlined');
+
+  // 检查本地存储中的主题设置
+  if (localStorage.getItem('darkMode') === 'enabled') {
+    document.body.classList.add('dark-mode');
+    themeIcon.textContent = 'light_mode';
+  }
+
+  themeToggle.addEventListener('click', () => {
+    // 切换暗黑模式
+    document.body.classList.toggle('dark-mode');
+
+    // 更新图标
+    if (document.body.classList.contains('dark-mode')) {
+      themeIcon.textContent = 'light_mode';
+      localStorage.setItem('darkMode', 'enabled');
+    } else {
+      themeIcon.textContent = 'dark_mode';
+      localStorage.setItem('darkMode', 'disabled');
+    }
+  });
+</script>
+
+</html>

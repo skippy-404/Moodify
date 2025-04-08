@@ -1,0 +1,345 @@
+/* 黑夜模式样式 */
+:root {
+    font-size: 15px;
+    font-family: "Century Gothic", Times, serif;
+}
+
+body.dark-mode {
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: #121212;
+    background-image: radial-gradient(closest-side, rgba(40, 40, 40, 0.8), rgba(20, 20, 20, 0)), 
+                    radial-gradient(closest-side, rgba(65, 0, 100, 0.6), rgba(40, 0, 70, 0)), 
+                    radial-gradient(closest-side, rgba(0, 20, 60, 0.5), rgba(0, 10, 40, 0)), 
+                    radial-gradient(closest-side, rgba(30, 0, 60, 0.4), rgba(20, 0, 40, 0)), 
+                    radial-gradient(closest-side, rgba(10, 10, 30, 0.3), rgba(5, 5, 15, 0));
+    background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax, 110vmax 110vmax, 90vmax 90vmax;
+    background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax, -30vmax -10vmax, 50vmax 50vmax;
+    background-repeat: no-repeat;
+    animation: 10s dark-movement linear infinite;
+    transition: opacity 1s ease;
+    color: #e0e0e0;
+}
+
+body.dark-mode::after {
+    content: "";
+    display: block;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: -1;
+}
+
+/* 暗黑模式下欢迎页的渐变过渡效果 */
+body.dark-mode .main-content::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40vh;
+    background: linear-gradient(to bottom, 
+                rgba(18, 18, 18, 0) 0%,
+                rgba(20, 20, 30, 0.1) 20%, 
+                rgba(25, 25, 35, 0.4) 50%,
+                rgba(30, 30, 40, 0.8) 80%,
+                rgba(30, 30, 40, 0.95) 100%);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* 导航栏 */
+body.dark-mode .top-nav {
+    background-color: rgba(25, 25, 35, 0.25);
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3), 
+                inset 0 1px 1px rgba(80, 80, 120, 0.3),
+                0 2px 0 rgba(70, 70, 90, 0.2);
+    border: 1px solid rgba(70, 70, 90, 0.25);
+}
+
+body.dark-mode .top-nav:hover {
+    background-color: rgba(30, 30, 40, 0.35);
+    box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.4),
+                inset 0 1px 2px rgba(80, 80, 120, 0.4),
+                0 2px 0 rgba(70, 70, 90, 0.3);
+}
+
+body.dark-mode .brand-logo {
+    background: linear-gradient(135deg, #3b3b98, #5469d4, #7597de);
+    box-shadow: 0 4px 8px -2px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .brand-name {
+    color: #9ba3ff;
+}
+
+body.dark-mode .top-nav .top-item {
+    color: #9ba3ff;
+}
+
+body.dark-mode .top-nav .top-item:hover {
+    background-color: rgba(30, 30, 40, 0.8);
+    box-shadow: 0 8px 20px -5px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(80, 80, 120, 0.3);
+}
+
+body.dark-mode .top-nav .top-item:active {
+    box-shadow: 0 4px 10px -3px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .top-item:after {
+    background: linear-gradient(90deg, #7679ff, rgba(118, 121, 255, 0));
+}
+
+body.dark-mode .top-item.active {
+    background-color: rgba(40, 40, 60, 0.7);
+    box-shadow: 0 6px 15px -3px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .top-item.active:after {
+    background: linear-gradient(90deg, #7679ff, rgba(118, 121, 255, 0.3));
+}
+
+/* 主题切换按钮 */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .theme-toggle {
+    background-color: rgba(30, 30, 40, 0.5);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+.theme-toggle .material-symbols-outlined {
+    font-size: 22px;
+    color: #fff;
+}
+
+body.dark-mode .theme-toggle .material-symbols-outlined {
+    color: #e0e0e0;
+}
+
+/* 标题和背景 */
+body.dark-mode h1 {
+    color: #e0e0e0;
+}
+
+body.dark-mode .background::before {
+    background-color: rgba(60, 20, 120, 0.7);
+}
+
+/* 预览板块 */
+body.dark-mode .preview-section {
+    background-color: rgba(30, 30, 40, 0.7);
+    border: 1px solid rgba(70, 70, 90, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .text-preview {
+    color: #e0e0e0;
+}
+
+body.dark-mode .text-preview h3 {
+    color: #9ba3ff;
+}
+
+body.dark-mode .text-preview h3::after {
+    background: linear-gradient(90deg, #7679ff, transparent);
+}
+
+body.dark-mode .badge {
+    background-color: rgba(70, 73, 180, 0.2);
+    border: 1px solid #7679ff;
+}
+
+body.dark-mode .preview-description {
+    color: #bbbbbb;
+}
+
+body.dark-mode .feature-item {
+    background-color: rgba(40, 40, 60, 0.5);
+}
+
+body.dark-mode .feature-item:hover {
+    background-color: rgba(50, 50, 80, 0.7);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .feature-item .material-symbols-outlined {
+    color: #7679ff;
+}
+
+body.dark-mode .feature-item p {
+    color: #cccccc;
+}
+
+body.dark-mode .preview-btn.primary {
+    background-color: #5255bf;
+    box-shadow: 0 5px 15px rgba(53, 57, 113, 0.3);
+}
+
+body.dark-mode .preview-btn.secondary {
+    color: #9ba3ff;
+    border: 1px solid #7679ff;
+}
+
+/* 图片卡片 */
+body.dark-mode .image-card {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+}
+
+body.dark-mode .control-btn {
+    background-color: rgba(30, 30, 40, 0.8);
+}
+
+body.dark-mode .control-btn:hover {
+    background-color: rgba(70, 73, 180, 0.8);
+}
+
+body.dark-mode .image-overlay {
+    background: linear-gradient(to top, rgba(15, 15, 25, 0.9), transparent);
+}
+
+body.dark-mode .indicator {
+    background-color: rgba(180, 180, 200, 0.3);
+}
+
+body.dark-mode .indicator.active {
+    background-color: #7679ff;
+}
+
+body.dark-mode .indicator:hover {
+    background-color: rgba(70, 73, 180, 0.6);
+}
+
+/* 轮播部分 */
+body.dark-mode .carousel-section {
+    background-color: rgba(30, 30, 40, 0.7);
+    border: 1px solid rgba(70, 70, 90, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .carousel-title {
+    color: #9ba3ff;
+}
+
+body.dark-mode .carousel-title::after {
+    background: linear-gradient(90deg, #7679ff, transparent);
+}
+
+/* 3D轮播项目 */
+body.dark-mode .item {
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .item::after {
+    background: rgba(50, 50, 70, 0.3);
+}
+
+/* 登录页面样式 */
+body.dark-mode .content {
+    background: rgba(30, 30, 40, 0.7);
+    border: 1px solid rgba(70, 70, 90, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .right .top {
+    color: #9ba3ff;
+}
+
+body.dark-mode .right .top .top-item:hover {
+    background-color: rgba(40, 40, 60, 0.8);
+    box-shadow: 0 5px 15px rgba(82, 88, 129, 0.2);
+}
+
+body.dark-mode .right .form-wrappepr h1 {
+    color: #e0e0e0;
+}
+
+body.dark-mode .right .form-wrappepr .inputs {
+    background-color: rgba(40, 40, 60, 0.8);
+    color: #e0e0e0;
+    border: 1px solid rgba(70, 70, 90, 0.3);
+}
+
+body.dark-mode .right .form-wrappepr .tips {
+    color: #9ba3ff;
+}
+
+body.dark-mode .right .form-wrappepr button {
+    background-color: #5255bf;
+    box-shadow: 0 5px 15px rgba(53, 57, 113, 0.3);
+}
+
+body.dark-mode .right .form-wrappepr button:hover {
+    background-color: #6267d4;
+}
+
+body.dark-mode .right .form-wrappepr .other-login .divider .line {
+    background-color: #5255bf;
+}
+
+body.dark-mode .right .form-wrappepr .other-login .divider .divider-text {
+    color: #9ba3ff;
+}
+
+body.dark-mode .right .form-wrappepr .other-login .other-login-wrapper .other-login-item:hover {
+    background-color: rgba(40, 40, 60, 0.8);
+    box-shadow: 0 5px 15px rgba(82, 88, 129, 0.2);
+}
+
+/* 黑夜模式背景动画 */
+@keyframes dark-movement {
+    0%, 100% {
+        background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax, 110vmax 110vmax, 90vmax 90vmax;
+        background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax, -30vmax -10vmax, 50vmax 50vmax;
+    }
+    25% {
+        background-size: 100vmax 100vmax, 90vmax 90vmax, 100vmax 100vmax, 90vmax 90vmax, 60vmax 60vmax;
+        background-position: -60vmax -90vmax, 50vmax -40vmax, 0vmax -20vmax, -40vmax -20vmax, 40vmax 60vmax;
+    }
+    50% {
+        background-size: 80vmax 80vmax, 110vmax 110vmax, 80vmax 80vmax, 60vmax 60vmax, 80vmax 80vmax;
+        background-position: -50vmax -70vmax, 40vmax -30vmax, 10vmax 0vmax, 20vmax 10vmax, 30vmax 70vmax;
+    }
+    75% {
+        background-size: 90vmax 90vmax, 90vmax 90vmax, 100vmax 100vmax, 90vmax 90vmax, 70vmax 70vmax;
+        background-position: -50vmax -40vmax, 50vmax -30vmax, 20vmax 0vmax, -10vmax 10vmax, 40vmax 60vmax;
+    }
+}
+
+/* 响应式设计 */
+@media (max-width: 992px) {
+    body.dark-mode .preview-container {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 576px) {
+    body.dark-mode .carousel-title {
+        font-size: 1.8rem;
+    }
+} 

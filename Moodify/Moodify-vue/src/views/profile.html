@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人主页 - Moodify</title>
+    <link rel="stylesheet" href="../assets/styles/styles.css">
+    <link rel="stylesheet" href="../assets/styles/dark-mode.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <style>
+      /* 个人主页专用样式 */
+      .profile-container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 6rem auto 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        z-index: 2;
+        position: relative;
+      }
+      
+      .profile-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: -1;
+        overflow: hidden;
+      }
+      
+      .profile-background span {
+        display: block;
+        font-size: 18rem;
+        line-height: 100vh;
+        text-align: center;
+        background-image: url("https://get.wallhere.com/photo/2560x1600-px-classy-fantasy-art-The-Starry-Night-Vincent-van-Gogh-1021920.jpg");
+        background-size: cover;
+        background-position: 50% 50%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        opacity: 0.5;
+        filter: blur(0.5px);
+        user-select: none;
+      }
+      
+      .profile-background::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(68, 96, 241, 0.2);
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+        z-index: -1;
+      }
+      
+      .profile-header {
+        background-color: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 30px;
+        padding: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        box-shadow: 0 10px 30px -5px rgba(31, 38, 135, 0.18), 
+                    inset 0 1px 1px rgba(255, 255, 255, 0.8),
+                    0 2px 0 rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+      }
+      
+      .profile-header:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 15px 40px -10px rgba(31, 38, 135, 0.25),
+                    inset 0 1px 2px rgba(255, 255, 255, 0.9),
+                    0 2px 0 rgba(255, 255, 255, 0.7);
+        transform: translateY(-3px);
+      }
+      
+      .avatar-container {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 3px solid rgba(255, 255, 255, 0.7);
+        box-shadow: 0 5px 15px rgba(68, 96, 241, 0.3);
+        background: linear-gradient(135deg, #7f7fd5, #86a8e7, #91eae4);
+        position: relative;
+      }
+      
+      .avatar-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      
+      .avatar-container:hover img {
+        transform: scale(1.05);
+      }
+      
+      .user-info {
+        flex: 1;
+      }
+      
+      .user-info h2 {
+        color: rgb(51, 52, 124);
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        font-family: "Century Gothic", Times, serif;
+        text-shadow: 0 1px 5px rgba(255, 255, 255, 0.5);
+      }
+      
+      .user-info p {
+        color: rgb(70, 80, 120);
+        font-size: 1.1rem;
+        margin: 0.5rem 0;
+        font-family: "Century Gothic", Times, serif;
+        text-shadow: 0 1px 5px rgba(255, 255, 255, 0.5);
+      }
+      
+      .user-stat {
+        display: flex;
+        gap: 1.5rem;
+        margin-top: 1rem;
+      }
+      
+      .stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        padding: 0.5rem 1rem;
+        border-radius: 15px;
+        min-width: 100px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      
+      .stat-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      }
+      
+      .stat-number {
+        font-weight: bold;
+        font-size: 1.8rem;
+        color: rgb(51, 52, 124);
+        text-shadow: 0 1px 5px rgba(255, 255, 255, 0.5);
+      }
+      
+      .stat-label {
+        font-size: 0.9rem;
+        color: rgb(70, 80, 120);
+      }
+      
+      .profile-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+      
+      .profile-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+        cursor: pointer;
+        border-radius: 50px;
+        font-weight: 600;
+        font-family: "Century Gothic", Times, serif;
+        transition: all 0.3s ease;
+      }
+      
+      .profile-btn.primary {
+        background-color: rgb(68, 96, 241);
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 15px rgba(68, 96, 241, 0.3);
+      }
+      
+      .profile-btn.secondary {
+        background: transparent;
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.6);
+      }
+      
+      .profile-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(68, 96, 241, 0.4);
+      }
+      
+      .profile-btn.secondary:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.8);
+      }
+      
+      .history-section {
+        background-color: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 30px;
+        padding: 2rem;
+        box-shadow: 0 10px 30px -5px rgba(31, 38, 135, 0.18),
+                    inset 0 1px 1px rgba(255, 255, 255, 0.8),
+                    0 2px 0 rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+      }
+      
+      .history-section:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 15px 40px -10px rgba(31, 38, 135, 0.25),
+                    inset 0 1px 2px rgba(255, 255, 255, 0.9),
+                    0 2px 0 rgba(255, 255, 255, 0.7);
+        transform: translateY(-3px);
+      }
+      
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+      
+      .section-title {
+        color: rgb(51, 52, 124);
+        font-size: 1.5rem;
+        position: relative;
+        display: inline-block;
+        padding-bottom: 0.5rem;
+        font-family: "Century Gothic", Times, serif;
+        text-shadow: 0 1px 5px rgba(255, 255, 255, 0.5);
+      }
+      
+      .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0.8), transparent);
+      }
+      
+      .filter-options {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+      
+      .filter-btn {
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50px;
+        padding: 0.3rem 0.8rem;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      .filter-btn.active {
+        background-color: rgb(68, 96, 241);
+        color: white;
+        border-color: rgb(68, 96, 241);
+      }
+      
+      .filter-btn:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+      
+      .history-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+      
+      .history-card {
+        background-color: rgba(255, 255, 255, 0.25);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .history-card:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+      
+      .history-img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      
+      .history-card:hover .history-img {
+        transform: scale(1.05);
+      }
+      
+      .history-info {
+        padding: 1rem;
+      }
+      
+      .history-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: rgb(51, 52, 124);
+        margin-bottom: 0.5rem;
+        text-shadow: 0 1px 3px rgba(255, 255, 255, 0.3);
+      }
+      
+      .history-date {
+        font-size: 0.8rem;
+        color: rgb(70, 80, 120);
+        margin-bottom: 0.5rem;
+      }
+      
+      .history-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.3rem;
+        margin-top: 0.5rem;
+      }
+      
+      .history-tag {
+        background-color: rgba(68, 96, 241, 0.2);
+        color: rgb(51, 52, 124);
+        padding: 0.2rem 0.5rem;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border: 1px solid rgba(68, 96, 241, 0.3);
+      }
+      
+      .empty-history {
+        text-align: center;
+        padding: 3rem;
+        color: rgba(255, 255, 255, 0.6);
+      }
+      
+      .empty-history .material-symbols-outlined {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        color: rgba(255, 255, 255, 0.3);
+      }
+      
+      /* 响应式设计 */
+      @media (max-width: 768px) {
+        .profile-header {
+          flex-direction: column;
+          text-align: center;
+        }
+        
+        .user-stat {
+          justify-content: center;
+        }
+        
+        .profile-actions {
+          justify-content: center;
+        }
+        
+        .section-header {
+          flex-direction: column;
+          gap: 1rem;
+        }
+        
+        .filter-options {
+          justify-content: center;
+        }
+        
+        .section-title::after {
+          left: 50%;
+          transform: translateX(-50%);
+        }
+        
+        .section-title {
+          text-align: center;
+          width: 100%;
+        }
+      }
+      
+      /* 暗黑模式调整 */
+      body.dark-mode .profile-background span {
+        opacity: 0.3;
+      }
+      
+      body.dark-mode .profile-background::before {
+        background-color: rgba(20, 20, 40, 0.8);
+      }
+      
+      body.dark-mode .profile-header,
+      body.dark-mode .history-section {
+        background-color: rgba(30, 30, 40, 0.4);
+        border: 1px solid rgba(70, 70, 90, 0.3);
+      }
+      
+      body.dark-mode .stat-item {
+        background-color: rgba(40, 40, 60, 0.5);
+      }
+      
+      body.dark-mode .filter-btn {
+        background-color: rgba(40, 40, 60, 0.5);
+        border: 1px solid rgba(70, 70, 90, 0.5);
+      }
+      
+      body.dark-mode .filter-btn.active {
+        background-color: #5255bf;
+      }
+      
+      body.dark-mode .history-card {
+        background-color: rgba(40, 40, 60, 0.5);
+      }
+      
+      .post-title {
+        font-size: 1.2rem;
+        color: rgb(51, 52, 124);
+        margin: 0.5rem 0;
+        font-weight: 600;
+        font-family: "Century Gothic", Times, serif;
+        text-shadow: 0 1px 5px rgba(255, 255, 255, 0.5);
+      }
+      
+      .post-subtitle {
+        font-size: 0.9rem;
+        color: rgb(70, 80, 120);
+        margin-bottom: 0.5rem;
+        font-family: "Century Gothic", Times, serif;
+      }
+      
+      .emotion-stat-label {
+        font-size: 0.8rem;
+        color: rgb(70, 80, 120);
+        margin-bottom: 0.2rem;
+      }
+      
+      .emotion-stat-value {
+        font-size: 1.1rem;
+        color: rgb(51, 52, 124);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 1px 5px rgba(255, 255, 255, 0.5);
+      }
+      
+      /* 暗色模式下的文字颜色调整 */
+      body.dark-mode .user-info h2,
+      body.dark-mode .stat-number,
+      body.dark-mode .section-title,
+      body.dark-mode .post-title,
+      body.dark-mode .emotion-stat-value {
+        color: rgba(230, 230, 250, 0.95);
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5),
+                     0 0 20px rgba(0, 0, 50, 0.3),
+                     0 0 30px rgba(68, 96, 241, 0.3);
+      }
+      
+      body.dark-mode .user-info p,
+      body.dark-mode .stat-label,
+      body.dark-mode .post-subtitle,
+      body.dark-mode .emotion-stat-label {
+        color: rgba(200, 200, 230, 0.9);
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      }
+      
+      /* 添加情绪统计图表样式 */
+      .stats-section {
+        background-color: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 30px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 10px 30px -5px rgba(31, 38, 135, 0.18),
+                    inset 0 1px 1px rgba(255, 255, 255, 0.8),
+                    0 2px 0 rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+      }
+      
+      .stats-section:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 15px 40px -10px rgba(31, 38, 135, 0.25),
+                    inset 0 1px 2px rgba(255, 255, 255, 0.9),
+                    0 2px 0 rgba(255, 255, 255, 0.7);
+        transform: translateY(-3px);
+      }
+      
+      .stats-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+      
+      .chart-container {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 1.5rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        height: 300px;
+      }
+      
+      .chart-title {
+        font-size: 1.1rem;
+        color: rgb(51, 52, 124);
+        margin-bottom: 1rem;
+        text-align: center;
+        font-weight: 600;
+        font-family: "Century Gothic", Times, serif;
+        text-shadow: 0 1px 5px rgba(255, 255, 255, 0.5);
+      }
+      
+      .mood-distribution {
+        display: flex;
+        height: 220px;
+        align-items: flex-end;
+        justify-content: space-around;
+        padding: 0 1rem;
+      }
+      
+      .mood-bar {
+        width: 40px;
+        background: linear-gradient(to top, rgba(68, 96, 241, 0.7), rgba(120, 140, 250, 0.9));
+        border-radius: 8px 8px 0 0;
+        position: relative;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+      
+      .mood-bar:hover {
+        transform: translateY(-10px);
+        background: linear-gradient(to top, rgba(78, 106, 251, 0.9), rgba(130, 150, 255, 1));
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      }
+      
+      .mood-bar-label {
+        position: absolute;
+        bottom: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.8rem;
+        color: rgb(70, 80, 120);
+        white-space: nowrap;
+      }
+      
+      .mood-percentage {
+        position: absolute;
+        top: -25px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.9rem;
+        color: rgb(51, 52, 124);
+        font-weight: bold;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      
+      .mood-bar:hover .mood-percentage {
+        opacity: 1;
+      }
+      
+      .activity-calendar {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows: auto repeat(5, 1fr);
+        gap: 6px;
+        padding: 1rem;
+        height: 220px;
+      }
+      
+      .day-label {
+        font-size: 0.7rem;
+        color: rgb(70, 80, 120);
+        text-align: center;
+        padding: 3px 0;
+      }
+      
+      .calendar-day {
+        border-radius: 6px;
+        background-color: rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+      }
+      
+      .calendar-day:hover {
+        transform: scale(1.1);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      }
+      
+      .calendar-day[data-activity="none"] {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+      
+      .calendar-day[data-activity="low"] {
+        background-color: rgba(68, 96, 241, 0.3);
+      }
+      
+      .calendar-day[data-activity="medium"] {
+        background-color: rgba(68, 96, 241, 0.5);
+      }
+      
+      .calendar-day[data-activity="high"] {
+        background-color: rgba(68, 96, 241, 0.8);
+      }
+      
+      .calendar-tooltip {
+        position: absolute;
+        bottom: 120%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(30, 30, 40, 0.9);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.75rem;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 100;
+      }
+      
+      .calendar-day:hover .calendar-tooltip {
+        opacity: 1;
+        visibility: visible;
+      }
+      
+      /* 添加徽章和成就系统 */
+      .achievements-section {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 1rem;
+      }
+      
+      .achievement-badge {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border: 3px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+      
+      .achievement-badge.earned {
+        background: linear-gradient(135deg, rgba(68, 96, 241, 0.2), rgba(120, 140, 250, 0.5));
+        border: 3px solid rgba(68, 96, 241, 0.5);
+      }
+      
+      .achievement-badge:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      }
+      
+      .achievement-icon {
+        font-size: 2rem;
+        color: rgba(255, 255, 255, 0.5);
+      }
+      
+      .achievement-badge.earned .achievement-icon {
+        color: white;
+      }
+      
+      .achievement-tooltip {
+        position: absolute;
+        bottom: 120%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(30, 30, 40, 0.9);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        text-align: center;
+        width: 150px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 100;
+      }
+      
+      .achievement-badge:hover .achievement-tooltip {
+        opacity: 1;
+        visibility: visible;
+      }
+      
+      .achievement-name {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      
+      .achievement-desc {
+        font-size: 0.75rem;
+        opacity: 0.8;
+      }
+      
+      /* 优化历史卡片 */
+      .history-card {
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .history-actions {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: flex;
+        gap: 8px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      
+      .history-card:hover .history-actions {
+        opacity: 1;
+      }
+      
+      .action-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      .action-btn:hover {
+        background-color: rgba(255, 255, 255, 0.4);
+        transform: scale(1.1);
+      }
+      
+      .action-btn .material-symbols-outlined {
+        font-size: 18px;
+        color: white;
+      }
+      
+      /* 暗黑模式调整 */
+      body.dark-mode .chart-title {
+        color: rgba(230, 230, 250, 0.95);
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5),
+                     0 0 20px rgba(0, 0, 50, 0.3),
+                     0 0 30px rgba(68, 96, 241, 0.3);
+      }
+      
+      body.dark-mode .mood-bar-label,
+      body.dark-mode .day-label {
+        color: rgba(200, 200, 230, 0.9);
+      }
+      
+      body.dark-mode .mood-percentage {
+        color: rgba(230, 230, 250, 0.95);
+      }
+      
+      body.dark-mode .stats-section,
+      body.dark-mode .chart-container {
+        background-color: rgba(30, 30, 40, 0.4);
+        border: 1px solid rgba(70, 70, 90, 0.3);
+      }
+      
+      body.dark-mode .calendar-day[data-activity="none"] {
+        background-color: rgba(70, 70, 90, 0.3);
+      }
+      
+      body.dark-mode .calendar-day[data-activity="low"] {
+        background-color: rgba(68, 96, 241, 0.3);
+      }
+      
+      body.dark-mode .calendar-day[data-activity="medium"] {
+        background-color: rgba(68, 96, 241, 0.5);
+      }
+      
+      body.dark-mode .calendar-day[data-activity="high"] {
+        background-color: rgba(68, 96, 241, 0.8);
+      }
+      
+      body.dark-mode .achievement-badge {
+        background: linear-gradient(135deg, rgba(30, 30, 40, 0.5), rgba(40, 40, 60, 0.3));
+      }
+      
+      body.dark-mode .achievement-badge.earned {
+        background: linear-gradient(135deg, rgba(68, 96, 241, 0.5), rgba(90, 110, 220, 0.3));
+      }
+      
+      /* 响应式设计调整 */
+      @media (max-width: 768px) {
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        .achievements-section {
+          justify-content: center;
+        }
+      }
+      
+      /* 暗黑模式调整 - 历史卡片 */
+      body.dark-mode .history-title {
+        color: #fff;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      }
+      
+      body.dark-mode .history-date {
+        color: rgba(255, 255, 255, 0.6);
+      }
+      
+      body.dark-mode .history-tag {
+        color: rgba(255, 255, 255, 0.9);
+      }
+      
+      body.dark-mode .history-card {
+        background-color: rgba(40, 40, 60, 0.5);
+      }
+    </style>
+  </head>
+  <body class="loaded">
+    <!-- 主题切换按钮 -->
+    <button class="theme-toggle" id="themeToggle">
+      <span class="material-symbols-outlined">dark_mode</span>
+    </button>
+    
+    <!-- 顶部导航 -->
+    <nav class="top-nav">
+      <!-- 品牌标识 -->
+      <div class="brand">
+        <div class="brand-logo">
+          <span>M</span>
+        </div>
+        <div class="brand-name">Moodify</div>
+      </div>
+      
+      <!-- 导航菜单 -->
+      <div class="nav-items">
+        <div class="top-item" onclick="home()">
+          <span class="top-text">Home</span>
+        </div>
+        <div class="top-item" onclick="login()">
+          <span class="top-text">Login</span>
+        </div>
+        <div class="top-item" onclick="register()">
+          <span class="top-text">Register</span>
+        </div>
+        <div class="top-item active" onclick="profile()">
+          <span class="top-text">Profile</span>
+        </div>
+      </div>
+    </nav>
+    
+    <!-- 背景效果 -->
+    <div class="profile-background">
+      <span>PROFILE</span>
+    </div>
+    
+    <!-- 个人主页内容 -->
+    <div class="profile-container">
+      <!-- 个人信息部分 -->
+      <div class="profile-header">
+        <div class="avatar-container">
+          <img src="../assets/images/Wangfei.jpg" alt="用户头像">
+        </div>
+        <div class="user-info">
+          <h2>skippy</h2>
+          <p>创作者 ID: skippy177</p>
+          <p>加入时间: 2025年4月4日</p>
+          
+          <div class="user-stat">
+            <div class="stat-item">
+              <span class="stat-number">42</span>
+              <span class="stat-label">已生成</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">16</span>
+              <span class="stat-label">已保存</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">28</span>
+              <span class="stat-label">已分享</span>
+            </div>
+          </div>
+          
+          <div class="profile-actions">
+            <button class="profile-btn primary">编辑资料</button>
+            <button class="profile-btn secondary">分享主页</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 新增：情绪统计部分 -->
+      <div class="stats-section">
+        <div class="section-header">
+          <h3 class="section-title">情绪统计</h3>
+        </div>
+        
+        <div class="stats-grid">
+          <!-- 情绪分布图表 -->
+          <div class="chart-container">
+            <div class="chart-title">情绪分布</div>
+            <div class="mood-distribution">
+              <div class="mood-bar" style="height: 70%;">
+                <span class="mood-percentage">35%</span>
+                <span class="mood-bar-label">快乐</span>
+              </div>
+              <div class="mood-bar" style="height: 40%;">
+                <span class="mood-percentage">20%</span>
+                <span class="mood-bar-label">忧郁</span>
+              </div>
+              <div class="mood-bar" style="height: 60%;">
+                <span class="mood-percentage">30%</span>
+                <span class="mood-bar-label">宁静</span>
+              </div>
+              <div class="mood-bar" style="height: 30%;">
+                <span class="mood-percentage">15%</span>
+                <span class="mood-bar-label">激情</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 活动日历 -->
+          <div class="chart-container">
+            <div class="chart-title">活动日历</div>
+            <div class="activity-calendar">
+              <div class="day-label">周日</div>
+              <div class="day-label">周一</div>
+              <div class="day-label">周二</div>
+              <div class="day-label">周三</div>
+              <div class="day-label">周四</div>
+              <div class="day-label">周五</div>
+              <div class="day-label">周六</div>
+              
+              <!-- 第一周 -->
+              <div class="calendar-day" data-activity="none">
+                <div class="calendar-tooltip">11月26日: 无活动</div>
+              </div>
+              <div class="calendar-day" data-activity="low">
+                <div class="calendar-tooltip">11月27日: 1次活动</div>
+              </div>
+              <div class="calendar-day" data-activity="medium">
+                <div class="calendar-tooltip">11月28日: 3次活动</div>
+              </div>
+              <div class="calendar-day" data-activity="high">
+                <div class="calendar-tooltip">11月29日: 5次活动</div>
+              </div>
+              <div class="calendar-day" data-activity="medium">
+                <div class="calendar-tooltip">11月30日: 2次活动</div>
+              </div>
+              <div class="calendar-day" data-activity="low">
+                <div class="calendar-tooltip">12月1日: 1次活动</div>
+              </div>
+              <div class="calendar-day" data-activity="none">
+                <div class="calendar-tooltip">12月2日: 无活动</div>
+              </div>
+              
+              <!-- 第二周 -->
+              <div class="calendar-day" data-activity="low">
+                <div class="calendar-tooltip">12月3日: 1次活动</div>
+              </div>
+              <div class="calendar-day" data-activity="medium">
+                <div class="calendar-tooltip">12月4日: 3次活动</div>
+              </div>
+              <div class="calendar-day" data-activity="high">
+                <div class="calendar-tooltip">12月5日: 6次活动</div>
+              </div>
+              <div class="calendar-day" data-activity="high">
+                <div class="calendar-tooltip">12月6日: 4次活动</div>
+              </div>
+              <div class="calendar-day" data-activity="medium">
+                <div class="calendar-tooltip">12月7日: 2次活动</div>
+              </div>
+              <div class="calendar-day" data-activity="medium">
+                <div class="calendar-tooltip">12月8日: 3次活动</div>
+              </div>
+              <div class="calendar-day" data-activity="low">
+                <div class="calendar-tooltip">12月9日: 1次活动</div>
+              </div>
+              
+              <!-- 第三周 -->
+              <div class="calendar-day" data-activity="none">
+                <div class="calendar-tooltip">12月10日: 无活动</div>
+              </div>
+              <div class="calendar-day" data-activity="low">
+                <div class="calendar-tooltip">12月11日: 1次活动</div>
+              </div>
+              <div class="calendar-day" data-activity="medium">
+                <div class="calendar-tooltip">12月12日: 2次活动</div>
+              </div>
+              <div class="calendar-day" data-activity="high">
+                <div class="calendar-tooltip">12月13日: 4次活动</div>
+              </div>
+              <div class="calendar-day" data-activity="medium">
+                <div class="calendar-tooltip">12月14日: 3次活动</div>
+              </div>
+              <div class="calendar-day" data-activity="low">
+                <div class="calendar-tooltip">12月15日: 1次活动</div>
+              </div>
+              <div class="calendar-day" data-activity="none">
+                <div class="calendar-tooltip">12月16日: 无活动</div>
+              </div>
+              
+              <!-- 第四周 -->
+              <div class="calendar-day" data-activity="low">
+                <div class="calendar-tooltip">12月17日: 1次活动</div>
+              </div>
+              <div class="calendar-day" data-activity="medium">
+                <div class="calendar-tooltip">12月18日: 2次活动</div>
+              </div>
+              <div class="calendar-day" data-activity="medium">
+                <div class="calendar-tooltip">12月19日: 3次活动</div>
+              </div>
+              <div class="calendar-day" data-activity="high">
+                <div class="calendar-tooltip">12月20日: 5次活动</div>
+              </div>
+              <div class="calendar-day" data-activity="medium">
+                <div class="calendar-tooltip">今天: 2次活动</div>
+              </div>
+              <div class="calendar-day" data-activity="none">
+                <div class="calendar-tooltip">未来日期</div>
+              </div>
+              <div class="calendar-day" data-activity="none">
+                <div class="calendar-tooltip">未来日期</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 成就徽章部分 -->
+        <div class="section-header" style="margin-top: 2rem;">
+          <h3 class="section-title">成就徽章</h3>
+        </div>
+        
+        <div class="achievements-section">
+          <div class="achievement-badge earned">
+            <span class="material-symbols-outlined achievement-icon">auto_awesome</span>
+            <div class="achievement-tooltip">
+              <div class="achievement-name">创作新手</div>
+              <div class="achievement-desc">完成10次情绪创作</div>
+            </div>
+          </div>
+          
+          <div class="achievement-badge earned">
+            <span class="material-symbols-outlined achievement-icon">psychology</span>
+            <div class="achievement-tooltip">
+              <div class="achievement-name">情绪大师</div>
+              <div class="achievement-desc">尝试所有情绪类型</div>
+            </div>
+          </div>
+          
+          <div class="achievement-badge earned">
+            <span class="material-symbols-outlined achievement-icon">share</span>
+            <div class="achievement-tooltip">
+              <div class="achievement-name">分享达人</div>
+              <div class="achievement-desc">分享25个创作</div>
+            </div>
+          </div>
+          
+          <div class="achievement-badge">
+            <span class="material-symbols-outlined achievement-icon">hotel_class</span>
+            <div class="achievement-tooltip">
+              <div class="achievement-name">收藏家</div>
+              <div class="achievement-desc">保存50个创作</div>
+            </div>
+          </div>
+          
+          <div class="achievement-badge">
+            <span class="material-symbols-outlined achievement-icon">workspace_premium</span>
+            <div class="achievement-tooltip">
+              <div class="achievement-name">创作专家</div>
+              <div class="achievement-desc">创作100个作品</div>
+            </div>
+          </div>
+          
+          <div class="achievement-badge">
+            <span class="material-symbols-outlined achievement-icon">emoji_events</span>
+            <div class="achievement-tooltip">
+              <div class="achievement-name">连续创作</div>
+              <div class="achievement-desc">连续7天创作</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 历史记录部分 -->
+      <div class="history-section">
+        <div class="section-header">
+          <h3 class="section-title">生成历史</h3>
+          <div class="filter-options">
+            <button class="filter-btn active">全部</button>
+            <button class="filter-btn">快乐</button>
+            <button class="filter-btn">忧郁</button>
+            <button class="filter-btn">宁静</button>
+            <button class="filter-btn">激情</button>
+          </div>
+        </div>
+        
+        <div class="history-grid">
+          <!-- 历史卡片 1 -->
+          <div class="history-card">
+            <div class="history-actions">
+              <div class="action-btn">
+                <span class="material-symbols-outlined">favorite</span>
+              </div>
+              <div class="action-btn">
+                <span class="material-symbols-outlined">share</span>
+              </div>
+              <div class="action-btn">
+                <span class="material-symbols-outlined">download</span>
+              </div>
+            </div>
+            <img src="https://pic1.zhimg.com/80/v2-8d9e85eadf583e30ef2df2139a22af6d_720w.webp" alt="心情图片" class="history-img">
+            <div class="history-info">
+              <div class="history-title">夏日宁静</div>
+              <div class="history-date">2023-11-20 15:32</div>
+              <div class="history-tags">
+                <span class="history-tag">宁静</span>
+                <span class="history-tag">自然</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 历史卡片 2 -->
+          <div class="history-card">
+            <div class="history-actions">
+              <div class="action-btn">
+                <span class="material-symbols-outlined">favorite</span>
+              </div>
+              <div class="action-btn">
+                <span class="material-symbols-outlined">share</span>
+              </div>
+              <div class="action-btn">
+                <span class="material-symbols-outlined">download</span>
+              </div>
+            </div>
+            <img src="https://pic3.zhimg.com/80/v2-c89106fddfeac8c3be5612e7c73df1d5_720w.webp" alt="心情图片" class="history-img">
+            <div class="history-info">
+              <div class="history-title">星空漫游</div>
+              <div class="history-date">2023-11-18 09:45</div>
+              <div class="history-tags">
+                <span class="history-tag">梦幻</span>
+                <span class="history-tag">宇宙</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 历史卡片 3 -->
+          <div class="history-card">
+            <div class="history-actions">
+              <div class="action-btn">
+                <span class="material-symbols-outlined">favorite</span>
+              </div>
+              <div class="action-btn">
+                <span class="material-symbols-outlined">share</span>
+              </div>
+              <div class="action-btn">
+                <span class="material-symbols-outlined">download</span>
+              </div>
+            </div>
+            <img src="https://pic1.zhimg.com/80/v2-99c76879eb358fb382325b9f5156acc0_720w.webp" alt="心情图片" class="history-img">
+            <div class="history-info">
+              <div class="history-title">雨后彩虹</div>
+              <div class="history-date">2023-11-15 16:20</div>
+              <div class="history-tags">
+                <span class="history-tag">希望</span>
+                <span class="history-tag">明亮</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 历史卡片 4 -->
+          <div class="history-card">
+            <div class="history-actions">
+              <div class="action-btn">
+                <span class="material-symbols-outlined">favorite</span>
+              </div>
+              <div class="action-btn">
+                <span class="material-symbols-outlined">share</span>
+              </div>
+              <div class="action-btn">
+                <span class="material-symbols-outlined">download</span>
+              </div>
+            </div>
+            <img src="https://gd-filems.dancf.com/mcm79j/mcm79j/50319/a6a37704-3b5f-484c-9952-bfcfc8732590159133.jpg" alt="心情图片" class="history-img">
+            <div class="history-info">
+              <div class="history-title">孤独思考</div>
+              <div class="history-date">2023-11-10 22:15</div>
+              <div class="history-tags">
+                <span class="history-tag">沉思</span>
+                <span class="history-tag">忧郁</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 历史卡片 5 -->
+          <div class="history-card">
+            <div class="history-actions">
+              <div class="action-btn">
+                <span class="material-symbols-outlined">favorite</span>
+              </div>
+              <div class="action-btn">
+                <span class="material-symbols-outlined">share</span>
+              </div>
+              <div class="action-btn">
+                <span class="material-symbols-outlined">download</span>
+              </div>
+            </div>
+            <img src="https://img.zcool.cn/community/01f9bd5c8e75fba801213f26bbd696.jpg@2o.jpg" alt="心情图片" class="history-img">
+            <div class="history-info">
+              <div class="history-title">春日活力</div>
+              <div class="history-date">2023-11-05 14:10</div>
+              <div class="history-tags">
+                <span class="history-tag">活力</span>
+                <span class="history-tag">明亮</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 历史卡片 6 -->
+          <div class="history-card">
+            <div class="history-actions">
+              <div class="action-btn">
+                <span class="material-symbols-outlined">favorite</span>
+              </div>
+              <div class="action-btn">
+                <span class="material-symbols-outlined">share</span>
+              </div>
+              <div class="action-btn">
+                <span class="material-symbols-outlined">download</span>
+              </div>
+            </div>
+            <img src="https://img.zcool.cn/community/01df92554697190000019ae98e7ad8.jpg@2o.jpg" alt="心情图片" class="history-img">
+            <div class="history-info">
+              <div class="history-title">午后阳光</div>
+              <div class="history-date">2023-11-01 13:25</div>
+              <div class="history-tags">
+                <span class="history-tag">温暖</span>
+                <span class="history-tag">宁静</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 空历史记录状态 (默认隐藏) -->
+        <div class="empty-history" style="display: none;">
+          <span class="material-symbols-outlined">image_not_supported</span>
+          <p>您还没有生成任何图像</p>
+          <button class="profile-btn primary">开始创作</button>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      function home() {
+        window.location.href = 'index.html';
+      }
+      
+      function login() {
+        window.location.href = 'login.html';
+      }
+      
+      function register() {
+        window.location.href = 'login.html';
+        // 延迟后显示注册表单
+        setTimeout(() => {
+          if (typeof showRegister === 'function') {
+            showRegister();
+          }
+        }, 500);
+      }
+      
+      function profile() {
+        window.location.href = 'profile.html';
+      }
+      
+      // 主题切换功能
+      const themeToggle = document.getElementById('themeToggle');
+      const themeIcon = themeToggle.querySelector('.material-symbols-outlined');
+      
+      // 检查本地存储中的主题设置
+      if(localStorage.getItem('darkMode') === 'enabled'){
+        document.body.classList.add('dark-mode');
+        themeIcon.textContent = 'light_mode';
+      }
+      
+      themeToggle.addEventListener('click', () => {
+        // 切换暗黑模式
+        document.body.classList.toggle('dark-mode');
+        
+        // 更新图标
+        if(document.body.classList.contains('dark-mode')){
+          themeIcon.textContent = 'light_mode';
+          localStorage.setItem('darkMode', 'enabled');
+        } else {
+          themeIcon.textContent = 'dark_mode';
+          localStorage.setItem('darkMode', 'disabled');
+        }
+      });
+      
+      // 筛选按钮功能
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          // 移除所有按钮的active类
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          // 为当前点击的按钮添加active类
+          this.classList.add('active');
+          
+          // 过滤逻辑可以在这里实现
+          const filterType = this.textContent;
+          console.log('过滤类型:', filterType);
+          
+          // 示例: 如果选择"全部"，显示所有卡片；否则，根据标签过滤
+          if(filterType === '全部') {
+            document.querySelectorAll('.history-card').forEach(card => {
+              card.style.display = 'block';
+            });
+          } else {
+            document.querySelectorAll('.history-card').forEach(card => {
+              const tags = Array.from(card.querySelectorAll('.history-tag')).map(tag => tag.textContent);
+              if(tags.includes(filterType)) {
+                card.style.display = 'block';
+              } else {
+                card.style.display = 'none';
+              }
+            });
+          }
+        });
+      });
+      
+      // 进入页面时加载动画
+      document.addEventListener('DOMContentLoaded', () => {
+        // 背景图文字效果
+        const profileText = document.querySelector('.profile-background span');
+        if (profileText) {
+          setTimeout(() => {
+            profileText.style.opacity = '0.5';
+            setTimeout(() => {
+              profileText.style.opacity = '0.4';
+            }, 500);
+          }, 800);
+        }
+        
+        // 卡片逐个显示动画
+        const cards = document.querySelectorAll('.history-card');
+        cards.forEach((card, index) => {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(20px)';
+          setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, 300 + (index * 100));
+        });
+        
+        // 动态生成活动日历
+        setTimeout(() => {
+          document.querySelectorAll('.mood-bar').forEach(bar => {
+            const originalHeight = bar.style.height;
+            bar.style.height = '0';
+            setTimeout(() => {
+              bar.style.height = originalHeight;
+            }, 100);
+          });
+        }, 500);
+      });
+      
+      // 动态生成活动日历
+      document.addEventListener('DOMContentLoaded', () => {
+        // 初始化操作和动画已在现有脚本中
+        
+        // 添加按钮交互
+        document.querySelectorAll('.action-btn').forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            
+            const icon = this.querySelector('.material-symbols-outlined');
+            const action = icon.textContent;
+            
+            // 动画效果
+            this.classList.add('pulse');
+            setTimeout(() => {
+              this.classList.remove('pulse');
+            }, 300);
+            
+            // 根据不同操作执行不同功能
+            switch(action) {
+              case 'favorite':
+                if(icon.style.color === 'red') {
+                  icon.style.color = 'white';
+                } else {
+                  icon.style.color = 'red';
+                }
+                break;
+              case 'share':
+                alert('分享功能正在开发中...');
+                break;
+              case 'download':
+                const imgUrl = this.closest('.history-card').querySelector('img').src;
+                const a = document.createElement('a');
+                a.href = imgUrl;
+                a.download = 'moodify-image.jpg';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                break;
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html> 
