@@ -1,0 +1,19 @@
+#database
+spring:
+    application:
+        name: project2
+    datasource:
+        url: jdbc:mysql://localhost:3306/test
+        username: root
+        password: apple438
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    mail:
+        default-encoding: UTF-8
+        username: 18609797119@163.com
+        password: BZeBEbLscdKSdqHr
+        host: smtp.163.com
+#mybaties
+mybatis:
+    configuration:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    mapper-locations: classpath:mapper/*.xml
