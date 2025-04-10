@@ -103,31 +103,31 @@
     }
     
     #app {
-      width: 92%;
-      max-width: 1100px;
+      width: 70%;
+      max-width: 650px;
       background-color: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 24px;
-      padding: 1.8rem;
-      box-shadow: 0 10px 30px -8px rgba(31, 38, 135, 0.2),
-                  inset 0 1px 2px rgba(255, 255, 255, 0.9),
-                  0 2px 0 rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 18px;
+      padding: 1rem;
+      box-shadow: 0 8px 20px -5px rgba(31, 38, 135, 0.15),
+                  inset 0 1px 1px rgba(255, 255, 255, 0.8),
+                  0 2px 0 rgba(255, 255, 255, 0.6);
       border: 1px solid rgba(255, 255, 255, 0.25);
       transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
-      margin-bottom: 2.5rem;
+      margin-bottom: 1.5rem;
     }
     
     #app:hover {
       background-color: rgba(255, 255, 255, 0.2);
-      box-shadow: 0 15px 35px -10px rgba(31, 38, 135, 0.25),
+      box-shadow: 0 12px 30px -8px rgba(31, 38, 135, 0.2),
                   inset 0 1px 2px rgba(255, 255, 255, 0.9),
                   0 2px 0 rgba(255, 255, 255, 0.7);
-      transform: translateY(-3px);
+      transform: translateY(-2px);
     }
     
     .app-header {
-      margin-bottom: 25px;
+      margin-bottom: 12px;
       text-align: center;
     }
     
@@ -137,26 +137,24 @@
       width: auto;
       text-align: center;
       color: rgb(51, 52, 124);
-      font-size: 1.8rem;
-      margin: 0 0 8px;
+      font-size: 1.5rem;
+      margin: 0 0 2px;
       text-shadow: 0 1px 5px rgba(255, 255, 255, 0.5);
       font-family: "Century Gothic", Times, serif;
       font-weight: 600;
-      letter-spacing: 0.8px;
     }
     
     .app-subtitle {
       color: rgb(70, 80, 120);
-      font-size: 1rem;
+      font-size: 0.85rem;
       text-align: center;
       text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
       font-family: "Century Gothic", Times, serif;
-      margin-bottom: 10px;
-      letter-spacing: 0.2px;
+      margin-bottom: 6px;
     }
     
     .app-container {
-      gap: 25px;
+      gap: 15px;
       display: grid;
       grid-template-columns: 1fr;
       grid-template-areas: 
@@ -167,48 +165,45 @@
     
     .emotion-panel {
       grid-area: emotion;
-      background-color: rgba(255, 255, 255, 0.12);
-      border-radius: 22px;
-      padding: 22px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       margin-bottom: 0;
-      backdrop-filter: blur(8px);
-      transition: all 0.3s ease;
     }
     
     .emotion-slider {
-      margin-bottom: 18px;
-      background-color: rgba(255, 255, 255, 0.15);
-      border-radius: 16px;
-      padding: 15px 20px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      margin-bottom: 8px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 6px 8px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s ease;
     }
     
     .emotion-slider:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
     }
     
     .slider-title {
       text-align: center;
-      margin-bottom: 12px;
+      margin-bottom: 5px;
     }
     
     .slider-title span {
       color: rgb(51, 52, 124);
-      font-size: 1.15rem;
+      font-size: 0.9rem;
       text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
       font-family: "Century Gothic", Times, serif;
       font-weight: 600;
-      letter-spacing: 0.5px;
     }
     
     .slider-label {
       color: rgb(70, 80, 120);
-      font-size: 0.9rem;
+      font-size: 0.75rem;
       text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
       white-space: nowrap;
       font-weight: 500;
@@ -219,17 +214,17 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin: 8px 0;
-      gap: 12px;
+      margin: 4px 0;
+      gap: 6px;
     }
     
-    /* 自定义滑块样式优化 */
+    /* 自定义滑块样式 */
     input[type="range"] {
       -webkit-appearance: none;
       width: 100%;
-      height: 8px;
+      height: 5px;
       background: rgba(255, 255, 255, 0.2);
-      border-radius: 10px;
+      border-radius: 8px;
       outline: none;
       transition: background 0.3s;
     }
@@ -237,74 +232,70 @@
     /* 快乐/悲伤滑动条 */
     .slider-happiness {
       background: linear-gradient(to right, 
-        rgba(41, 128, 185, 0.85),  /* 悲伤 - 深蓝色 */
-        rgba(142, 68, 173, 0.85),  /* 中性 - 紫色 */
-        rgba(241, 196, 15, 0.85)   /* 快乐 - 黄色 */
+        rgba(41, 128, 185, 0.8),  /* 悲伤 - 深蓝色 */
+        rgba(142, 68, 173, 0.8),  /* 中性 - 紫色 */
+        rgba(241, 196, 15, 0.8)   /* 快乐 - 黄色 */
       );
-      box-shadow: 0 3px 10px rgba(41, 128, 185, 0.2);
     }
     
     /* 生气/恐惧滑动条 */
     .slider-anger {
       background: linear-gradient(to right, 
-        rgba(52, 152, 219, 0.85),  /* 恐惧 - 蓝色 */
-        rgba(231, 76, 60, 0.85),   /* 中性 - 红色 */
-        rgba(192, 57, 43, 0.85)    /* 生气 - 深红色 */
+        rgba(52, 152, 219, 0.8),  /* 恐惧 - 蓝色 */
+        rgba(231, 76, 60, 0.8),   /* 中性 - 红色 */
+        rgba(192, 57, 43, 0.8)    /* 生气 - 深红色 */
       );
-      box-shadow: 0 3px 10px rgba(231, 76, 60, 0.2);
     }
     
     /* 期待/惊讶滑动条 */
     .slider-anticipation {
       background: linear-gradient(to right, 
-        rgba(41, 128, 185, 0.85),  /* 惊讶 - 蓝色 */
-        rgba(39, 174, 96, 0.85),   /* 中性 - 绿色 */
-        rgba(243, 156, 18, 0.85)   /* 期待 - 橙色 */
+        rgba(41, 128, 185, 0.8),  /* 惊讶 - 蓝色 */
+        rgba(39, 174, 96, 0.8),   /* 中性 - 绿色 */
+        rgba(243, 156, 18, 0.8)   /* 期待 - 橙色 */
       );
-      box-shadow: 0 3px 10px rgba(39, 174, 96, 0.2);
     }
     
     /* 厌恶/担忧滑动条 */
     .slider-disgust {
       background: linear-gradient(to right, 
-        rgba(142, 68, 173, 0.85),  /* 担忧 - 紫色 */
-        rgba(211, 84, 0, 0.85),    /* 中性 - 橙色 */
-        rgba(127, 140, 141, 0.85)  /* 厌恶 - 灰色 */
+        rgba(142, 68, 173, 0.8),  /* 担忧 - 紫色 */
+        rgba(211, 84, 0, 0.8),    /* 中性 - 橙色 */
+        rgba(127, 140, 141, 0.8)  /* 厌恶 - 灰色 */
       );
-      box-shadow: 0 3px 10px rgba(142, 68, 173, 0.2);
     }
     
     input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 22px;
-      height: 22px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
       background: rgb(68, 96, 241);
       cursor: pointer;
-      border: 2px solid rgba(255, 255, 255, 0.9);
-      box-shadow: 0 0 10px rgba(68, 96, 241, 0.6);
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 6px rgba(68, 96, 241, 0.5);
       transition: all 0.3s ease;
     }
     
     input[type="range"]::-moz-range-thumb {
-      width: 22px;
-      height: 22px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
       background: rgb(68, 96, 241);
       cursor: pointer;
-      border: 2px solid rgba(255, 255, 255, 0.9);
-      box-shadow: 0 0 10px rgba(68, 96, 241, 0.6);
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 6px rgba(68, 96, 241, 0.5);
       transition: all 0.3s ease;
     }
     
     input[type="range"]::-webkit-slider-thumb:hover {
-      transform: scale(1.15);
-      box-shadow: 0 0 15px rgba(68, 96, 241, 0.8);
+      transform: scale(1.1);
+      box-shadow: 0 0 12px rgba(68, 96, 241, 0.7);
     }
     
     input[type="range"]::-moz-range-thumb:hover {
-      transform: scale(1.15);
-      box-shadow: 0 0 15px rgba(68, 96, 241, 0.8);
+      transform: scale(1.1);
+      box-shadow: 0 0 12px rgba(68, 96, 241, 0.7);
     }
     
     .values-display {
@@ -350,215 +341,71 @@
       text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     }
     
-    /* 预览容器样式 */
     .preview-container {
       grid-area: preview;
-      background-color: rgba(255, 255, 255, 0.12);
-      border-radius: 22px;
-      padding: px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       margin-bottom: 0;
-      backdrop-filter: blur(8px);
-      transition: all 0.3s ease;
-      max-width: 90%;
-      width: 120%;
-      justify-self: center;
-      overflow: visible;
     }
     
     .preview-title {
       color: rgb(51, 52, 124);
-      font-size: 1.7rem;
+      font-size: 1.2rem;
       text-align: center;
-      margin-bottom: 25px;
+      margin-bottom: 10px;
       text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
       font-family: "Century Gothic", Times, serif;
       font-weight: 600;
-      letter-spacing: 0.5px;
-      position: relative;
-    }
-   
-
-    /* 情绪展示盒子样式 */
-    .shell {
-      width: 200%;
-      height: 400px;
-      display: flex;
-      margin: 15px auto;
-      gap: 0;
-      transform: none;
-      align-items: center;
-      justify-content: center;
-      overflow: visible;
-      transition: all 0.5s ease;
-    }
-    
-    /* 添加悬停时其他盒子的透明度变化 */
-    .shell:hover .box {
-      opacity: 0.7;
-    }
-    
-    .box {
-       /* 怎么将盒子变宽 */
-      width: 100%;
-      flex: 3;
-      overflow: hidden;
-      transition: all 0.5s ease;
-      margin: 0 10px;
-      box-shadow: 8px 8px 20px rgba(0, 0, 0, .4);
-      border-radius: 18px;
-      border: 10px solid rgba(255, 255, 255, 0.8);
-      background-color: transparent;
-      backdrop-filter: blur(5px);
-      min-width: 20px;
-      max-width: 160px;
-      position: relative;
-      cursor: pointer;
-      height: 80%;
-    }
-    
-    /* 添加图片下方渐变阴影，提高文字可读性 */
-    .box::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 40%;
-      background: linear-gradient(to top, 
-        rgba(0, 0, 0, 0.3) 0%, 
-        rgba(0, 0, 0, 0) 100%);
-      opacity: 0.5;
-      transition: opacity 0.3s ease;
-      z-index: 1;
-      pointer-events: none;
-    }
-    
-    .box > img {
-      width: 200%;
-      height: 85%;
-      object-fit: cover;
-      object-position: center;
-      transition: all 0.5s ease;
-    }
-    
-    .box > span {
-      font-size: 1.4rem;
-      font-weight: 600;
-      text-align: center;
-      height: 15%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: rgb(51, 52, 124);
-      font-family: "Century Gothic", Times, serif;
-      text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
-      position: relative;
-      z-index: 2;
-      transition: all 0.3s ease;
-    }
-    
-    /* 手风琴效果 - 更接近zhanshi.html */
-    .box:hover {
-      flex-basis: 100%; /* 从40%增加到70%，让悬停时的盒子更宽 */
-      box-shadow: 0 15px 35px rgba(0, 0, 0, .5);
-      border-color: rgba(255, 255, 255, 1);
-      z-index: 3;
-      opacity: 1 !important;
-      transform: scale(1.03);
-    }
-    
-    .box:hover > img {
-      width: 100%;
-      height: 200%;
-      filter: brightness(1.05) contrast(1.05);
-    }
-    
-    .box:hover::after {
-      opacity: 0.7;
-    }
-    
-    /* 暗黑模式下的调整 */
-    .dark .box {
-      border-color: rgba(30, 30, 30, 0.8);
-      box-shadow: 8px 8px 20px rgba(0, 0, 0, .7);
-    }
-    
-    .dark .box:hover {
-      border-color: rgba(40, 40, 40, 1);
-    }
-    
-    /* 移动端响应式 */
-    @media (max-width: 768px) {
-      .shell {
-        height: 400px;
-        overflow-x: auto;
-        overflow-y: hidden;
-        justify-content: flex-start;
-        padding: 0 15px;
-        flex-wrap: nowrap;
-      }
-      
-      .box {
-        min-width: 180px;
-        margin: 0 10px;
-        flex: 0 0 70%;
-      }
-      
-      .box:hover {
-        flex-basis: 85%;
-      }
     }
     
     .share-panel {
       grid-area: share;
-      background-color: rgba(255, 255, 255, 0.12);
-      border-radius: 22px;
-      padding: 18px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      margin-bottom: 15px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 12px;
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 6px;
       justify-content: center;
-      backdrop-filter: blur(8px);
     }
     
     button, .btn-photo-upload {
       background-color: rgba(255, 255, 255, 0.15);
       color: rgb(51, 52, 124);
-      border: 1px solid rgba(0, 0, 50, 0.25);
+      border: 1px solid rgba(0, 0, 50, 0.3);
       border-radius: 50px;
-      padding: 8px 15px;
+      padding: 6px 12px;
       font-family: "Century Gothic", Times, serif;
-      font-size: 0.85rem;
+      font-size: 0.7rem;
       transition: all 0.3s ease;
       backdrop-filter: blur(5px);
       -webkit-backdrop-filter: blur(5px);
       cursor: pointer;
       font-weight: 600;
-      letter-spacing: 0.3px;
     }
     
     button:hover, .btn-photo-upload:hover {
-      background-color: rgba(255, 255, 255, 0.25);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
     
     .btn-primary {
       background-color: rgb(68, 96, 241);
       color: #fff;
       border: none;
-      box-shadow: 0 5px 15px rgba(68, 96, 241, 0.35);
-      padding: 9px 18px;
+      box-shadow: 0 4px 15px rgba(68, 96, 241, 0.3);
     }
     
     .btn-primary:hover {
       background-color: rgb(58, 86, 230);
-      box-shadow: 0 8px 20px rgba(68, 96, 241, 0.45);
+      box-shadow: 0 6px 20px rgba(68, 96, 241, 0.4);
     }
     
     .preview-panel, .generated-photo-panel {
@@ -596,118 +443,38 @@
     }
     
     body.dark-mode #app {
-      background-color: rgba(30, 30, 45, 0.5);
+      background-color: rgba(30, 30, 40, 0.4);
       border: 1px solid rgba(70, 70, 90, 0.3);
-      box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5);
     }
     
     body.dark-mode .emotion-panel,
-    body.dark-mode .preview-container,
-    body.dark-mode .share-panel {
-      background-color: rgba(40, 44, 65, 0.45);
-      border: 1px solid rgba(70, 70, 90, 0.4);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    body.dark-mode .values-display,
+    body.dark-mode .share-panel,
+    body.dark-mode .preview-panel,
+    body.dark-mode .generated-photo-panel {
+      background-color: rgba(40, 40, 60, 0.3);
+      border: 1px solid rgba(70, 70, 90, 0.3);
     }
     
-    body.dark-mode .emotion-slider {
-      background-color: rgba(40, 44, 65, 0.5);
-      border: 1px solid rgba(70, 70, 90, 0.4);
-    }
-    
-    body.dark-mode input[type="range"] {
-      background: rgba(70, 70, 90, 0.3);
-    }
-    
-    body.dark-mode input[type="range"]::-webkit-slider-thumb {
-      background: #5255bf;
-      border-color: rgba(255, 255, 255, 0.6);
-      box-shadow: 0 0 10px rgba(82, 85, 191, 0.6);
-    }
-    
-    body.dark-mode input[type="range"]::-moz-range-thumb {
-      background: #5255bf;
-      border-color: rgba(255, 255, 255, 0.6);
-      box-shadow: 0 0 10px rgba(82, 85, 191, 0.6);
-    }
-    
-    body.dark-mode input[type="range"]::-webkit-slider-thumb:hover {
-      box-shadow: 0 0 15px rgba(82, 85, 191, 0.8);
-    }
-    
-    body.dark-mode .slider-values {
-      background-color: rgba(40, 44, 65, 0.5);
-      border: 1px solid rgba(70, 70, 90, 0.4);
-    }
-    
-    body.dark-mode .slider-value-item {
-      background-color: rgba(40, 44, 65, 0.6);
-      border-left: 3px solid rgba(82, 85, 191, 0.6);
-    }
-    
-    body.dark-mode .emotion-value {
-      background-color: rgba(82, 85, 191, 0.7);
-    }
-    
-    body.dark-mode .app-title,
-    body.dark-mode .app-subtitle,
-    body.dark-mode .slider-title span,
-    body.dark-mode .slider-label,
-    body.dark-mode .preview-title {
-      color: rgba(255, 255, 255, 0.95);
-      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.35);
-    }
-    
-    body.dark-mode .value-label {
-      color: rgba(255, 255, 255, 0.8);
-    }
-    
-    body.dark-mode .value-number {
-      color: rgba(255, 255, 255, 0.95);
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    }
-    
-    body.dark-mode .preset-btn {
-      background-color: rgba(40, 44, 65, 0.4);
-      border: 1px solid rgba(70, 70, 90, 0.5);
-      color: rgba(255, 255, 255, 0.9);
-    }
-    
-    body.dark-mode .preset-btn.active {
-      background-color: rgba(82, 85, 191, 0.3);
-      box-shadow: 0 8px 15px rgba(82, 85, 191, 0.25);
-      border-color: rgba(82, 85, 191, 0.5);
-    }
-    
-    body.dark-mode .box {
-      border-color: rgba(70, 70, 90, 0.35);
-      background-color: rgba(40, 44, 65, 0.4);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-    }
-    
-    body.dark-mode .box > span {
-      color: rgba(255, 255, 255, 0.95);
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    }
-    
-    body.dark-mode .box:hover {
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    body.dark-mode .emotion-slider,
+    body.dark-mode .value-item {
+      background-color: rgba(40, 40, 60, 0.5);
+      border: 1px solid rgba(70, 70, 90, 0.3);
     }
     
     body.dark-mode button,
     body.dark-mode .btn-photo-upload {
-      background-color: rgba(40, 44, 65, 0.5);
+      background-color: rgba(40, 40, 60, 0.5);
       border: 1px solid rgba(70, 70, 90, 0.5);
       color: rgba(255, 255, 255, 0.9);
     }
     
     body.dark-mode .btn-primary {
       background-color: #5255bf;
-      box-shadow: 0 5px 15px rgba(82, 85, 191, 0.35);
     }
     
     body.dark-mode .btn-primary:hover {
       background-color: #4245af;
-      box-shadow: 0 8px 20px rgba(82, 85, 191, 0.45);
     }
     
     body.dark-mode .gallery-section {
@@ -787,82 +554,98 @@
         font-size: 1.5rem;
       }
       
+      .app-title {
+        font-size: 1.3rem;
+      }
+      
+      .app-subtitle {
+        font-size: 0.8rem;
+      }
+      
+      #app, .gallery-section {
+        width: 85%;
+        padding: 0.8rem;
+      }
+      
+      .emotion-panel,
+      .share-panel,
       .preview-container {
-        padding: 20px;
-        overflow: hidden;
+        padding: 8px;
+      }
+      
+      .emotion-slider {
+        padding: 5px 6px;
+      }
+      
+      .slider-title span {
+        font-size: 0.8rem;
+      }
+      
+      .slider-label {
+        font-size: 0.7rem;
+      }
+      
+      .preset-btn {
+        padding: 4px 10px;
+        font-size: 0.8rem;
       }
       
       .preview-title {
-        font-size: 1.3rem;
-        margin-bottom: 15px;
-      }
-      
-      .preview-title:after {
-        bottom: -8px;
-        width: 40px;
-        height: 2px;
+        font-size: 1rem;
+        margin-bottom: 8px;
       }
       
       .shell {
-        height: 450px;
+        height: 300px;
         flex-direction: row;
         flex-wrap: nowrap;
         overflow-x: auto;
-        padding-bottom: 15px;
-        width: 100%;
-        transform: none;
-        gap: 15px;
-        margin: 10px 0;
-        justify-content: flex-start;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: thin;
-        scrollbar-color: rgba(68, 96, 241, 0.3) transparent;
-      }
-      
-      .shell::-webkit-scrollbar {
-        height: 6px;
-      }
-      
-      .shell::-webkit-scrollbar-thumb {
-        background-color: rgba(68, 96, 241, 0.3);
-        border-radius: 6px;
-      }
-      
-      .shell::-webkit-scrollbar-track {
-        background-color: transparent;
+        padding-bottom: 10px;
       }
       
       .box {
-        min-width: 230px;
-        max-width: none;
-        margin: 0 5px;
-        flex: 0 0 auto;
-        height: 85%;
+        min-width: 120px;
+        margin: 0 6px;
       }
       
       .box > img {
-        transform: scale(1);
+        width: 100%;
+        height: 85%;
       }
       
       .box > span {
-        font-size: 1.1rem;
-        padding: 8px 0;
+        font-size: 1rem;
       }
       
-      .box:hover {
-        flex-basis: auto;
-        max-width: none;
-        transform: translateY(-5px) scale(1.02);
+      .slider-values {
+        padding: 5px;
       }
       
-      .box:hover > img {
-        transform: scale(1.08);
+      .slider-value-item {
+        min-width: 35px;
+        padding: 2px 4px;
       }
       
-      .box:hover > span {
-        transform: translateY(-3px);
-        padding-bottom: 10px;
+      .value-number {
+        font-size: 0.8rem;
       }
+    }
+    
+    /* 为暗黑模式添加滑块样式 */
+    body.dark-mode input[type="range"] {
+      background: rgba(70, 70, 90, 0.3);
+    }
+    
+    body.dark-mode input[type="range"]::-webkit-slider-thumb {
+      background: #5255bf;
+      border-color: rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 10px rgba(82, 85, 191, 0.5);
+    }
+    
+    body.dark-mode input[type="range"]::-moz-range-thumb {
+      background: #5255bf;
+      border-color: rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 10px rgba(82, 85, 191, 0.5);
     }
     
     /* 图片展示区域 */
@@ -923,85 +706,80 @@
     
     .emotion-value {
       position: absolute;
-      top: -30px;
+      top: -20px;
       left: 50%;
       transform: translateX(-50%);
       background-color: rgba(68, 96, 241, 0.7);
       color: white;
-      padding: 3px 10px;
-      border-radius: 8px;
-      font-size: 0.75rem;
-      font-weight: bold;
+      padding: 1px 5px;
+      border-radius: 6px;
+      font-size: 0.65rem;
       opacity: 0;
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      transition: opacity 0.3s ease;
       pointer-events: none;
     }
     
     input[type="range"]:hover + .emotion-value,
     input[type="range"]:focus + .emotion-value {
       opacity: 1;
-      transform: translateX(-50%) translateY(-3px);
     }
 
     /* 情绪预设按钮样式 */
     .preset-buttons {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 25px;
-      margin-top: 5px;
+      gap: 8px;
+      margin-bottom: 12px;
       justify-content: center;
     }
     
     .preset-btn {
-      background-color: rgba(255, 255, 255, 0.18);
-      border: 1px solid rgba(0, 0, 50, 0.2);
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(0, 0, 50, 0.3);
       border-radius: 50px;
-      padding: 10px 18px;
-      font-size: 1rem;
+      padding: 6px 14px;
+      font-size: 0.9rem;
       color: rgb(51, 52, 124);
       cursor: pointer;
-      transition: all 0.35s ease;
+      transition: all 0.3s ease;
       font-family: "Century Gothic", Times, serif;
       font-weight: 600;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
     }
     
     .preset-btn:hover {
-      background-color: rgba(255, 255, 255, 0.25);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
     
     .preset-btn.active {
-      background-color: rgba(68, 96, 241, 0.25);
-      box-shadow: 0 8px 15px rgba(68, 96, 241, 0.25);
+      background-color: rgba(68, 96, 241, 0.2);
+      box-shadow: 0 4px 8px rgba(68, 96, 241, 0.2);
       transform: translateY(-2px);
-      border-color: rgba(68, 96, 241, 0.4);
     }
     
     .preset-happy {
-      background-color: rgba(68, 129, 235, 0.25);
+      background-color: rgba(68, 129, 235, 0.2);
       border-color: rgba(68, 129, 235, 0.5);
     }
     
     .preset-calm {
-      background-color: rgba(86, 197, 150, 0.25);
+      background-color: rgba(86, 197, 150, 0.2);
       border-color: rgba(86, 197, 150, 0.5);
     }
     
     .preset-excited {
-      background-color: rgba(255, 152, 0, 0.25);
+      background-color: rgba(255, 152, 0, 0.2);
       border-color: rgba(255, 152, 0, 0.5);
     }
     
     .preset-melancholy {
-      background-color: rgba(121, 80, 242, 0.25);
+      background-color: rgba(121, 80, 242, 0.2);
       border-color: rgba(121, 80, 242, 0.5);
     }
     
     .preset-angry {
-      background-color: rgba(229, 57, 53, 0.25);
+      background-color: rgba(229, 57, 53, 0.2);
       border-color: rgba(229, 57, 53, 0.5);
     }
     
@@ -1009,12 +787,12 @@
     .slider-values {
       display: flex;
       justify-content: space-between;
-      margin: 15px 0 5px;
-      padding: 15px;
-      background-color: rgba(255, 255, 255, 0.15);
-      border-radius: 16px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      margin: 10px 0;
+      padding: 8px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       transition: all 0.3s ease;
       animation: fadeIn 0.5s ease;
     }
@@ -1023,30 +801,22 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 10px 15px;
-      border-radius: 12px;
+      padding: 4px 8px;
+      border-radius: 6px;
       background-color: rgba(255, 255, 255, 0.15);
-      min-width: 45px;
+      min-width: 40px;
       flex: 1;
-      margin: 0 5px;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease;
-    }
-    
-    .slider-value-item:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+      margin: 0 2px;
     }
     
     .value-label {
-      font-size: 0.85rem;
+      font-size: 0.7rem;
       color: rgb(70, 80, 150);
-      margin-bottom: 5px;
-      font-weight: 500;
+      margin-bottom: 2px;
     }
     
     .value-number {
-      font-size: 1.2rem;
+      font-size: 0.95rem;
       font-weight: bold;
       color: rgb(51, 52, 124);
     }
@@ -1087,9 +857,9 @@
     /* 添加情绪展示盒子样式 */
     .shell {
       width: 100%;
-      height: 400px;
+      height: 380px;
       display: flex;
-      margin: 10px auto;
+      margin: 20px auto;
     }
     
     .box {
@@ -1328,27 +1098,28 @@
         
         <!-- 情绪预览区域 -->
         <div class="preview-container">
+          <h3 class="preview-title">情绪效果预览</h3>
           <div class="shell">
             <div class="box">
-              <img src="../assets/images/welcomeback.jpeg" alt="快乐">
-              <span>一</span>
+              <img src="../assets/images/emotion-1.jpg" alt="快乐">
+              <span>快乐</span>
             </div>
             <div class="box">
-              <img src="../assets/images/welcomeback.jpeg" alt="平静">
-              <span>二</span>
+              <img src="../assets/images/emotion-2.jpg" alt="平静">
+              <span>平静</span>
             </div>
             <div class="box">
-              <img src="../assets/images/welcomeback.jpeg" alt="激动">
-              <span>三</span>
+              <img src="../assets/images/emotion-3.jpg" alt="激动">
+              <span>激动</span>
             </div>
             <div class="box">
-              <img src="../assets/images/welcomeback.jpeg" alt="忧郁">
-               <span>四</span>
+              <img src="../assets/images/emotion-4.jpg" alt="忧郁">
+              <span>忧郁</span>
             </div>
-            <!-- <div class="box">
-              <img src="../assets/images/welcomeback.jpeg" alt="愤怒">
+            <div class="box">
+              <img src="../assets/images/emotion-5.jpg" alt="愤怒">
               <span>愤怒</span>
-            </div> -->
+            </div>
           </div>
         </div>
 
@@ -1525,7 +1296,7 @@
                   const btnContainer = generatedPhotoPanel.querySelector('.photo-preview');
                   btnContainer.appendChild(addToGalleryBtn);
                 }
-              hideLoading();
+                hideLoading();
               }, 100);
             }, 1500);
           }
@@ -1645,104 +1416,71 @@
           const d = this.disgust / 100;
           
           // 计算颜色值 - 每个情绪对应不同的颜色和强度
-          const happyColor = [241, 196, 15]; // 黄色
-          const sadColor = [41, 128, 185];   // 蓝色
-          const angryColor = [231, 76, 60];  // 红色
-          const fearColor = [52, 152, 219];  // 天蓝色
-          const anticipationColor = [243, 156, 18]; // 橙色
-          const surpriseColor = [41, 128, 185];     // 蓝色
-          const disgustColor = [142, 68, 173];      // 紫色
-          const worryColor = [127, 140, 141];       // 灰色
+          const happyColor = `rgba(241, 196, 15, ${h})`;
+          const calmColor = `rgba(52, 152, 219, ${1-a})`;
+          const excitedColor = `rgba(243, 156, 18, ${ant})`;
+          const melancholyColor = `rgba(142, 68, 173, ${d})`;
+          const angryColor = `rgba(231, 76, 60, ${a})`;
           
-          // 根据滑块值混合颜色
-          let r = 255, g = 255, b = 255; // 初始白色
+          // 更新body背景
+          document.body.style.backgroundImage = `
+            radial-gradient(closest-side, rgba(255, 255, 255, 0.9), rgba(235, 105, 78, 0)), 
+            radial-gradient(closest-side, ${angryColor}, rgba(243, 11, 164, 0)), 
+            radial-gradient(closest-side, ${excitedColor}, rgba(254, 234, 131, 0)), 
+            radial-gradient(closest-side, ${calmColor}, rgba(170, 142, 245, 0)), 
+            radial-gradient(closest-side, ${melancholyColor}, rgba(248, 192, 147, 0))
+          `;
           
-          // 快乐/悲伤影响
-          if (h > 0.5) { // 偏向快乐
-              const happyIntensity = (h - 0.5) * 2; // 0-1范围
-              r += (happyColor[0] - 255) * happyIntensity;
-              g += (happyColor[1] - 255) * happyIntensity;
-              b += (happyColor[2] - 255) * happyIntensity;
-          } else { // 偏向悲伤
-              const sadIntensity = (0.5 - h) * 2; // 0-1范围
-              r += (sadColor[0] - 255) * sadIntensity;
-              g += (sadColor[1] - 255) * sadIntensity;
-              b += (sadColor[2] - 255) * sadIntensity;
-          }
-          
-          // 生气/恐惧影响
-          if (a > 0.5) { // 偏向生气
-              const angryIntensity = (a - 0.5) * 2;
-              r += (angryColor[0] - 255) * angryIntensity;
-              g += (angryColor[1] - 255) * angryIntensity;
-              b += (angryColor[2] - 255) * angryIntensity;
-          } else { // 偏向恐惧
-              const fearIntensity = (0.5 - a) * 2;
-              r += (fearColor[0] - 255) * fearIntensity;
-              g += (fearColor[1] - 255) * fearIntensity;
-              b += (fearColor[2] - 255) * fearIntensity;
-          }
-          
-          // 期待/惊讶影响
-          if (ant > 0.5) { // 偏向期待
-              const anticipationIntensity = (ant - 0.5) * 2;
-              r += (anticipationColor[0] - 255) * anticipationIntensity;
-              g += (anticipationColor[1] - 255) * anticipationIntensity;
-              b += (anticipationColor[2] - 255) * anticipationIntensity;
-          } else { // 偏向惊讶
-              const surpriseIntensity = (0.5 - ant) * 2;
-              r += (surpriseColor[0] - 255) * surpriseIntensity;
-              g += (surpriseColor[1] - 255) * surpriseIntensity;
-              b += (surpriseColor[2] - 255) * surpriseIntensity;
-          }
-          
-          // 厌恶/担忧影响
-          if (d > 0.5) { // 偏向厌恶
-              const disgustIntensity = (d - 0.5) * 2;
-              r += (disgustColor[0] - 255) * disgustIntensity;
-              g += (disgustColor[1] - 255) * disgustIntensity;
-              b += (disgustColor[2] - 255) * disgustIntensity;
-          } else { // 偏向担忧
-              const worryIntensity = (0.5 - d) * 2;
-              r += (worryColor[0] - 255) * worryIntensity;
-              g += (worryColor[1] - 255) * worryIntensity;
-              b += (worryColor[2] - 255) * worryIntensity;
-          }
-          
-          // 限制颜色范围在0-255之间
-          r = Math.max(0, Math.min(255, Math.round(r)));
-          g = Math.max(0, Math.min(255, Math.round(g)));
-          b = Math.max(0, Math.min(255, Math.round(b)));
-          
-          // 创建基础颜色
-          const baseColor = `rgb(${r}, ${g}, ${b})`;
-          
-          // 创建深色和浅色版本用于渐变
-          const lighterColor = this.adjustColor({r, g, b}, 20);
-          const darkerColor = this.adjustColor({r, g, b}, -20);
-          
-          // 创建渐变角度 - 根据情绪混合创建动态角度
-          const angle = Math.round((h * 90) + (a * 70) + (ant * 110) + (d * 45)) % 360;
-          
-          // 设置背景渐变
-          document.body.style.background = `linear-gradient(${angle}deg, 
-            rgba(${lighterColor.r}, ${lighterColor.g}, ${lighterColor.b}, 0.8), 
-            rgba(${darkerColor.r}, ${darkerColor.g}, ${darkerColor.b}, 0.8))`;
-          
-          // 更新当前颜色 - 用于其他功能使用
-          this.currentColor = {r, g, b};
-          
-          // 更新情绪滑块的颜色指示
+          // 更新情绪滑块的颜色指示 - 调整值显示的背景色
           this.updateSliderValueColors();
         };
         
-        // 添加调整颜色的辅助方法
-        app.methods.adjustColor = function(color, amount) {
-          return {
-            r: Math.max(0, Math.min(255, Math.round(color.r + amount))),
-            g: Math.max(0, Math.min(255, Math.round(color.g + amount))),
-            b: Math.max(0, Math.min(255, Math.round(color.b + amount)))
-          };
+        // 更新滑块值显示的颜色
+        app.methods.updateSliderValueColors = function() {
+          // 快乐值的颜色 - 从蓝色到黄色
+          const happyColor = this.getGradientColor([41, 128, 185], [241, 196, 15], this.happiness/100);
+          
+          // 生气值的颜色 - 从蓝色到红色
+          const angerColor = this.getGradientColor([52, 152, 219], [231, 76, 60], this.anger/100);
+          
+          // 期待值的颜色 - 从蓝色到绿色再到橙色
+          const anticipationColor = this.getGradientColor([41, 128, 185], [243, 156, 18], this.anticipation/100);
+          
+          // 厌恶值的颜色 - 从紫色到橙色再到灰色
+          const disgustColor = this.getGradientColor([142, 68, 173], [127, 140, 141], this.disgust/100);
+          
+          // 获取值显示元素并更新颜色
+          const emotionValues = document.querySelectorAll('.emotion-value');
+          if (emotionValues.length >= 4) {
+            emotionValues[0].style.backgroundColor = `rgba(${happyColor[0]}, ${happyColor[1]}, ${happyColor[2]}, 0.7)`;
+            emotionValues[1].style.backgroundColor = `rgba(${angerColor[0]}, ${angerColor[1]}, ${angerColor[2]}, 0.7)`;
+            emotionValues[2].style.backgroundColor = `rgba(${anticipationColor[0]}, ${anticipationColor[1]}, ${anticipationColor[2]}, 0.7)`;
+            emotionValues[3].style.backgroundColor = `rgba(${disgustColor[0]}, ${disgustColor[1]}, ${disgustColor[2]}, 0.7)`;
+          }
+          
+          // 更新值显示面板的颜色
+          const valueItems = document.querySelectorAll('.slider-value-item');
+          if (valueItems.length >= 4) {
+            valueItems[0].style.backgroundColor = `rgba(${happyColor[0]}, ${happyColor[1]}, ${happyColor[2]}, 0.2)`;
+            valueItems[0].style.borderLeft = `3px solid rgba(${happyColor[0]}, ${happyColor[1]}, ${happyColor[2]}, 0.8)`;
+            
+            valueItems[1].style.backgroundColor = `rgba(${angerColor[0]}, ${angerColor[1]}, ${angerColor[2]}, 0.2)`;
+            valueItems[1].style.borderLeft = `3px solid rgba(${angerColor[0]}, ${angerColor[1]}, ${angerColor[2]}, 0.8)`;
+            
+            valueItems[2].style.backgroundColor = `rgba(${anticipationColor[0]}, ${anticipationColor[1]}, ${anticipationColor[2]}, 0.2)`;
+            valueItems[2].style.borderLeft = `3px solid rgba(${anticipationColor[0]}, ${anticipationColor[1]}, ${anticipationColor[2]}, 0.8)`;
+            
+            valueItems[3].style.backgroundColor = `rgba(${disgustColor[0]}, ${disgustColor[1]}, ${disgustColor[2]}, 0.2)`;
+            valueItems[3].style.borderLeft = `3px solid rgba(${disgustColor[0]}, ${disgustColor[1]}, ${disgustColor[2]}, 0.8)`;
+          }
+        };
+        
+        // 在两个颜色之间进行线性插值
+        app.methods.getGradientColor = function(startColor, endColor, percent) {
+          const r = Math.round(startColor[0] + (endColor[0] - startColor[0]) * percent);
+          const g = Math.round(startColor[1] + (endColor[1] - startColor[1]) * percent);
+          const b = Math.round(startColor[2] + (endColor[2] - startColor[2]) * percent);
+          return [r, g, b];
         };
         
         // 调用一次初始更新
@@ -1850,82 +1588,6 @@
           }
           // 调用原来的方法
           originalApplyPreset.call(this, presetName);
-        };
-        
-        // 更新滑块值显示的颜色
-        app.methods.updateSliderValueColors = function() {
-          // 快乐值的颜色 - 从蓝色到黄色
-          let happyColor;
-          if (this.happiness > 50) {
-            const happyIntensity = (this.happiness - 50) / 50;
-            happyColor = this.getGradientColor([255, 255, 255], [241, 196, 15], happyIntensity);
-          } else {
-            const sadIntensity = (50 - this.happiness) / 50;
-            happyColor = this.getGradientColor([255, 255, 255], [41, 128, 185], sadIntensity);
-          }
-          
-          // 生气值的颜色 - 从蓝色到红色
-          let angerColor;
-          if (this.anger > 50) {
-            const angryIntensity = (this.anger - 50) / 50;
-            angerColor = this.getGradientColor([255, 255, 255], [231, 76, 60], angryIntensity);
-          } else {
-            const fearIntensity = (50 - this.anger) / 50;
-            angerColor = this.getGradientColor([255, 255, 255], [52, 152, 219], fearIntensity);
-          }
-          
-          // 期待值的颜色 - 从蓝色到橙色
-          let anticipationColor;
-          if (this.anticipation > 50) {
-            const antIntensity = (this.anticipation - 50) / 50;
-            anticipationColor = this.getGradientColor([255, 255, 255], [243, 156, 18], antIntensity);
-          } else {
-            const surpriseIntensity = (50 - this.anticipation) / 50;
-            anticipationColor = this.getGradientColor([255, 255, 255], [41, 128, 185], surpriseIntensity);
-          }
-          
-          // 厌恶值的颜色 - 从紫色到灰色
-          let disgustColor;
-          if (this.disgust > 50) {
-            const disgustIntensity = (this.disgust - 50) / 50;
-            disgustColor = this.getGradientColor([255, 255, 255], [142, 68, 173], disgustIntensity);
-          } else {
-            const worryIntensity = (50 - this.disgust) / 50;
-            disgustColor = this.getGradientColor([255, 255, 255], [127, 140, 141], worryIntensity);
-          }
-          
-          // 获取值显示元素并更新颜色
-          const emotionValues = document.querySelectorAll('.emotion-value');
-          if (emotionValues.length >= 4) {
-            emotionValues[0].style.backgroundColor = `rgba(${happyColor[0]}, ${happyColor[1]}, ${happyColor[2]}, 0.8)`;
-            emotionValues[1].style.backgroundColor = `rgba(${angerColor[0]}, ${angerColor[1]}, ${angerColor[2]}, 0.8)`;
-            emotionValues[2].style.backgroundColor = `rgba(${anticipationColor[0]}, ${anticipationColor[1]}, ${anticipationColor[2]}, 0.8)`;
-            emotionValues[3].style.backgroundColor = `rgba(${disgustColor[0]}, ${disgustColor[1]}, ${disgustColor[2]}, 0.8)`;
-          }
-          
-          // 更新值显示面板的颜色
-          const valueItems = document.querySelectorAll('.slider-value-item');
-          if (valueItems.length >= 4) {
-            valueItems[0].style.backgroundColor = `rgba(${happyColor[0]}, ${happyColor[1]}, ${happyColor[2]}, 0.2)`;
-            valueItems[0].style.borderLeft = `3px solid rgba(${happyColor[0]}, ${happyColor[1]}, ${happyColor[2]}, 0.8)`;
-            
-            valueItems[1].style.backgroundColor = `rgba(${angerColor[0]}, ${angerColor[1]}, ${angerColor[2]}, 0.2)`;
-            valueItems[1].style.borderLeft = `3px solid rgba(${angerColor[0]}, ${angerColor[1]}, ${angerColor[2]}, 0.8)`;
-            
-            valueItems[2].style.backgroundColor = `rgba(${anticipationColor[0]}, ${anticipationColor[1]}, ${anticipationColor[2]}, 0.2)`;
-            valueItems[2].style.borderLeft = `3px solid rgba(${anticipationColor[0]}, ${anticipationColor[1]}, ${anticipationColor[2]}, 0.8)`;
-            
-            valueItems[3].style.backgroundColor = `rgba(${disgustColor[0]}, ${disgustColor[1]}, ${disgustColor[2]}, 0.2)`;
-            valueItems[3].style.borderLeft = `3px solid rgba(${disgustColor[0]}, ${disgustColor[1]}, ${disgustColor[2]}, 0.8)`;
-          }
-        };
-        
-        // 在两个颜色之间进行线性插值
-        app.methods.getGradientColor = function(startColor, endColor, percent) {
-          const r = Math.round(startColor[0] + (endColor[0] - startColor[0]) * percent);
-          const g = Math.round(startColor[1] + (endColor[1] - startColor[1]) * percent);
-          const b = Math.round(startColor[2] + (endColor[2] - startColor[2]) * percent);
-          return [r, g, b];
         };
       }
     });
