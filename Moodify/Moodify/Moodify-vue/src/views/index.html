@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moodify</title>
+    <link rel="stylesheet" href="../assets/styles/styles.css">
+    <link rel="stylesheet" href="../assets/styles/dark-mode.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <style>
+      /* 关爱抑郁儿童活动板块样式 */
+      .activity-section {
+        padding: 4rem 2rem;
+        background: linear-gradient(180deg, rgba(240, 244, 255, 0.8) 0%, rgba(228, 232, 250, 0.9) 100%);
+      }
+      
+      body.dark-mode .activity-section {
+        background: linear-gradient(180deg, rgba(25, 28, 40, 0.8) 0%, rgba(32, 35, 48, 0.9) 100%);
+      }
+      
+      .activity-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        border-radius: 20px;
+        background-color: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 30px rgba(31, 38, 135, 0.1);
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 2.5rem;
+      }
+      
+      body.dark-mode .activity-container {
+        background-color: rgba(40, 44, 65, 0.5);
+        border: 1px solid rgba(70, 70, 90, 0.3);
+      }
+      
+      .activity-header {
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+      
+      .activity-title-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .activity-title {
+        color: #333;
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0;
+        background: linear-gradient(90deg, #7f7fd5, #86a8e7, #91eae4);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      
+      body.dark-mode .activity-title {
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      }
+      
+      .activity-badges {
+        display: flex;
+        gap: 0.5rem;
+      }
+      
+      .badge {
+        padding: 0.3rem 0.8rem;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        background-color: rgba(127, 127, 213, 0.2);
+        color: #4460f1;
+      }
+      
+      .badge.special {
+        background-color: rgba(127, 127, 213, 0.3);
+        color: #4460f1;
+        border: 1px solid rgba(127, 127, 213, 0.5);
+      }
+      
+      body.dark-mode .badge {
+        background-color: rgba(127, 127, 213, 0.3);
+        color: #bdc8ff;
+      }
+      
+      .activity-subtitle {
+        color: #666;
+        font-size: 1.1rem;
+        margin: 0;
+      }
+      
+      body.dark-mode .activity-subtitle {
+        color: #aaa;
+      }
+      
+      .activity-content {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 2rem;
+      }
+      
+      @media (max-width: 768px) {
+        .activity-content {
+          grid-template-columns: 1fr;
+        }
+      }
+      
+      .activity-image {
+        position: relative;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      }
+      
+      .activity-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      
+      .activity-image:hover img {
+        transform: scale(1.05);
+      }
+      
+      .activity-date {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        color: white;
+        padding: 1.5rem 1rem 1rem;
+        text-align: center;
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+      
+      .activity-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      
+      .activity-desc {
+        margin-bottom: 1.5rem;
+      }
+      
+      .activity-desc p {
+        color: #555;
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-top: 0;
+      }
+      
+      body.dark-mode .activity-desc p {
+        color: #ccc;
+      }
+      
+      .activity-points {
+        margin-top: 1.5rem;
+      }
+      
+      .activity-point {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+      }
+      
+      .activity-point .material-symbols-outlined {
+        color: #4460f1;
+        margin-right: 0.8rem;
+        font-size: 1.5rem;
+      }
+      
+      body.dark-mode .activity-point .material-symbols-outlined {
+        color: #7f7fd5;
+      }
+      
+      .activity-point p {
+        color: #555;
+        margin: 0;
+      }
+      
+      body.dark-mode .activity-point p {
+        color: #ccc;
+      }
+      
+      .activity-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .activity-btn {
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      .activity-btn.primary {
+        background: linear-gradient(135deg, #7f7fd5, #86a8e7, #91eae4);
+        color: white;
+        box-shadow: 0 5px 15px rgba(127, 127, 213, 0.4);
+      }
+      
+      .activity-btn.primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(127, 127, 213, 0.5);
+      }
+      
+      .activity-btn.secondary {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #4460f1;
+        border: 1px solid rgba(127, 127, 213, 0.3);
+      }
+      
+      .activity-btn.secondary:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+      }
+      
+      body.dark-mode .activity-btn.secondary {
+        background-color: rgba(40, 44, 65, 0.5);
+        color: #bdc8ff;
+        border: 1px solid rgba(127, 127, 213, 0.3);
+      }
+      
+      .activity-stats {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1.5rem;
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 15px;
+        padding: 1rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      }
+      
+      body.dark-mode .activity-stats {
+        background-color: rgba(40, 44, 65, 0.5);
+      }
+      
+      .stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .stat-number {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #4460f1;
+        margin-bottom: 0.3rem;
+      }
+      
+      body.dark-mode .stat-number {
+        color: #7f7fd5;
+      }
+      
+      .stat-label {
+        font-size: 0.8rem;
+        color: #666;
+      }
+      
+      body.dark-mode .stat-label {
+        color: #aaa;
+      }
+      
+      /* 星图样式 */
+      .star-map {
+        position: relative;
+        width: 100%;
+        height: 450px;
+        background: linear-gradient(180deg, #0f1028 0%, #12152e 50%, #1e294b 100%);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      }
+      
+      .star-map::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+          radial-gradient(circle at 20% 30%, rgba(101, 111, 190, 0.2) 0%, rgba(101, 111, 190, 0) 40%),
+          radial-gradient(circle at 80% 70%, rgba(150, 110, 180, 0.2) 0%, rgba(150, 110, 180, 0) 40%),
+          radial-gradient(circle at 60% 20%, rgba(70, 130, 210, 0.2) 0%, rgba(70, 130, 210, 0) 30%);
+        z-index: 1;
+      }
+      
+      /* 星座线条 */
+      .constellation-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        opacity: 0.3;
+      }
+      
+      .constellation-line {
+        position: absolute;
+        background-color: rgba(255, 255, 255, 0.2);
+        height: 1px;
+        transform-origin: 0 0;
+        z-index: 2;
+      }
+      
+      /* 星云效果 */
+      .nebula {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(20px);
+        opacity: 0.1;
+        z-index: 1;
+      }
+      
+      .nebula-1 {
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(147, 112, 219, 0.6) 0%, rgba(147, 112, 219, 0) 70%);
+        top: 30%;
+        left: 20%;
+        animation: nebula-pulse 15s infinite alternate;
+      }
+      
+      .nebula-2 {
+        width: 180px;
+        height: 180px;
+        background: radial-gradient(circle, rgba(70, 130, 180, 0.6) 0%, rgba(70, 130, 180, 0) 70%);
+        top: 50%;
+        left: 70%;
+        animation: nebula-pulse 20s infinite alternate-reverse;
+      }
+      
+      .nebula-3 {
+        width: 150px;
+        height: 150px;
+        background: radial-gradient(circle, rgba(255, 165, 0, 0.4) 0%, rgba(255, 165, 0, 0) 70%);
+        top: 10%;
+        left: 60%;
+        animation: nebula-pulse 18s infinite alternate;
+      }
+      
+      @keyframes nebula-pulse {
+        0% {
+          transform: scale(0.8);
+          opacity: 0.05;
+        }
+        50% {
+          transform: scale(1.2);
+          opacity: 0.15;
+        }
+        100% {
+          transform: scale(0.9);
+          opacity: 0.1;
+        }
+      }
+      
+      .star-map-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+      
+      .star-map-bg {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+      }
+      
+      .star-map-bg img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      
+      .stars {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+      }
+      
+      .star {
+        position: absolute;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        opacity: 0.5;
+        z-index: 5; /* 确保星星在照片上方 */
+        animation: starTwinkle 3s infinite alternate;
+      }
+      
+      .star.active {
+        opacity: 1;
+        transform: scale(1.2);
+        color: #ffd700;
+        text-shadow: 0 0 10px #ffd700, 0 0 20px rgba(255, 215, 0, 0.7);
+        animation: activeStar 2s infinite alternate;
+      }
+      
+      @keyframes activeStar {
+        0% { 
+          transform: scale(1.2);
+          text-shadow: 0 0 10px #ffd700, 0 0 20px rgba(255, 215, 0, 0.7);
+        }
+        50% { 
+          transform: scale(1.4);
+          text-shadow: 0 0 15px #ffd700, 0 0 30px rgba(255, 215, 0, 0.9), 0 0 50px rgba(255, 215, 0, 0.5);
+        }
+        100% { 
+          transform: scale(1.2);
+          text-shadow: 0 0 10px #ffd700, 0 0 20px rgba(255, 215, 0, 0.7);
+        }
+      }
+      
+      @keyframes starTwinkle {
+        0% { opacity: 0.4; text-shadow: 0 0 5px rgba(255, 255, 255, 0.1); }
+        50% { opacity: 0.6; text-shadow: 0 0 8px rgba(255, 255, 255, 0.3), 0 0 12px rgba(255, 255, 255, 0.1); }
+        100% { opacity: 0.5; text-shadow: 0 0 6px rgba(255, 255, 255, 0.2); }
+      }
+      
+      .star:nth-child(1) { animation-delay: 0.2s; top: 20%; left: 30%; }
+      .star:nth-child(2) { animation-delay: 1.1s; top: 40%; left: 70%; }
+      .star:nth-child(3) { animation-delay: 0.7s; top: 60%; left: 20%; }
+      .star:nth-child(4) { animation-delay: 1.5s; top: 80%; left: 50%; }
+      .star:nth-child(5) { animation-delay: 0.5s; top: 30%; left: 80%; }
+      .star:nth-child(6) { animation-delay: 1.8s; top: 15%; left: 50%; }
+      .star:nth-child(7) { animation-delay: 0.9s; top: 50%; left: 40%; }
+      .star:nth-child(8) { animation-delay: 1.3s; top: 70%; left: 70%; }
+      .star:nth-child(9) { animation-delay: 0.4s; top: 35%; left: 15%; }
+      .star:nth-child(10) { animation-delay: 1.6s; top: 60%; left: 90%; }
+      
+      .star .material-symbols-outlined {
+        font-size: 2rem;
+        color: #fff;
+        transition: all 0.3s ease;
+      }
+      
+      .star.active .material-symbols-outlined {
+        color: #ffec7f;
+        background: linear-gradient(145deg, #fffccc, #ffd700, #ffb300);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.7));
+      }
+      
+      .star.small {
+        opacity: 0.3;
+        animation: smallStarTwinkle 4s infinite alternate;
+      }
+      
+      @keyframes smallStarTwinkle {
+        0% { opacity: 0.2; transform: scale(0.9); }
+        50% { opacity: 0.5; transform: scale(1.05); }
+        100% { opacity: 0.3; transform: scale(1); }
+      }
+      
+      .star.small .material-symbols-outlined {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      
+      .star.small:nth-child(11) { animation-delay: 0.5s; top: 25%; left: 95%; }
+      .star.small:nth-child(12) { animation-delay: 1.5s; top: 45%; left: 5%; }
+      .star.small:nth-child(13) { animation-delay: 0.8s; top: 85%; left: 30%; }
+      .star.small:nth-child(14) { animation-delay: 1.2s; top: 10%; left: 60%; }
+      .star.small:nth-child(15) { animation-delay: 0.3s; top: 55%; left: 75%; }
+      
+      .star-tooltip {
+        position: absolute;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+        pointer-events: none;
+      }
+      
+      .star:hover .star-tooltip {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      .upload-area {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+      }
+      
+      .upload-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+        color: white;
+        padding: 14px 30px;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        backdrop-filter: blur(8px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        border: none;
+        position: relative;
+        overflow: hidden;
+        font-weight: 500;
+      }
+      
+      .upload-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: all 0.4s ease;
+      }
+      
+      .upload-btn:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.3));
+      }
+      
+      .upload-btn:hover::before {
+        left: 100%;
+      }
+      
+      .upload-btn .material-symbols-outlined {
+        font-size: 1.4rem;
+        animation: glow 2s infinite alternate;
+      }
+      
+      @keyframes glow {
+        0% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
+        100% { text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.4); }
+      }
+      
+      .star.tiny .material-symbols-outlined {
+        font-size: 0.6rem;
+        color: rgba(255, 255, 255, 0.8);
+      }
+      
+      .star.tiny {
+        opacity: 0.2;
+        animation: tinyStarTwinkle 5s infinite alternate;
+      }
+      
+      @keyframes tinyStarTwinkle {
+        0% { opacity: 0.1; transform: scale(0.8); }
+        50% { opacity: 0.3; transform: scale(1.1); }
+        100% { opacity: 0.2; transform: scale(1); }
+      }
+      
+      /* 微小星星位置 */
+      .star.tiny:nth-child(16) { top: 15%; left: 12%; animation-delay: 0.2s; }
+      .star.tiny:nth-child(17) { top: 25%; left: 88%; animation-delay: 1.3s; }
+      .star.tiny:nth-child(18) { top: 45%; left: 92%; animation-delay: 0.6s; }
+      .star.tiny:nth-child(19) { top: 55%; left: 8%; animation-delay: 1.8s; }
+      .star.tiny:nth-child(20) { top: 75%; left: 15%; animation-delay: 0.9s; }
+      .star.tiny:nth-child(21) { top: 12%; left: 40%; animation-delay: 1.5s; }
+      .star.tiny:nth-child(22) { top: 32%; left: 65%; animation-delay: 0.4s; }
+      .star.tiny:nth-child(23) { top: 65%; left: 45%; animation-delay: 1.7s; }
+      .star.tiny:nth-child(24) { top: 78%; left: 85%; animation-delay: 0.7s; }
+      .star.tiny:nth-child(25) { top: 40%; left: 25%; animation-delay: 1.1s; }
+      
+      /* 流星效果 */
+      .shooting-star {
+        position: absolute;
+        width: 150px;
+        height: 2px;
+        background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.4) 20%, rgba(255,255,255,0.8) 40%, rgba(255,255,255,1) 60%, rgba(255,255,255,0.8) 80%, rgba(255,255,255,0) 100%);
+        transform: rotate(45deg);
+        filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+        z-index: 3;
+        animation: meteor 6s ease-in infinite;
+        opacity: 0;
+        border-radius: 100px;
+      }
+      
+      .shooting-star::after {
+        content: '';
+        position: absolute;
+        top: -1px;
+        right: 0;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: #fff;
+        box-shadow: 0 0 20px 8px rgba(255, 255, 255, 0.6);
+      }
+      
+      @keyframes meteor {
+        0% {
+          opacity: 0;
+          transform: rotate(45deg) translateX(-100px);
+        }
+        10% {
+          opacity: 1;
+        }
+        20% {
+          opacity: 0;
+          transform: rotate(45deg) translateX(600px);
+        }
+        100% {
+          opacity: 0;
+          transform: rotate(45deg) translateX(600px);
+        }
+      }
+      
+      .shooting-star.delay-1 {
+        top: 20%;
+        left: 10%;
+        animation-delay: 3s;
+        width: 180px;
+      }
+      
+      .shooting-star.delay-2 {
+        top: 50%;
+        left: 5%;
+        animation-delay: 6s;
+        width: 120px;
+      }
+      
+      .shooting-star.delay-3 {
+        top: 70%;
+        left: 0%;
+        animation-delay: 9s;
+        width: 200px;
+      }
+      
+      /* 星星光晕效果 */
+      .star.active::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 215, 0, 0.7) 0%, rgba(255, 215, 0, 0.3) 40%, rgba(255, 215, 0, 0) 70%);
+        transform: translate(-50%, -50%);
+        z-index: -1;
+        animation: pulse 3s infinite;
+      }
+      
+      @keyframes pulse {
+        0% {
+          transform: translate(-50%, -50%) scale(0.8);
+          opacity: 0.3;
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.2);
+          opacity: 0.7;
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(0.8);
+          opacity: 0.3;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 主题切换按钮 -->
+    <button class="theme-toggle" id="themeToggle">
+      <span class="material-symbols-outlined">dark_mode</span>
+    </button>
+    
+    <!-- 顶部导航 -->
+    <nav class="top-nav">
+      <!-- 品牌标识 -->
+      <div class="brand">
+        <div class="brand-logo">
+          <span>M</span>
+        </div>
+        <div class="brand-name">Moodify</div>
+      </div>
+      
+      <!-- 导航菜单 -->
+      <div class="nav-items">
+        <div class="top-item active" onclick="home()">
+          <span class="top-text">首页</span>
+        </div>
+        <div class="top-item" onclick="app()">
+          <span class="top-text">生成</span>
+        </div>
+        <div class="top-item" onclick="community()">
+          <span class="top-text">社区</span>
+        </div>
+        <div class="top-item" onclick="profile()">
+          <span class="top-text">我的</span>
+        </div>
+      </div>
+    </nav>
+    
+    <!-- 标题和背景 -->
+    <div class="main-content">
+      <div class="title-container">
+        <h1>Moodify</h1>
+        <div id="typing-text"></div>
+      </div>
+      <div class="background"></div>
+    </div>
+    
+    <!-- 预览板块 -->
+    <section class="preview-section">
+        <div class="preview-container">
+            <div class="text-preview">
+                <div class="preview-header">
+                    <h3>情感表达</h3>
+                    <div class="preview-badges">
+                        <span class="badge">AI驱动</span>
+                        <span class="badge">视觉艺术</span>
+                    </div>
+                </div>
+                
+                <p class="preview-description">通过精心设计的界面，将您的情感转化为视觉艺术。我们提供多种风格选择，让您的情感表达更加丰富多彩。</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <span class="material-symbols-outlined">nature</span>
+                        <p>自然场景融合</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="material-symbols-outlined">psychology</span>
+                        <p>多维情感分析</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="material-symbols-outlined">palette</span>
+                        <p>智能色彩匹配</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="material-symbols-outlined">hd</span>
+                        <p>高清画质输出</p>
+                    </div>
+                </div>
+                
+                <div class="preview-actions">
+                    <button class="preview-btn primary" onclick="app()">开始体验</button>
+                    <button class="preview-btn secondary">了解更多</button>
+                </div>
+            </div>
+            <div class="image-preview">
+                <div class="image-card">
+                    <img src="../assets/images/welcomeback.jpeg" alt="情感画面预览">
+                    <div class="image-controls">
+                        <button class="control-btn prev"><span class="material-symbols-outlined">chevron_left</span></button>
+                        <button class="control-btn next"><span class="material-symbols-outlined">chevron_right</span></button>
+                    </div>
+                    <div class="image-overlay">
+                        <div class="overlay-content">
+                            <span class="overlay-title">夏日宁静</span>
+                            <span class="overlay-desc">基于"平静"情绪生成</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="image-indicators">
+                    <span class="indicator active"></span>
+                    <span class="indicator"></span>
+                    <span class="indicator"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 3D轮播部分 -->
+    <section class="carousel-section">
+        <h3 class="carousel-title">情感图库</h3>
+        <div class="carousel-container">
+            <div class="shell">
+                <div class="content">
+                    <div class="item"></div>
+                    <div class="item"></div>
+                    <div class="item"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 关爱抑郁儿童活动板块 -->
+    <section class="activity-section">
+        <div class="activity-container">
+            <div class="activity-header">
+                <div class="activity-title-wrapper">
+                    <h3 class="activity-title">星光计划：关爱抑郁儿童</h3>
+                    <div class="activity-badges">
+                        <span class="badge special">公益活动</span>
+                        <span class="badge">正在进行</span>
+                    </div>
+                </div>
+                <p class="activity-subtitle">用艺术点亮心灵，让每个孩子都能看见希望</p>
+            </div>
+            
+            <div class="activity-content">
+                <div class="activity-image">
+                    <div class="star-map">
+                        <div class="star-map-container">
+                            <div class="star-map-bg">
+                                <img src="../assets/images/welcomeback.jpeg" alt="星图背景">
+                            </div>
+                            
+                            <!-- 添加星云效果 -->
+                            <div class="nebula nebula-1"></div>
+                            <div class="nebula nebula-2"></div>
+                            <div class="nebula nebula-3"></div>
+                            
+                            <!-- 添加星座连线 -->
+                            <div class="constellation-lines" id="constellationLines"></div>
+                            
+                            <div class="stars">
+                                <div class="star" data-star-id="1">
+                                    <span class="material-symbols-outlined">star</span>
+                                    <div class="star-tooltip">快乐</div>
+                                </div>
+                                <div class="star" data-star-id="2">
+                                    <span class="material-symbols-outlined">star</span>
+                                    <div class="star-tooltip">希望</div>
+                                </div>
+                                <div class="star" data-star-id="3">
+                                    <span class="material-symbols-outlined">star</span>
+                                    <div class="star-tooltip">勇气</div>
+                                </div>
+                                <div class="star" data-star-id="4">
+                                    <span class="material-symbols-outlined">star</span>
+                                    <div class="star-tooltip">温暖</div>
+                                </div>
+                                <div class="star" data-star-id="5">
+                                    <span class="material-symbols-outlined">star</span>
+                                    <div class="star-tooltip">梦想</div>
+                                </div>
+                                <div class="star" data-star-id="6">
+                                    <span class="material-symbols-outlined">star</span>
+                                    <div class="star-tooltip">安静</div>
+                                </div>
+                                <div class="star" data-star-id="7">
+                                    <span class="material-symbols-outlined">star</span>
+                                    <div class="star-tooltip">信任</div>
+                                </div>
+                                <div class="star" data-star-id="8">
+                                    <span class="material-symbols-outlined">star</span>
+                                    <div class="star-tooltip">友爱</div>
+                                </div>
+                                <div class="star" data-star-id="9">
+                                    <span class="material-symbols-outlined">star</span>
+                                    <div class="star-tooltip">理解</div>
+                                </div>
+                                <div class="star" data-star-id="10">
+                                    <span class="material-symbols-outlined">star</span>
+                                    <div class="star-tooltip">坚强</div>
+                                </div>
+                                <div class="star small" data-star-id="11">
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                                <div class="star small" data-star-id="12">
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                                <div class="star small" data-star-id="13">
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                                <div class="star small" data-star-id="14">
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                                <div class="star small" data-star-id="15">
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                                <!-- 增加更多的装饰性小星星 -->
+                                <div class="star tiny" data-star-id="16">
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                                <div class="star tiny" data-star-id="17">
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                                <div class="star tiny" data-star-id="18">
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                                <div class="star tiny" data-star-id="19">
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                                <div class="star tiny" data-star-id="20">
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                                <div class="star tiny" data-star-id="21">
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                                <div class="star tiny" data-star-id="22">
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                                <div class="star tiny" data-star-id="23">
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                                <div class="star tiny" data-star-id="24">
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                                <div class="star tiny" data-star-id="25">
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                                <!-- 添加流星效果 -->
+                                <div class="shooting-star"></div>
+                                <div class="shooting-star delay-1"></div>
+                                <div class="shooting-star delay-2"></div>
+                                <div class="shooting-star delay-3"></div>
+                            </div>
+                            <div class="upload-area">
+                                <input type="file" id="star-upload" accept="image/*" style="display: none;">
+                                <label for="star-upload" class="upload-btn">
+                                    <span class="material-symbols-outlined">add_photo_alternate</span>
+                                    <span>上传照片点亮星星</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="activity-info">
+                    <div class="activity-desc">
+                        <p>我们邀请您参与"星光计划"公益活动，通过Moodify情绪可视化技术，帮助抑郁儿童表达内心情感，绘制专属"情绪星图"。</p>
+                        <div class="activity-points">
+                            <div class="activity-point">
+                                <span class="material-symbols-outlined">volunteer_activism</span>
+                                <p>每生成一幅作品，平台将捐赠 0.05 元至儿童心理健康基金</p>
+                            </div>
+                            <div class="activity-point">
+                                <span class="material-symbols-outlined">school</span>
+                                <p>提供专业儿童心理辅导课程与艺术治疗工作坊</p>
+                            </div>
+                            <div class="activity-point">
+                                <span class="material-symbols-outlined">diversity_3</span>
+                                <p>线下走访活动，邀请志愿者共同参与关爱行动</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-actions">
+                        <button class="activity-btn primary" onclick="app()">立即参与</button>
+                        <button class="activity-btn secondary">了解详情</button>
+                        <div class="activity-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">43</span>
+                                <span class="stat-label">参与人数</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">122</span>
+                                <span class="stat-label">作品数量</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">¥ 12.5</span>
+                                <span class="stat-label">已筹善款</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="../utils/script.js"></script>
+    
+    <script>
+      function app() {
+        window.location.href = 'app.html';
+      }
+      function home() {
+        window.location.href = '/';
+      }
+      
+      function login() {
+        window.location.href = 'login.html';
+      }
+      
+      function register() {
+        window.location.href = 'login.html';
+        // 延迟后显示注册表单
+        setTimeout(() => {
+          if (typeof showRegister === 'function') {
+            showRegister();
+          }
+        }, 500);
+      }
+      
+      function profile() {
+        window.location.href = 'profile.html';
+      }
+      
+      function community() {
+        window.location.href = 'community.html';
+      }
+      
+      // 主题切换功能
+      const themeToggle = document.getElementById('themeToggle');
+      const themeIcon = themeToggle.querySelector('.material-symbols-outlined');
+      
+      // 检查本地存储中的主题设置
+      if(localStorage.getItem('darkMode') === 'enabled'){
+        document.body.classList.add('dark-mode');
+        themeIcon.textContent = 'light_mode';
+      }
+      
+      themeToggle.addEventListener('click', () => {
+        // 切换暗黑模式
+        document.body.classList.toggle('dark-mode');
+        
+        // 更新图标
+        if(document.body.classList.contains('dark-mode')){
+          themeIcon.textContent = 'light_mode';
+          localStorage.setItem('darkMode', 'enabled');
+        } else {
+          themeIcon.textContent = 'dark_mode';
+          localStorage.setItem('darkMode', 'disabled');
+        }
+      });
+      
+      // 改进的循环打字机效果
+      const typingText = document.getElementById('typing-text');
+      // 轮换显示的多条内容
+      const textsToType = [
+        "与机器交流的第1001次",
+        "让AI读懂你的情绪",
+        "用色彩表达内心世界",
+        "探索数字艺术的无限可能",
+        "定制你的专属情感图像"
+      ];
+      let textIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+      let typingDelay = 150;
+      let deletingDelay = 100;
+      let pauseDelay = 1500;
+
+      function typeLoop() {
+        // 获取当前要显示的文本
+        const currentTextToType = textsToType[textIndex];
+        const currentText = currentTextToType.substring(0, charIndex);
+        typingText.textContent = currentText;
+        
+        // 如果正在删除文本
+        if (isDeleting) {
+          charIndex--;
+          // 当删除完成时，切换到下一条文本并重新开始打字
+          if (charIndex <= 0) {
+            charIndex = 0; // 确保索引复位到0
+            typingText.textContent = ""; // 强制清空内容
+            isDeleting = false;
+            // 切换到下一条文本
+            textIndex = (textIndex + 1) % textsToType.length;
+            setTimeout(typeLoop, pauseDelay); // 暂停片刻再开始打字
+            return;
+          }
+          setTimeout(typeLoop, deletingDelay);
+        } 
+        // 如果正在打字
+        else {
+          charIndex++;
+          // 当打字完成时，暂停片刻，然后切换到删除状态
+          if (charIndex > currentTextToType.length) {
+            charIndex = currentTextToType.length; // 确保索引不超过文本长度
+            isDeleting = true;
+            setTimeout(typeLoop, pauseDelay); // 完成后暂停片刻
+            return;
+          }
+          // 确保显示完整文本
+          typingText.textContent = currentTextToType.substring(0, charIndex);
+          setTimeout(typeLoop, typingDelay);
+        }
+      }
+
+      // 当页面加载完成后开始打字效果
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(typeLoop, 1000); // 延迟1秒开始打字
+      });
+      
+      // 星图交互功能
+      document.addEventListener('DOMContentLoaded', function() {
+        const stars = document.querySelectorAll('.star');
+        const uploadInput = document.getElementById('star-upload');
+        let currentStar = null;
+        
+        // 绘制星座连线
+        drawConstellationLines();
+        
+        // 为每个星星添加点击事件
+        stars.forEach(star => {
+          star.addEventListener('click', function() {
+            currentStar = this;
+            uploadInput.click();
+          });
+        });
+        
+        // 处理文件上传
+        uploadInput.addEventListener('change', function(e) {
+          if (e.target.files && e.target.files[0] && currentStar) {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+              // 创建图片预览
+              const img = document.createElement('img');
+              img.src = e.target.result;
+              img.style.position = 'absolute';
+              img.style.width = '100%';
+              img.style.height = '100%';
+              img.style.objectFit = 'cover';
+              img.style.borderRadius = '50%';
+              img.style.zIndex = '1';
+              
+              // 创建星星容器
+              const starContainer = document.createElement('div');
+              starContainer.style.position = 'absolute';
+              starContainer.style.width = '40px';
+              starContainer.style.height = '40px';
+              starContainer.style.borderRadius = '50%';
+              starContainer.style.overflow = 'hidden';
+              starContainer.style.zIndex = '1';
+              
+              // 设置星星容器的位置
+              const starRect = currentStar.getBoundingClientRect();
+              const containerRect = currentStar.closest('.star-map').getBoundingClientRect();
+              starContainer.style.left = (starRect.left - containerRect.left) + 'px';
+              starContainer.style.top = (starRect.top - containerRect.top) + 'px';
+              
+              // 添加图片到星星容器
+              starContainer.appendChild(img);
+              currentStar.closest('.star-map').appendChild(starContainer);
+              
+              // 将星星图标移到图片上方
+              currentStar.style.zIndex = '2';
+              
+              // 点亮星星
+              currentStar.classList.add('active');
+              
+              // 添加闪光特效
+              createStarLightEffect(currentStar);
+              
+              // 更新统计数据
+              updateStats();
+            };
+            
+            reader.readAsDataURL(file);
+          }
+        });
+        
+        // 创建星星点亮时的闪光特效
+        function createStarLightEffect(star) {
+          const starMap = star.closest('.star-map');
+          const starRect = star.getBoundingClientRect();
+          const mapRect = starMap.getBoundingClientRect();
+          
+          // 创建闪光元素
+          const flash = document.createElement('div');
+          flash.className = 'star-flash';
+          flash.style.position = 'absolute';
+          flash.style.top = (starRect.top - mapRect.top + starRect.height/2) + 'px';
+          flash.style.left = (starRect.left - mapRect.left + starRect.width/2) + 'px';
+          flash.style.width = '0';
+          flash.style.height = '0';
+          flash.style.borderRadius = '50%';
+          flash.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+          flash.style.transform = 'translate(-50%, -50%)';
+          flash.style.zIndex = '10';
+          flash.style.boxShadow = '0 0 20px 10px rgba(255, 255, 255, 0.6), 0 0 40px 20px rgba(255, 215, 0, 0.4)';
+          flash.style.transition = 'all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1)';
+          
+          // 添加到DOM
+          starMap.appendChild(flash);
+          
+          // 触发动画
+          setTimeout(() => {
+            flash.style.width = '100px';
+            flash.style.height = '100px';
+            flash.style.opacity = '0';
+          }, 50);
+          
+          // 移除元素
+          setTimeout(() => {
+            starMap.removeChild(flash);
+          }, 550);
+        }
+        
+        // 更新统计数据
+        function updateStats() {
+          const statNumbers = document.querySelectorAll('.stat-number');
+          const currentCount = parseInt(statNumbers[0].textContent);
+          const currentWorks = parseInt(statNumbers[1].textContent);
+          const currentAmount = parseFloat(statNumbers[2].textContent.replace('¥ ', ''));
+          
+          statNumbers[0].textContent = currentCount + 1;
+          statNumbers[1].textContent = currentWorks + 1;
+          statNumbers[2].textContent = '¥ ' + (currentAmount + 0.05).toFixed(2);
+        }
+        
+        // 创建星座连线
+        function drawConstellationLines() {
+          const constellationContainer = document.getElementById('constellationLines');
+          const mainStars = document.querySelectorAll('.star:not(.small):not(.tiny)');
+          const mainStarPositions = [];
+          
+          // 获取所有星星的位置
+          mainStars.forEach(star => {
+            const rect = star.getBoundingClientRect();
+            const mapRect = star.closest('.star-map').getBoundingClientRect();
+            
+            mainStarPositions.push({
+              id: star.dataset.starId,
+              x: rect.left - mapRect.left + rect.width / 2,
+              y: rect.top - mapRect.top + rect.height / 2
+            });
+          });
+          
+          // 星座连线定义 - 这些是星星ID之间的连线
+          const constellationConnections = [
+            [1, 2], [2, 5], [5, 8], [8, 10],
+            [1, 3], [3, 4], [3, 7],
+            [6, 9], [7, 9], [4, 10]
+          ];
+          
+          // 创建连线
+          constellationConnections.forEach(connection => {
+            const star1 = mainStarPositions.find(p => p.id == connection[0]);
+            const star2 = mainStarPositions.find(p => p.id == connection[1]);
+            
+            if (star1 && star2) {
+              const line = document.createElement('div');
+              line.className = 'constellation-line';
+              
+              // 计算距离和角度
+              const dx = star2.x - star1.x;
+              const dy = star2.y - star1.y;
+              const distance = Math.sqrt(dx * dx + dy * dy);
+              const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+              
+              // 设置线条样式
+              line.style.width = `${distance}px`;
+              line.style.transformOrigin = '0 0';
+              line.style.transform = `translate(${star1.x}px, ${star1.y}px) rotate(${angle}deg)`;
+              
+              // 添加到容器
+              constellationContainer.appendChild(line);
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html> 

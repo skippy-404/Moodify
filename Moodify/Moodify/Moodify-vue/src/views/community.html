@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moodify 社区</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/styles/styles.css">
+    <link rel="stylesheet" href="../assets/styless/dark-mode.css">
+    <style>
+        .community-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-top: 120px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #fff 0%, #f8f8f8 100%);
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-align: center;
+            background: linear-gradient(45deg, #7f7fd5, #86a8e7, #91eae4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 3px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .filter-section {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 50px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            position: sticky;
+            top: 90px;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 30px -5px rgba(31, 38, 135, 0.18), 
+                inset 0 1px 1px rgba(255, 255, 255, 0.8),
+                0 2px 0 rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .filter-section::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-tab {
+            padding: 8px 20px;
+            border-radius: 25px;
+            background: #f0f4ff;
+            color: rgb(51, 52, 124);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px -5px rgba(68, 96, 241, 0.35),
+                inset 0 1px 1px rgba(255, 255, 255, 0.6);
+        }
+
+        .filter-tab.active {
+            color: white;
+            background: linear-gradient(135deg, #7f7fd5, #86a8e7, #91eae4);
+            box-shadow: 0 6px 15px -3px rgba(0, 0, 0, 0.2);
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            padding: 20px 0;
+        }
+
+        .post-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px -5px rgba(31, 38, 135, 0.18);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .post-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px -10px rgba(31, 38, 135, 0.25);
+        }
+
+        .post-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .post-card:hover .post-image {
+            transform: scale(1.05);
+        }
+
+        .post-content {
+            padding: 20px;
+            position: relative;
+        }
+
+        .post-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .post-description {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .post-tag {
+            background: #f0f4ff;
+            color: rgb(51, 52, 124);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .post-tag:hover {
+            background: linear-gradient(135deg, #7f7fd5, #86a8e7, #91eae4);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .post-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.1);
+        }
+
+        .user-name {
+            font-size: 0.95rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 8px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .action-btn:hover {
+            background: rgba(127, 127, 213, 0.1);
+            color: #7f7fd5;
+            transform: translateY(-2px);
+        }
+
+        .action-btn.liked {
+            color: #7f7fd5;
+        }
+
+        .action-btn .material-icons {
+            font-size: 20px;
+        }
+
+        .action-btn span:last-child {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* 悬浮上传按钮 - 根据主页风格优化 */
+        .floating-upload-btn {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7f7fd5, #86a8e7, #91eae4);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px -5px rgba(31, 38, 135, 0.4);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .floating-upload-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 12px 25px -8px rgba(31, 38, 135, 0.5);
+        }
+
+        .floating-upload-btn .material-symbols-outlined {
+            font-size: 26px;
+        }
+
+        /* 上传表单样式 - 与主页表单风格一致 */
+        .upload-form-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        .upload-form-container.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .upload-form {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transform: translateY(30px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .upload-form-container.active .upload-form {
+            transform: translateY(0);
+        }
+
+        .upload-form-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .upload-form-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .upload-form-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f0f4ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            margin-left: 10px;
+        }
+
+        .upload-form-close:hover {
+            background: #e0e6ff;
+            transform: rotate(90deg);
+        }
+
+        .upload-form-group {
+            margin-bottom: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .upload-form-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .upload-form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .upload-form-input:focus {
+            outline: none;
+            border-color: #7f7fd5;
+            box-shadow: 0 0 0 3px rgba(127, 127, 213, 0.2);
+        }
+
+        .upload-form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            min-height: 100px;
+            resize: vertical;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .upload-form-textarea:focus {
+            outline: none;
+            border-color: #7f7fd5;
+            box-shadow: 0 0 0 3px rgba(127, 127, 213, 0.2);
+        }
+
+        .upload-form-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .upload-form-tag {
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: #f0f4ff;
+            color: rgb(51, 52, 124);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-form-tag:hover, .upload-form-tag.active {
+            background: linear-gradient(135deg, #7f7fd5, #86a8e7, #91eae4);
+            color: white;
+        }
+
+        .image-upload-area {
+            width: 100%;
+            height: 180px;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            overflow: hidden;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .image-upload-area:hover {
+            border-color: #7f7fd5;
+            background: #f0f4ff;
+        }
+
+        .image-upload-icon {
+            font-size: 40px;
+            color: #999;
+            margin-bottom: 10px;
+        }
+
+        .image-upload-text {
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+            padding: 0 10px;
+        }
+
+        .image-preview-container {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+
+        .image-preview-container.active {
+            display: block;
+        }
+
+        .image-preview-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .upload-form-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .upload-form-button {
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .upload-form-button.cancel {
+            background: #f0f0f0;
+            color: #666;
+        }
+
+        .upload-form-button.submit {
+            background: linear-gradient(135deg, #7f7fd5, #86a8e7, #91eae4);
+            color: white;
+        }
+
+        .upload-form-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .upload-form-button.cancel:hover {
+            background: #e6e6e6;
+        }
+
+        .upload-form-button.submit:hover {
+            box-shadow: 0 5px 15px rgba(127, 127, 213, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .community-container {
+                padding-top: 100px;
+            }
+
+            .filter-section {
+                top: 70px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 2.2rem;
+            }
+
+            .posts-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .floating-upload-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+
+            .floating-upload-btn .material-symbols-outlined {
+                font-size: 24px;
+            }
+
+            .upload-form {
+                width: 100%;
+                padding: 20px;
+                border-radius: 15px;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+            
+            .upload-form-header {
+                margin-bottom: 15px;
+            }
+            
+            .upload-form-title {
+                font-size: 1.3rem;
+            }
+            
+            .upload-form-group {
+                margin-bottom: 15px;
+            }
+            
+            .upload-form-input,
+            .upload-form-textarea {
+                padding: 10px 14px;
+                font-size: 0.95rem;
+            }
+            
+            .image-upload-area {
+                height: 150px;
+            }
+            
+            .upload-form-buttons {
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 添加页面加载事件 -->
+    <script>
+        window.onload = function() {
+            console.log('页面已完全加载');
+            document.body.classList.add('loaded');
+        }
+    </script>
+    
+    <!-- 主题切换按钮 -->
+    <button class="theme-toggle" id="themeToggle">
+        <span class="material-symbols-outlined">dark_mode</span>
+    </button>
+    
+    <!-- 顶部导航 -->
+    <nav class="top-nav">
+        <!-- 品牌标识 -->
+        <div class="brand">
+            <div class="brand-logo">
+                <span>M</span>
+            </div>
+            <div class="brand-name">Moodify</div>
+        </div>
+        
+        <!-- 导航菜单 -->
+        <div class="nav-items">
+            <div class="top-item" onclick="home()">
+                <span class="top-text">首页</span>
+            </div>
+            <div class="top-item" onclick="app()">
+                <span class="top-text">生成</span>
+            </div>
+            <div class="top-item active" onclick="community()">
+                <span class="top-text">社区</span>
+            </div>
+            <div class="top-item" onclick="profile()">
+                <span class="top-text">我的</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="community-container">
+        <div class="header">
+            <h1>Moodify 社区</h1>
+            <p>分享你的心情，发现更多美好</p>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-tab active" data-filter="all">全部</div>
+            <div class="filter-tab" data-filter="happy">快乐</div>
+            <div class="filter-tab" data-filter="calm">平静</div>
+            <div class="filter-tab" data-filter="sad">忧郁</div>
+            <div class="filter-tab" data-filter="passion">激情</div>
+        </div>
+
+        <div class="posts-grid" id="postsGrid">
+            <!-- 示例帖子 -->
+            <div class="post-card" data-type="happy">
+                <img src="https://picsum.photos/800/800?random=1" alt="示例图片" class="post-image">
+                <div class="post-content">
+                    <h3 class="post-title">阳光明媚的一天</h3>
+                    <p class="post-description">今天天气真好，心情也特别棒！分享一些让我感到快乐的小事～</p>
+                    <div class="post-tags">
+                        <span class="post-tag">#快乐</span>
+                        <span class="post-tag">#阳光</span>
+                        <span class="post-tag">#好心情</span>
+                    </div>
+                    <div class="post-actions">
+                        <div class="user-info">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="用户头像" class="user-avatar">
+                            <span class="user-name">阳光心情</span>
+                        </div>
+                        <div class="action-buttons">
+                            <div class="action-btn">
+                                <span class="material-icons">favorite</span>
+                                <span>128</span>
+                            </div>
+                            <div class="action-btn">
+                                <span class="material-icons">chat_bubble</span>
+                                <span>36</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 新增示例帖子 -->
+            <div class="post-card" data-type="calm">
+                <img src="https://picsum.photos/800/800?random=2" alt="示例图片" class="post-image">
+                <div class="post-content">
+                    <h3 class="post-title">宁静的午后时光</h3>
+                    <p class="post-description">在繁忙的工作之余，找一个安静的角落，品一杯茶，读一本书，让心灵沉淀。</p>
+                    <div class="post-tags">
+                        <span class="post-tag">#平静</span>
+                        <span class="post-tag">#阅读</span>
+                        <span class="post-tag">#放松</span>
+                    </div>
+                    <div class="post-actions">
+                        <div class="user-info">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="用户头像" class="user-avatar">
+                            <span class="user-name">书香茶韵</span>
+                        </div>
+                        <div class="action-buttons">
+                            <div class="action-btn">
+                                <span class="material-icons">favorite</span>
+                                <span>86</span>
+                            </div>
+                            <div class="action-btn">
+                                <span class="material-icons">chat_bubble</span>
+                                <span>24</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 忧郁类型帖子 -->
+            <div class="post-card" data-type="sad">
+                <img src="https://picsum.photos/800/800?random=3" alt="示例图片" class="post-image">
+                <div class="post-content">
+                    <h3 class="post-title">雨夜思绪</h3>
+                    <p class="post-description">窗外的雨声敲打着玻璃，思绪随着雨滴流淌。偶尔的孤独也是一种享受，让人有时间与自己对话。</p>
+                    <div class="post-tags">
+                        <span class="post-tag">#忧郁</span>
+                        <span class="post-tag">#雨天</span>
+                        <span class="post-tag">#思考</span>
+                    </div>
+                    <div class="post-actions">
+                        <div class="user-info">
+                            <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="用户头像" class="user-avatar">
+                            <span class="user-name">雨巷漫步</span>
+                        </div>
+                        <div class="action-buttons">
+                            <div class="action-btn">
+                                <span class="material-icons">favorite</span>
+                                <span>64</span>
+                            </div>
+                            <div class="action-btn">
+                                <span class="material-icons">chat_bubble</span>
+                                <span>17</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 激情类型帖子 -->
+            <div class="post-card" data-type="passion">
+                <img src="https://picsum.photos/800/800?random=4" alt="示例图片" class="post-image">
+                <div class="post-content">
+                    <h3 class="post-title">追逐梦想的脚步</h3>
+                    <p class="post-description">每一次挑战都是成长的机会，每一次尝试都让我离梦想更近一步。生活需要热情，需要不断向前！</p>
+                    <div class="post-tags">
+                        <span class="post-tag">#激情</span>
+                        <span class="post-tag">#挑战</span>
+                        <span class="post-tag">#追梦</span>
+                    </div>
+                    <div class="post-actions">
+                        <div class="user-info">
+                            <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="用户头像" class="user-avatar">
+                            <span class="user-name">勇往直前</span>
+                        </div>
+                        <div class="action-buttons">
+                            <div class="action-btn">
+                                <span class="material-icons">favorite</span>
+                                <span>175</span>
+                            </div>
+                            <div class="action-btn">
+                                <span class="material-icons">chat_bubble</span>
+                                <span>42</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 悬浮上传按钮 -->
+    <div class="floating-upload-btn" id="uploadBtn">
+        <span class="material-symbols-outlined">add_photo_alternate</span>
+    </div>
+
+    <!-- 上传表单 -->
+    <div class="upload-form-container" id="uploadFormContainer">
+        <div class="upload-form">
+            <div class="upload-form-header">
+                <div class="upload-form-title">分享新内容</div>
+                <div class="upload-form-close" id="closeUploadForm">
+                    <span class="material-icons">close</span>
+                </div>
+            </div>
+            <div class="image-upload-area" id="imageUploadArea">
+                <div class="image-upload-icon material-symbols-outlined">cloud_upload</div>
+                <div class="image-upload-text">点击上传图片</div>
+                <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                <div class="image-preview-container" id="imagePreviewContainer">
+                    <img id="imagePreview" src="" alt="图片预览">
+                </div>
+            </div>
+            <div class="upload-form-group">
+                <label class="upload-form-label" for="postTitle">标题</label>
+                <input type="text" id="postTitle" class="upload-form-input" placeholder="为你的内容添加标题">
+            </div>
+            <div class="upload-form-group">
+                <label class="upload-form-label" for="postDescription">描述</label>
+                <textarea id="postDescription" class="upload-form-textarea" placeholder="添加一些描述..."></textarea>
+            </div>
+            <div class="upload-form-group">
+                <label class="upload-form-label">标签</label>
+                <div class="upload-form-tags">
+                    <div class="upload-form-tag" data-tag="快乐">快乐</div>
+                    <div class="upload-form-tag" data-tag="平静">平静</div>
+                    <div class="upload-form-tag" data-tag="忧郁">忧郁</div>
+                    <div class="upload-form-tag" data-tag="激情">激情</div>
+                    <div class="upload-form-tag" data-tag="自定义">+ 自定义</div>
+                </div>
+            </div>
+            <div class="upload-form-buttons">
+                <button class="upload-form-button cancel" id="cancelUpload">取消</button>
+                <button class="upload-form-button submit" id="submitPost">发布</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM已加载完成');
+            
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = themeToggle.querySelector('.material-symbols-outlined');
+            const uploadBtn = document.getElementById('uploadBtn');
+            const uploadFormContainer = document.getElementById('uploadFormContainer');
+            const closeUploadForm = document.getElementById('closeUploadForm');
+            const cancelUpload = document.getElementById('cancelUpload');
+            const submitPost = document.getElementById('submitPost');
+            const imageUploadArea = document.getElementById('imageUploadArea');
+            const imageUpload = document.getElementById('imageUpload');
+            const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+            const imagePreview = document.getElementById('imagePreview');
+            const postTitle = document.getElementById('postTitle');
+            const postDescription = document.getElementById('postDescription');
+            const postsGrid = document.getElementById('postsGrid');
+            const formTags = document.querySelectorAll('.upload-form-tag');
+            
+            // 检查本地存储中的主题设置
+            if(localStorage.getItem('darkMode') === 'enabled'){
+                document.body.classList.add('dark-mode');
+                themeIcon.textContent = 'light_mode';
+            }
+            
+            // 主题切换
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                
+                if(document.body.classList.contains('dark-mode')){
+                    themeIcon.textContent = 'light_mode';
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    themeIcon.textContent = 'dark_mode';
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            });
+
+            // 打开上传表单
+            uploadBtn.addEventListener('click', function() {
+                uploadFormContainer.classList.add('active');
+            });
+
+            // 关闭上传表单
+            function closeUploadFormHandler() {
+                uploadFormContainer.classList.remove('active');
+                resetForm();
+            }
+
+            closeUploadForm.addEventListener('click', closeUploadFormHandler);
+            cancelUpload.addEventListener('click', closeUploadFormHandler);
+
+            // 上传图片
+            imageUploadArea.addEventListener('click', function() {
+                imageUpload.click();
+            });
+
+            imageUpload.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imagePreview.src = e.target.result;
+                        imagePreviewContainer.classList.add('active');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // 标签选择
+            formTags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    if (this.dataset.tag === '自定义') {
+                        const customTag = prompt('请输入自定义标签：');
+                        if (customTag && customTag.trim() !== '') {
+                            this.classList.add('active');
+                            this.dataset.custom = customTag;
+                        }
+                    } else {
+                        this.classList.toggle('active');
+                    }
+                });
+            });
+
+            // 提交发布
+            submitPost.addEventListener('click', function() {
+                const title = postTitle.value.trim();
+                const description = postDescription.value.trim();
+                const imageSource = imagePreview.src;
+                const selectedTags = [];
+                
+                formTags.forEach(tag => {
+                    if (tag.classList.contains('active')) {
+                        if (tag.dataset.tag === '自定义' && tag.dataset.custom) {
+                            selectedTags.push(tag.dataset.custom);
+                        } else {
+                            selectedTags.push(tag.dataset.tag);
+                        }
+                    }
+                });
+
+                if (!title || !description || !imageSource || imageSource === '') {
+                    alert('请填写完整信息并上传图片');
+                    return;
+                }
+
+                // 创建新帖子
+                const postCard = createPostCard(imageSource, title, description, selectedTags);
+                postsGrid.insertBefore(postCard, postsGrid.firstChild);
+                
+                // 关闭表单
+                closeUploadFormHandler();
+            });
+
+            // 重置表单
+            function resetForm() {
+                postTitle.value = '';
+                postDescription.value = '';
+                imagePreview.src = '';
+                imagePreviewContainer.classList.remove('active');
+                formTags.forEach(tag => {
+                    tag.classList.remove('active');
+                    tag.dataset.custom = '';
+                });
+            }
+
+            // 创建帖子卡片
+            function createPostCard(imageUrl, title, description, tags) {
+                const card = document.createElement('div');
+                card.className = 'post-card';
+                card.dataset.type = tags.includes('快乐') ? 'happy' : 
+                                    tags.includes('平静') ? 'calm' : 
+                                    tags.includes('忧郁') ? 'sad' : 
+                                    tags.includes('激情') ? 'passion' : 'new';
+                
+                card.innerHTML = `
+                    <img src="${imageUrl}" alt="${title}" class="post-image">
+                    <div class="post-content">
+                        <h3 class="post-title">${title}</h3>
+                        <p class="post-description">${description}</p>
+                        <div class="post-tags">
+                            ${tags.map(tag => `<span class="post-tag">#${tag}</span>`).join('')}
+                        </div>
+                        <div class="post-actions">
+                            <div class="user-info">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="用户头像" class="user-avatar">
+                                <span class="user-name">新用户</span>
+                            </div>
+                            <div class="action-buttons">
+                                <div class="action-btn">
+                                    <span class="material-icons">favorite</span>
+                                    <span>0</span>
+                                </div>
+                                <div class="action-btn">
+                                    <span class="material-icons">chat_bubble</span>
+                                    <span>0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // 添加点赞功能
+                const likeBtn = card.querySelector('.action-btn');
+                likeBtn.addEventListener('click', function() {
+                    const isLiked = likeBtn.classList.contains('liked');
+                    const likeCount = likeBtn.querySelector('span:last-child');
+                    if (isLiked) {
+                        likeBtn.classList.remove('liked');
+                        likeCount.textContent = parseInt(likeCount.textContent) - 1;
+                    } else {
+                        likeBtn.classList.add('liked');
+                        likeCount.textContent = parseInt(likeCount.textContent) + 1;
+                    }
+                });
+
+                return card;
+            }
+
+            // 为现有帖子添加点赞功能
+            document.querySelectorAll('.post-card .action-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const isLiked = this.classList.contains('liked');
+                    const likeCount = this.querySelector('span:last-child');
+                    if (isLiked) {
+                        this.classList.remove('liked');
+                        likeCount.textContent = parseInt(likeCount.textContent) - 1;
+                    } else {
+                        this.classList.add('liked');
+                        likeCount.textContent = parseInt(likeCount.textContent) + 1;
+                    }
+                });
+            });
+
+            // 添加筛选功能
+            const filterTabs = document.querySelectorAll('.filter-tab');
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    const filter = this.dataset.filter;
+                    filterPosts(filter);
+                });
+            });
+
+            function filterPosts(filter) {
+                const posts = document.querySelectorAll('.post-card');
+                posts.forEach(post => {
+                    if (filter === 'all' || post.dataset.type === filter) {
+                        post.style.display = 'block';
+                    } else {
+                        post.style.display = 'none';
+                    }
+                });
+            }
+        });
+
+        // 页面导航
+        function app() {
+            window.location.href = 'app.html';
+        }
+        function home() {
+            window.location.href = 'index.html';
+        }
+        function profile() {
+            window.location.href = 'profile.html';
+        }
+        function community() {
+            window.location.href = 'community.html';
+        }
+    </script>
+</body>
+</html> 
