@@ -103,31 +103,31 @@
     }
     
     #app {
-      width: 92%;
-      max-width: 1100px;
-      background-color: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      width: 90%;
+      max-width: 1600px;
+      background-color: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
       border-radius: 24px;
-      padding: 1.8rem;
-      box-shadow: 0 10px 30px -8px rgba(31, 38, 135, 0.2),
+      padding: 1.2rem;
+      box-shadow: 0 12px 32px -10px rgba(31, 38, 135, 0.25),
                   inset 0 1px 2px rgba(255, 255, 255, 0.9),
-                  0 2px 0 rgba(255, 255, 255, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.25);
+                  0 3px 0 rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
-      margin-bottom: 2.5rem;
+      margin: 0.8rem auto 2rem;
     }
     
     #app:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-      box-shadow: 0 15px 35px -10px rgba(31, 38, 135, 0.25),
-                  inset 0 1px 2px rgba(255, 255, 255, 0.9),
-                  0 2px 0 rgba(255, 255, 255, 0.7);
-      transform: translateY(-3px);
+      background-color: rgba(255, 255, 255, 0.22);
+      box-shadow: 0 18px 40px -12px rgba(31, 38, 135, 0.3),
+                  inset 0 1px 3px rgba(255, 255, 255, 1),
+                  0 3px 0 rgba(255, 255, 255, 0.8);
+      transform: translateY(-5px);
     }
     
     .app-header {
-      margin-bottom: 25px;
+      margin-bottom: 20px;
       text-align: center;
     }
     
@@ -136,69 +136,94 @@
       transform: none;
       width: auto;
       text-align: center;
-      color: rgb(51, 52, 124);
-      font-size: 1.8rem;
-      margin: 0 0 8px;
-      text-shadow: 0 1px 5px rgba(255, 255, 255, 0.5);
+      color: rgb(46, 47, 112);
+      font-size: 2rem;
+      margin: 0 0 10px;
+      text-shadow: 0 2px 6px rgba(255, 255, 255, 0.6);
       font-family: "Century Gothic", Times, serif;
-      font-weight: 600;
-      letter-spacing: 0.8px;
+      font-weight: 700;
+      letter-spacing: 1px;
     }
     
     .app-subtitle {
-      color: rgb(70, 80, 120);
-      font-size: 1rem;
+      color: rgb(60, 70, 110);
+      font-size: 1.1rem;
       text-align: center;
       text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
       font-family: "Century Gothic", Times, serif;
-      margin-bottom: 10px;
-      letter-spacing: 0.2px;
+      margin-bottom: 12px;
+      letter-spacing: 0.3px;
     }
     
     .app-container {
       display: grid;
       grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1.8fr 0.7fr;
       grid-template-areas: 
-        "emotion preview"
-        "prompt share";
+        "emotion preview" 
+        "prompt preview";
       gap: 20px;
+      height: calc(100vh - 150px);
+      min-height: 750px;
+      box-sizing: border-box;
+      max-width: 100%;
+      overflow: hidden;
     }
     
     .emotion-panel {
       grid-area: emotion;
-      background-color: rgba(255, 255, 255, 0.12);
-      border-radius: 22px;
-      padding: 15px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      margin-bottom: 0;
-      backdrop-filter: blur(8px);
+      background-color: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
       transition: all 0.3s ease;
-      height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    
+    .emotion-panel:hover {
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      transform: translateY(-5px);
+    }
+    
+    .emotion-sliders {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding-right: 5px;
     }
     
     .emotion-slider {
-      margin-bottom: 12px;
-      background-color: rgba(255, 255, 255, 0.15);
-      border-radius: 16px;
-      padding: 10px 15px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      margin-bottom: 0;
+      background-color: rgba(255, 255, 255, 0.18);
+      border-radius: 18px;
+      padding: 15px 18px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: calc(22% - 10px);
+    }
+    
+    .emotion-slider:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     }
     
     .slider-title {
       text-align: center;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     
     .slider-title span {
-      color: rgb(51, 52, 124);
-      font-size: 1rem;
-      text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
+      color: rgb(46, 47, 112);
+      font-size: 1.1rem;
+      text-shadow: 0 1px 4px rgba(255, 255, 255, 0.6);
       font-family: "Century Gothic", Times, serif;
       font-weight: 600;
-      letter-spacing: 0.5px;
     }
     
     .slider-label {
@@ -348,22 +373,121 @@
     /* 预览容器样式 */
     .preview-container {
       grid-area: preview;
-      height: 100%;
+      background-color: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      width: 100%;
+      max-width: 100%;
+      justify-self: stretch;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+    
+    .preview-container:hover {
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      transform: translateY(-5px);
     }
     
     .preview-title {
-      color: rgb(51, 52, 124);
-      font-size: 1.7rem;
+      color: rgb(46, 47, 112);
+      font-size: 1.2rem;
       text-align: center;
-      margin-bottom: 25px;
+      margin-bottom: 12px;
       text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
       font-family: "Century Gothic", Times, serif;
       font-weight: 600;
-      letter-spacing: 0.5px;
-      position: relative;
     }
-   
-
+    
+    .preview-content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+      margin-bottom: 12px;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .preview-image-container {
+      width: 100%;
+      height: 100%;
+      min-height: 350px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      position: relative;
+      flex-grow: 1;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .preview-image-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    }
+    
+    .preview-image {
+      width: 100%;
+      height: auto;
+      max-height: 90%;
+      object-fit: contain;
+      transition: all 0.5s ease;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+    
+    .preview-image:hover {
+      transform: scale(1.03);
+    }
+    
+    .preview-image-caption {
+      position: absolute;
+      bottom: 15px;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      color: white;
+      padding: 15px 10px 10px;
+      font-weight: 600;
+      font-family: "Century Gothic", Times, serif;
+      text-align: center;
+      margin-top: 0;
+    }
+    
+    .preview-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 0px;
+      padding: 10px 5px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    button, .btn-photo-upload {
+      white-space: nowrap;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    
     /* 情绪展示盒子样式 */
     .shell {
       width: 100%;
@@ -381,46 +505,66 @@
     /* 文字提示输入面板样式 */
     .text-prompt-panel {
       grid-area: prompt;
-      background-color: rgba(255, 255, 255, 0.12);
-      border-radius: 22px;
-      padding: 18px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      margin-bottom: 0;
-      backdrop-filter: blur(8px);
+      background-color: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
       transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
     
     .text-prompt-panel:hover {
-      background-color: rgba(255, 255, 255, 0.18);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      transform: translateY(-5px);
     }
     
     .prompt-title {
-      font-size: 1.4rem;
-      color: rgb(51, 52, 124);
-      margin-bottom: 15px;
+      font-size: 1.3rem;
+      color: rgb(46, 47, 112);
+      margin-bottom: 12px;
       text-align: center;
       text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
       font-family: "Century Gothic", Times, serif;
       font-weight: 600;
+      position: relative;
+    }
+    
+    .prompt-title:after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 3px;
+      background: linear-gradient(90deg, #7f7fd5, #86a8e7);
+      border-radius: 3px;
     }
     
     .prompt-container {
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 10px;
+      flex-grow: 1;
+      width: 100%;
+      overflow: hidden;
+      box-sizing: border-box;
     }
     
     .text-prompt-input {
       width: 100%;
-      min-height: 80px;
-      padding: 12px;
+      height: calc(100% - 70px);
+      min-height: 90px;
+      flex-grow: 1;
+      padding: 15px;
       border-radius: 15px;
       border: 1px solid rgba(255, 255, 255, 0.3);
       background-color: rgba(255, 255, 255, 0.1);
-      resize: vertical;
+      resize: none;
       color: rgb(51, 52, 124);
       font-family: "Century Gothic", Times, serif;
       font-size: 1rem;
@@ -428,37 +572,27 @@
       transition: all 0.3s ease;
       backdrop-filter: blur(5px);
       -webkit-backdrop-filter: blur(5px);
-    }
-    
-    .text-prompt-input:focus {
-      outline: none;
-      border-color: rgba(68, 96, 241, 0.6);
-      box-shadow: 0 0 10px rgba(68, 96, 241, 0.3);
-      background-color: rgba(255, 255, 255, 0.15);
+      box-sizing: border-box;
+      overflow: auto;
+      margin-bottom: 5px;
     }
     
     .prompt-buttons {
       display: flex;
-      gap: 15px;
+      flex-wrap: wrap;
+      gap: 10px;
       justify-content: center;
+      margin-top: 0;
+      margin-bottom: 5px;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 5px;
     }
     
     .generate-with-prompt-btn {
-      padding: 10px 20px;
+      padding: 10px 18px;
       font-size: 1rem;
       background: linear-gradient(135deg, #7f7fd5, #86a8e7, #91eae4);
-      box-shadow: 0 5px 15px rgba(127, 127, 213, 0.4);
-    }
-    
-    .generate-with-prompt-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(127, 127, 213, 0.5);
-      background: linear-gradient(135deg, #6868c0, #7294d4, #7cd8d1);
-    }
-    
-    .clear-prompt-btn {
-      padding: 10px 20px;
-      font-size: 1rem;
     }
     
     /* 添加悬停时其他盒子的透明度变化 */
@@ -578,21 +712,6 @@
       .box:hover {
         flex-basis: 85%;
       }
-    }
-    
-    .share-panel {
-      grid-area: share;
-      background-color: rgba(255, 255, 255, 0.12);
-      border-radius: 22px;
-      padding: 18px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      margin-bottom: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-      backdrop-filter: blur(8px);
     }
     
     button, .btn-photo-upload {
@@ -1016,37 +1135,34 @@
     .preset-buttons {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 25px;
-      margin-top: 5px;
+      gap: 10px;
+      margin-bottom: 20px;
       justify-content: center;
     }
     
     .preset-btn {
-      background-color: rgba(255, 255, 255, 0.18);
-      border: 1px solid rgba(0, 0, 50, 0.2);
+      background-color: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(0, 0, 50, 0.3);
       border-radius: 50px;
-      padding: 10px 18px;
-      font-size: 1rem;
-      color: rgb(51, 52, 124);
+      padding: 8px 18px;
+      font-size: 0.95rem;
+      color: rgb(46, 47, 112);
       cursor: pointer;
-      transition: all 0.35s ease;
+      transition: all 0.3s ease;
       font-family: "Century Gothic", Times, serif;
       font-weight: 600;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
     }
     
     .preset-btn:hover {
       background-color: rgba(255, 255, 255, 0.25);
       transform: translateY(-3px);
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
     }
     
     .preset-btn.active {
       background-color: rgba(68, 96, 241, 0.25);
-      box-shadow: 0 8px 15px rgba(68, 96, 241, 0.25);
-      transform: translateY(-2px);
-      border-color: rgba(68, 96, 241, 0.4);
+      box-shadow: 0 6px 15px rgba(68, 96, 241, 0.25);
+      transform: translateY(-3px);
     }
     
     .preset-happy {
@@ -1424,90 +1540,158 @@
 
     @media (max-width: 992px) {
       .app-container {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
         grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
         grid-template-areas: 
           "emotion"
-          "preview"
           "prompt"
-          "share";
-      }
-
-      .preview-container, .emotion-panel {
+          "preview";
+        gap: 20px;
         height: auto;
+        min-height: auto;
+      }
+      
+      #app {
+        width: 95%;
+        padding: 1.5rem;
+      }
+      
+      .emotion-panel, 
+      .preview-container, 
+      .text-prompt-panel, 
+      .share-panel {
+        height: auto;
+        padding: 18px;
+      }
+      
+      .app-title {
+        font-size: 1.7rem;
+      }
+      
+      .app-subtitle {
+        font-size: 1rem;
       }
       
       .shell {
-        height: 300px;
-      }
-      
-      .text-prompt-panel, .share-panel {
-        margin-top: 15px;
+        height: 350px;
       }
     }
 
     @media (max-width: 768px) {
-      .community-container {
-        padding-top: 100px;
+      #app {
+        width: 92%;
+        padding: 1.2rem;
+        border-radius: 20px;
       }
-
-      .filter-section {
-        top: 70px;
+      
+      .app-container {
+        gap: 15px;
       }
-
-      .header {
-        padding: 30px 20px;
+      
+      .emotion-panel, 
+      .preview-container, 
+      .text-prompt-panel, 
+      .share-panel {
+        padding: 15px;
+        border-radius: 18px;
       }
-
-      .header h1 {
-        font-size: 2.2rem;
+      
+      .emotion-slider {
+        padding: 12px 15px;
+        margin-bottom: 12px;
       }
-
-      .posts-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
+      
+      .slider-title span {
+        font-size: 0.95rem;
       }
-
+      
+      .preset-buttons {
+        gap: 8px;
+        margin-bottom: 15px;
+      }
+      
+      .preset-btn {
+        padding: 6px 14px;
+        font-size: 0.85rem;
+      }
+      
       .shell {
         height: 280px;
         overflow-x: auto;
-        overflow-y: hidden;
-        justify-content: flex-start;
-        padding: 0 15px;
-        flex-wrap: nowrap;
+        padding-bottom: 10px;
       }
       
-      .box {
-        min-width: 180px;
-        margin: 0 10px;
-        flex: 0 0 70%;
+      .app-title {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
       }
       
-      .box:hover {
-        flex-basis: 85%;
+      .app-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 10px;
       }
-
-      .text-prompt-panel {
-        padding: 15px;
+    }
+    
+    @media (max-width: 480px) {
+      #app {
+        width: 96%;
+        padding: 1rem;
+        border-radius: 16px;
       }
       
-      .prompt-title {
-        font-size: 1.2rem;
+      .app-container {
+        gap: 12px;
       }
       
-      .text-prompt-input {
-        min-height: 70px;
+      .emotion-panel, 
+      .preview-container, 
+      .text-prompt-panel, 
+      .share-panel {
         padding: 12px;
+        border-radius: 14px;
+      }
+      
+      .emotion-slider {
+        padding: 10px 12px;
+        margin-bottom: 10px;
+        border-radius: 12px;
+      }
+      
+      .slider-title span {
         font-size: 0.9rem;
       }
       
-      .prompt-buttons {
-        flex-direction: row;
+      .preset-buttons {
+        gap: 6px;
+        margin-bottom: 12px;
       }
       
-      .generate-with-prompt-btn,
-      .clear-prompt-btn {
-        padding: 10px;
-        font-size: 0.9rem;
+      .preset-btn {
+        padding: 5px 12px;
+        font-size: 0.8rem;
+      }
+      
+      .app-title {
+        font-size: 1.3rem;
+        margin-bottom: 6px;
+      }
+      
+      .app-subtitle {
+        font-size: 0.85rem;
+        margin-bottom: 8px;
+      }
+      
+      .shell {
+        height: 240px;
+      }
+      
+      button, .btn-photo-upload {
+        padding: 6px 10px;
+        font-size: 0.75rem;
       }
     }
   </style>
@@ -1571,150 +1755,70 @@
         <p class="app-subtitle">调节你的情绪，创造独特背景色彩</p>
       </div>
       
-      <!-- 情绪预设按钮 -->
-      <div class="preset-buttons">
-        <button class="preset-btn preset-happy" @click="applyPreset('happy')" :class="{ active: activePreset === 'happy' }">
-          <span class="emoji">😊</span> 快乐
-        </button>
-        <button class="preset-btn preset-calm" @click="applyPreset('calm')" :class="{ active: activePreset === 'calm' }">
-          <span class="emoji">😌</span> 平静
-        </button>
-        <button class="preset-btn preset-excited" @click="applyPreset('excited')" :class="{ active: activePreset === 'excited' }">
-          <span class="emoji">🤩</span> 兴奋
-        </button>
-        <button class="preset-btn preset-melancholy" @click="applyPreset('melancholy')" :class="{ active: activePreset === 'melancholy' }">
-          <span class="emoji">😔</span> 忧郁
-        </button>
-        <button class="preset-btn preset-angry" @click="applyPreset('angry')" :class="{ active: activePreset === 'angry' }">
-          <span class="emoji">😠</span> 愤怒
-        </button>
-      </div>
-
       <div class="app-container">
         <div class="emotion-panel">
-          <!-- 快乐/悲伤 -->
-          <div class="emotion-slider">
-            <div class="slider-title">
-              <span style="background: linear-gradient(90deg, #3498db, #f1c40f); -webkit-background-clip: text; background-clip: text;">😢 快乐(黄色)/悲伤(蓝色) 😊</span>
+          <div class="emotion-sliders">
+            <!-- 快乐/悲伤 -->
+            <div class="emotion-slider">
+              <div class="slider-title">
+                <span style="background: linear-gradient(90deg, #3498db, #f1c40f); -webkit-background-clip: text; background-clip: text;">😢 快乐(黄色)/悲伤(蓝色) 😊</span>
+              </div>
+              <div class="slider-container">
+                <span class="slider-label left">悲伤</span>
+                <input type="range" min="0" max="100" v-model.number="happiness" @input="updateBackground"
+                  class="slider-happiness">
+                <span class="emotion-value">{{ happiness }}</span>
+                <span class="slider-label right">快乐</span>
+              </div>
             </div>
-            <div class="slider-container">
-              <span class="slider-label left">悲伤</span>
-              <input type="range" min="0" max="100" v-model.number="happiness" @input="updateBackground"
-                class="slider-happiness">
-              <span class="emotion-value">{{ happiness }}</span>
-              <span class="slider-label right">快乐</span>
-            </div>
-          </div>
 
-          <!-- 生气/恐惧 -->
-          <div class="emotion-slider">
-            <div class="slider-title">
-              <span style="background: linear-gradient(90deg, #2ecc71, #e74c3c); -webkit-background-clip: text; background-clip: text;">😠 生气(红色)/恐惧(绿色) 😨</span>
+            <!-- 生气/恐惧 -->
+            <div class="emotion-slider">
+              <div class="slider-title">
+                <span style="background: linear-gradient(90deg, #2ecc71, #e74c3c); -webkit-background-clip: text; background-clip: text;">😠 生气(红色)/恐惧(绿色) 😨</span>
+              </div>
+              <div class="slider-container">
+                <span class="slider-label left">恐惧</span>
+                <input type="range" min="0" max="100" v-model.number="anger" @input="updateBackground"
+                  class="slider-anger">
+                <span class="emotion-value">{{ anger }}</span>
+                <span class="slider-label right">生气</span>
+              </div>
             </div>
-            <div class="slider-container">
-              <span class="slider-label left">恐惧</span>
-              <input type="range" min="0" max="100" v-model.number="anger" @input="updateBackground"
-                class="slider-anger">
-              <span class="emotion-value">{{ anger }}</span>
-              <span class="slider-label right">生气</span>
-            </div>
-          </div>
 
-          <!-- 期待/惊讶 -->
-          <div class="emotion-slider">
-            <div class="slider-title">
-              <span style="background: linear-gradient(90deg, #1abc9c, #f39c12); -webkit-background-clip: text; background-clip: text;">🤔 期待(橘色)/惊讶(青绿色) 😲</span>
+            <!-- 期待/惊讶 -->
+            <div class="emotion-slider">
+              <div class="slider-title">
+                <span style="background: linear-gradient(90deg, #1abc9c, #f39c12); -webkit-background-clip: text; background-clip: text;">🤔 期待(橘色)/惊讶(青绿色) 😲</span>
+              </div>
+              <div class="slider-container">
+                <span class="slider-label left">惊讶</span>
+                <input type="range" min="0" max="100" v-model.number="anticipation" @input="updateBackground"
+                  class="slider-anticipation">
+                <span class="emotion-value">{{ anticipation }}</span>
+                <span class="slider-label right">期待</span>
+              </div>
             </div>
-            <div class="slider-container">
-              <span class="slider-label left">惊讶</span>
-              <input type="range" min="0" max="100" v-model.number="anticipation" @input="updateBackground"
-                class="slider-anticipation">
-              <span class="emotion-value">{{ anticipation }}</span>
-              <span class="slider-label right">期待</span>
-            </div>
-          </div>
 
-          <!-- 厌恶/信任 -->
-          <div class="emotion-slider">
-            <div class="slider-title">
-              <span style="background: linear-gradient(90deg, rgba(39, 174, 96, 1), rgba(142, 68, 173, 1)); -webkit-background-clip: text; background-clip: text;">🤢 厌恶(紫色)/信任(草绿色) 😇</span>
-            </div>
-            <div class="slider-container">
-              <span class="slider-label left">信任</span>
-              <input type="range" min="0" max="100" v-model.number="disgust" @input="updateBackground"
-                class="slider-disgust">
-              <span class="emotion-value">{{ disgust }}</span>
-              <span class="slider-label right">厌恶</span>
-            </div>
-          </div>
-          
-          <!-- 当前滑块值显示 -->
-          <div class="slider-values" v-if="showValues">
-            <div class="slider-value-item">
-              <div class="value-label">快乐/悲伤</div>
-              <div class="value-number">{{ happiness }}</div>
-            </div>
-            <div class="slider-value-item">
-              <div class="value-label">生气/恐惧</div>
-              <div class="value-number">{{ anger }}</div>
-            </div>
-            <div class="slider-value-item">
-              <div class="value-label">期待/惊讶</div>
-              <div class="value-number">{{ anticipation }}</div>
-            </div>
-            <div class="slider-value-item">
-              <div class="value-label">厌恶/信任</div>
-              <div class="value-number">{{ disgust }}</div>
+            <!-- 厌恶/信任 -->
+            <div class="emotion-slider">
+              <div class="slider-title">
+                <span style="background: linear-gradient(90deg, rgba(39, 174, 96, 1), rgba(142, 68, 173, 1)); -webkit-background-clip: text; background-clip: text;">🤢 厌恶(紫色)/信任(草绿色) 😇</span>
+              </div>
+              <div class="slider-container">
+                <span class="slider-label left">信任</span>
+                <input type="range" min="0" max="100" v-model.number="disgust" @input="updateBackground"
+                  class="slider-disgust">
+                <span class="emotion-value">{{ disgust }}</span>
+                <span class="slider-label right">厌恶</span>
+              </div>
             </div>
           </div>
         </div>
         
-        <!-- 情绪预览区域 -->
-        <div class="preview-container">
-          <div class="shell">
-            <div class="box">
-              <img src="../assets/images/welcomeback.jpeg" alt="快乐">
-              <span></span>
-            </div>
-            <div class="box">
-              <img src="../assets/images/welcomeback.jpeg" alt="平静">
-              <span></span>
-            </div>
-            <div class="box">
-              <img src="../assets/images/welcomeback.jpeg" alt="激动">
-              <span></span>
-            </div>
-            <div class="box">
-              <img src="../assets/images/welcomeback.jpeg" alt="忧郁">
-               <span></span>
-            </div>
-            <!-- <div class="box">
-              <img src="../assets/images/welcomeback.jpeg" alt="愤怒">
-              <span>愤怒</span>
-            </div> -->
-          </div>
-        </div>
-
-        <div class="share-panel">
-          <button class="btn-primary" @click="generateColorCode">
-            <span class="emoji">🎨</span>生成情绪代码
-          </button>
-          <button class="btn-secondary" @click="copyColor">
-            <span class="emoji">📋</span>复制颜色值
-          </button>
-          <label for="photoUpload" class="btn-photo-upload">
-            <span class="emoji">📷</span>
-            <span class="btn-text">上传照片</span>
-            <input type="file" id="photoUpload" accept="image/*" @change="handlePhotoUpload">
-          </label>
-          <button class="btn-secondary" onclick="home()">
-            <span class="emoji">🏠</span>返回首页
-          </button>
-        </div>
-
         <!-- 文字提示输入面板 -->
         <div class="text-prompt-panel">
-          <h3 class="prompt-title">文字引导生成</h3>
+        
           <div class="prompt-container">
             <textarea 
               v-model="textPrompt" 
@@ -1730,28 +1834,34 @@
             </div>
           </div>
         </div>
-
-        <div class="preview-panel" v-if="uploadedPhoto">
-          <div class="photo-preview">
-            <img :src="uploadedPhoto" alt="上传的照片" class="preview-image">
-            <button class="btn-primary generate-btn" @click="generateNewPhoto">
-              <span class="emoji">✨</span>生成情绪照片
-            </button>
-            <button class="btn-secondary remove-btn" @click="removePhoto">
-              <span class="emoji">❌</span>移除照片
-            </button>
+        
+        <!-- 情绪预览区域 -->
+        <div class="preview-container">
+          <h3 class="preview-title">情绪效果预览</h3>
+          <div class="preview-content">
+            <div class="preview-image-container">
+              <img src="../assets/images/welcomeback.jpeg" alt="情绪预览" class="preview-image" 
+                  :src="generatedPhoto || '../assets/images/welcomeback.jpeg'">
+              <div class="preview-image-caption">
+                {{ currentMoodText || '快乐' }}
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div class="generated-photo-panel" v-if="generatedPhoto">
-          <div class="photo-preview">
-            <h3>生成的情绪照片</h3>
-            <img :src="generatedPhoto" alt="生成的情绪照片" class="preview-image">
-            <button class="btn-secondary remove-btn" @click="removeGeneratedPhoto">
-              <span class="emoji">❌</span>移除照片
+          
+          <div class="preview-controls">
+            <button class="btn-primary" @click="generateColorCode">
+              <span class="emoji">🎨</span>生成情绪代码
             </button>
-            <button class="btn-primary download-btn" @click="downloadPhoto">
-              <span class="emoji">⬇️</span>下载照片
+            <button class="btn-secondary" @click="copyColor">
+              <span class="emoji">📋</span>复制颜色值
+            </button>
+            <label for="photoUpload" class="btn-photo-upload">
+              <span class="emoji">📷</span>
+              <span class="btn-text">上传照片</span>
+              <input type="file" id="photoUpload" accept="image/*" @change="handlePhotoUpload">
+            </label>
+            <button class="btn-secondary" onclick="home()">
+              <span class="emoji">🏠</span>返回首页
             </button>
           </div>
         </div>

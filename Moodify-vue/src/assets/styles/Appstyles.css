@@ -262,12 +262,13 @@ h2 {
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   width: 100%;
-  max-width: 800px;
+  max-width: 1200px;
   overflow: hidden;
   padding: 30px;
   backdrop-filter: blur(8px);
   transition: all 0.3s ease;
-  margin: 40px auto;
+  
+  margin: auto;
   /* 调整外边距 */
 }
 
