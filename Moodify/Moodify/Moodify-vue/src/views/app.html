@@ -156,50 +156,45 @@
     }
     
     .app-container {
-      gap: 25px;
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr 1fr;
       grid-template-areas: 
-        "emotion"
-        "preview"
-        "share";
+        "emotion preview"
+        "prompt share";
+      gap: 20px;
     }
     
     .emotion-panel {
       grid-area: emotion;
       background-color: rgba(255, 255, 255, 0.12);
       border-radius: 22px;
-      padding: 22px;
+      padding: 15px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
       border: 1px solid rgba(255, 255, 255, 0.15);
       margin-bottom: 0;
       backdrop-filter: blur(8px);
       transition: all 0.3s ease;
+      height: 100%;
     }
     
     .emotion-slider {
-      margin-bottom: 18px;
+      margin-bottom: 12px;
       background-color: rgba(255, 255, 255, 0.15);
       border-radius: 16px;
-      padding: 15px 20px;
+      padding: 10px 15px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.15);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     
-    .emotion-slider:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-    }
-    
     .slider-title {
       text-align: center;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
     
     .slider-title span {
       color: rgb(51, 52, 124);
-      font-size: 1.15rem;
+      font-size: 1rem;
       text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
       font-family: "Century Gothic", Times, serif;
       font-weight: 600;
@@ -264,12 +259,12 @@
       box-shadow: 0 3px 10px rgba(39, 174, 96, 0.2);
     }
     
-    /* 厌恶/担忧滑动条 */
+        /* 厌恶/信任 --> */
     .slider-disgust {
       background: linear-gradient(to right, 
-        rgba(142, 68, 173, 0.85),  /* 担忧 - 紫色 */
-        rgba(211, 84, 0, 0.85),    /* 中性 - 橙色 */
-        rgba(127, 140, 141, 0.85)  /* 厌恶 - 灰色 */
+        rgba(39, 174, 96, 0.85),  /* 信任 - 草绿色 */
+        rgba(170, 90, 255, 0.2),  /* 中间色 */
+        rgba(142, 68, 173, 0.85)  /* 厌恶 - 紫色 */
       );
       box-shadow: 0 3px 10px rgba(142, 68, 173, 0.2);
     }
@@ -353,18 +348,7 @@
     /* 预览容器样式 */
     .preview-container {
       grid-area: preview;
-      background-color: rgba(255, 255, 255, 0.12);
-      border-radius: 22px;
-      padding: px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      margin-bottom: 0;
-      backdrop-filter: blur(8px);
-      transition: all 0.3s ease;
-      max-width: 90%;
-      width: 120%;
-      justify-self: center;
-      overflow: visible;
+      height: 100%;
     }
     
     .preview-title {
@@ -382,16 +366,99 @@
 
     /* 情绪展示盒子样式 */
     .shell {
-      width: 200%;
-      height: 400px;
+      width: 100%;
+      height: 320px;
       display: flex;
-      margin: 15px auto;
+      margin: 10px auto;
       gap: 0;
       transform: none;
       align-items: center;
       justify-content: center;
       overflow: visible;
       transition: all 0.5s ease;
+    }
+    
+    /* 文字提示输入面板样式 */
+    .text-prompt-panel {
+      grid-area: prompt;
+      background-color: rgba(255, 255, 255, 0.12);
+      border-radius: 22px;
+      padding: 18px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      margin-bottom: 0;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+    }
+    
+    .text-prompt-panel:hover {
+      background-color: rgba(255, 255, 255, 0.18);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      transform: translateY(-3px);
+    }
+    
+    .prompt-title {
+      font-size: 1.4rem;
+      color: rgb(51, 52, 124);
+      margin-bottom: 15px;
+      text-align: center;
+      text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
+      font-family: "Century Gothic", Times, serif;
+      font-weight: 600;
+    }
+    
+    .prompt-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .text-prompt-input {
+      width: 100%;
+      min-height: 80px;
+      padding: 12px;
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background-color: rgba(255, 255, 255, 0.1);
+      resize: vertical;
+      color: rgb(51, 52, 124);
+      font-family: "Century Gothic", Times, serif;
+      font-size: 1rem;
+      line-height: 1.5;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+    
+    .text-prompt-input:focus {
+      outline: none;
+      border-color: rgba(68, 96, 241, 0.6);
+      box-shadow: 0 0 10px rgba(68, 96, 241, 0.3);
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+    
+    .prompt-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+    
+    .generate-with-prompt-btn {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background: linear-gradient(135deg, #7f7fd5, #86a8e7, #91eae4);
+      box-shadow: 0 5px 15px rgba(127, 127, 213, 0.4);
+    }
+    
+    .generate-with-prompt-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(127, 127, 213, 0.5);
+      background: linear-gradient(135deg, #6868c0, #7294d4, #7cd8d1);
+    }
+    
+    .clear-prompt-btn {
+      padding: 10px 20px;
+      font-size: 1rem;
     }
     
     /* 添加悬停时其他盒子的透明度变化 */
@@ -402,7 +469,7 @@
     .box {
        /* 怎么将盒子变宽 */
       width: 100%;
-      flex: 3;
+      flex: 1;  /* 从3改为1，让初始状态更窄 */
       overflow: hidden;
       transition: all 0.5s ease;
       margin: 0 10px;
@@ -412,7 +479,7 @@
       background-color: transparent;
       backdrop-filter: blur(5px);
       min-width: 20px;
-      max-width: 160px;
+      max-width: none;  /* 移除max-width限制 */
       position: relative;
       cursor: pointer;
       height: 80%;
@@ -461,12 +528,14 @@
     
     /* 手风琴效果 - 更接近zhanshi.html */
     .box:hover {
-      flex-basis: 100%; /* 从40%增加到70%，让悬停时的盒子更宽 */
+      flex: 12;  /* 从8增加到12，让悬停时更宽 */
+      max-width: none;  /* 确保没有宽度限制 */
       box-shadow: 0 15px 35px rgba(0, 0, 0, .5);
       border-color: rgba(255, 255, 255, 1);
       z-index: 3;
       opacity: 1 !important;
-      transform: scale(1.03);
+      transform: scale(1.15);  /* 从1.1增加到1.15 */
+      width: 600%;  /* 从400%增加到600% */
     }
     
     .box:hover > img {
@@ -518,7 +587,7 @@
       padding: 18px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
       border: 1px solid rgba(255, 255, 255, 0.15);
-      margin-bottom: 15px;
+      margin-bottom: 0;
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
@@ -1087,7 +1156,7 @@
     /* 添加情绪展示盒子样式 */
     .shell {
       width: 100%;
-      height: 400px;
+      height: 320px;
       display: flex;
       margin: 10px auto;
     }
@@ -1181,10 +1250,284 @@
         flex-basis: auto;
       }
     }
+    
+    /* 添加图片查看器样式 */
+    .image-viewer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6); /* 从0.85降低到0.6，背景更透明 */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px); /* 减少模糊效果，从8px降到5px */
+      -webkit-backdrop-filter: blur(5px);
+    }
+    
+    .image-viewer.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .image-viewer-content {
+      max-width: 85%; /* 从90%减小到85% */
+      max-height: 85%; /* 从90%减小到85% */
+      position: relative;
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+      margin-bottom: 80px; /* 为悬浮按钮留出空间 */
+      padding-bottom: 20px; /* 添加额外的底部内边距 */
+    }
+    
+    .image-viewer.active .image-viewer-content {
+      transform: scale(1);
+    }
+    
+    .image-viewer-img {
+      max-width: 100%;
+      max-height: 75vh; /* 从90vh降低到75vh，减小图片高度 */
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 5px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .image-viewer-close {
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 36px;
+      height: 36px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      font-size: 24px;
+      color: white;
+      border: none;
+      transition: all 0.3s ease;
+    }
+    
+    .image-viewer-close:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      transform: rotate(90deg);
+    }
+    
+    .image-viewer-caption {
+      color: white;
+      text-align: center;
+      margin-top: 15px;
+      font-size: 1.2rem;
+      font-family: "Century Gothic", Times, serif;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    }
+    
+    /* 添加点击图片的指示效果 */
+    .box {
+      cursor: zoom-in;
+    }
+    
+    /* 添加下载按钮样式 */
+    .image-viewer-buttons {
+      position: absolute;
+      bottom: -50px; /* 从-70px调整到-50px，使按钮更靠近图片 */
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 15px;
+      z-index: 10;
+      width: 100%; /* 确保按钮容器宽度足够 */
+    }
+    
+    .image-viewer-button {
+      background-color: rgba(68, 96, 241, 0.7);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50px;
+      padding: 12px 25px;
+      font-family: "Century Gothic", Times, serif;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .image-viewer-button:hover {
+      background-color: rgba(68, 96, 241, 0.9);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+    }
+    
+    .image-viewer-download {
+      background-color: rgba(68, 96, 241, 0.4);
+    }
+    
+    .image-viewer-download:hover {
+      background-color: rgba(68, 96, 241, 0.6);
+    }
+    
+    body.dark-mode .preview-panel,
+    body.dark-mode .share-panel {
+      background-color: rgba(40, 44, 65, 0.45);
+      border: 1px solid rgba(70, 70, 90, 0.4);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    body.dark-mode .text-prompt-panel {
+      background-color: rgba(40, 44, 65, 0.45);
+      border: 1px solid rgba(70, 70, 90, 0.4);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    body.dark-mode .text-prompt-panel:hover {
+      background-color: rgba(40, 44, 65, 0.55);
+    }
+    
+    body.dark-mode .prompt-title {
+      color: rgba(255, 255, 255, 0.95);
+      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.35);
+    }
+    
+    body.dark-mode .text-prompt-input {
+      background-color: rgba(30, 34, 50, 0.5);
+      border-color: rgba(70, 70, 90, 0.4);
+      color: rgba(255, 255, 255, 0.9);
+    }
+    
+    body.dark-mode .text-prompt-input:focus {
+      border-color: rgba(82, 85, 191, 0.6);
+      box-shadow: 0 0 10px rgba(82, 85, 191, 0.3);
+      background-color: rgba(30, 34, 50, 0.7);
+    }
+    
+    body.dark-mode .generate-with-prompt-btn {
+      background: linear-gradient(135deg, #5255bf, #5a74c2, #5baca7);
+    }
+    
+    body.dark-mode .generate-with-prompt-btn:hover {
+      background: linear-gradient(135deg, #4548b0, #4d66b3, #4f9e99);
+    }
+
+    @media (max-width: 992px) {
+      .app-container {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+          "emotion"
+          "preview"
+          "prompt"
+          "share";
+      }
+
+      .preview-container, .emotion-panel {
+        height: auto;
+      }
+      
+      .shell {
+        height: 300px;
+      }
+      
+      .text-prompt-panel, .share-panel {
+        margin-top: 15px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .community-container {
+        padding-top: 100px;
+      }
+
+      .filter-section {
+        top: 70px;
+      }
+
+      .header {
+        padding: 30px 20px;
+      }
+
+      .header h1 {
+        font-size: 2.2rem;
+      }
+
+      .posts-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .shell {
+        height: 280px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        justify-content: flex-start;
+        padding: 0 15px;
+        flex-wrap: nowrap;
+      }
+      
+      .box {
+        min-width: 180px;
+        margin: 0 10px;
+        flex: 0 0 70%;
+      }
+      
+      .box:hover {
+        flex-basis: 85%;
+      }
+
+      .text-prompt-panel {
+        padding: 15px;
+      }
+      
+      .prompt-title {
+        font-size: 1.2rem;
+      }
+      
+      .text-prompt-input {
+        min-height: 70px;
+        padding: 12px;
+        font-size: 0.9rem;
+      }
+      
+      .prompt-buttons {
+        flex-direction: row;
+      }
+      
+      .generate-with-prompt-btn,
+      .clear-prompt-btn {
+        padding: 10px;
+        font-size: 0.9rem;
+      }
+    }
   </style>
 </head>
 
 <body class="loaded">
+  <!-- 图片查看器 -->
+  <div class="image-viewer" id="imageViewer">
+    <div class="image-viewer-content">
+      <button class="image-viewer-close" id="closeViewer">×</button>
+      <img src="" alt="" class="image-viewer-img" id="viewerImage">
+      <div class="image-viewer-caption" id="viewerCaption"></div>
+      <div class="image-viewer-buttons">
+        <button class="image-viewer-button image-viewer-download" id="downloadImage">
+          <span>⬇️</span> 保存到本地
+        </button>
+      </div>
+    </div>
+  </div>
+  
   <!-- 主题切换按钮 -->
   <button class="theme-toggle" id="themeToggle">
     <span class="material-symbols-outlined">dark_mode</span>
@@ -1252,7 +1595,7 @@
           <!-- 快乐/悲伤 -->
           <div class="emotion-slider">
             <div class="slider-title">
-              <span>😢 快乐/悲伤 😊</span>
+              <span style="background: linear-gradient(90deg, #3498db, #f1c40f); -webkit-background-clip: text; background-clip: text;">😢 快乐(黄色)/悲伤(蓝色) 😊</span>
             </div>
             <div class="slider-container">
               <span class="slider-label left">悲伤</span>
@@ -1266,7 +1609,7 @@
           <!-- 生气/恐惧 -->
           <div class="emotion-slider">
             <div class="slider-title">
-              <span>😠 生气/恐惧 😨</span>
+              <span style="background: linear-gradient(90deg, #2ecc71, #e74c3c); -webkit-background-clip: text; background-clip: text;">😠 生气(红色)/恐惧(绿色) 😨</span>
             </div>
             <div class="slider-container">
               <span class="slider-label left">恐惧</span>
@@ -1280,7 +1623,7 @@
           <!-- 期待/惊讶 -->
           <div class="emotion-slider">
             <div class="slider-title">
-              <span>🤔 期待/惊讶 😲</span>
+              <span style="background: linear-gradient(90deg, #1abc9c, #f39c12); -webkit-background-clip: text; background-clip: text;">🤔 期待(橘色)/惊讶(青绿色) 😲</span>
             </div>
             <div class="slider-container">
               <span class="slider-label left">惊讶</span>
@@ -1291,13 +1634,13 @@
             </div>
           </div>
 
-          <!-- 厌恶/担忧 -->
+          <!-- 厌恶/信任 -->
           <div class="emotion-slider">
             <div class="slider-title">
-              <span>🤢 厌恶/担忧 😟</span>
+              <span style="background: linear-gradient(90deg, rgba(39, 174, 96, 1), rgba(142, 68, 173, 1)); -webkit-background-clip: text; background-clip: text;">🤢 厌恶(紫色)/信任(草绿色) 😇</span>
             </div>
             <div class="slider-container">
-              <span class="slider-label left">担忧</span>
+              <span class="slider-label left">信任</span>
               <input type="range" min="0" max="100" v-model.number="disgust" @input="updateBackground"
                 class="slider-disgust">
               <span class="emotion-value">{{ disgust }}</span>
@@ -1320,7 +1663,7 @@
               <div class="value-number">{{ anticipation }}</div>
             </div>
             <div class="slider-value-item">
-              <div class="value-label">厌恶/担忧</div>
+              <div class="value-label">厌恶/信任</div>
               <div class="value-number">{{ disgust }}</div>
             </div>
           </div>
@@ -1331,19 +1674,19 @@
           <div class="shell">
             <div class="box">
               <img src="../assets/images/welcomeback.jpeg" alt="快乐">
-              <span>一</span>
+              <span></span>
             </div>
             <div class="box">
               <img src="../assets/images/welcomeback.jpeg" alt="平静">
-              <span>二</span>
+              <span></span>
             </div>
             <div class="box">
               <img src="../assets/images/welcomeback.jpeg" alt="激动">
-              <span>三</span>
+              <span></span>
             </div>
             <div class="box">
               <img src="../assets/images/welcomeback.jpeg" alt="忧郁">
-               <span>四</span>
+               <span></span>
             </div>
             <!-- <div class="box">
               <img src="../assets/images/welcomeback.jpeg" alt="愤怒">
@@ -1367,6 +1710,25 @@
           <button class="btn-secondary" onclick="home()">
             <span class="emoji">🏠</span>返回首页
           </button>
+        </div>
+
+        <!-- 文字提示输入面板 -->
+        <div class="text-prompt-panel">
+          <h3 class="prompt-title">文字引导生成</h3>
+          <div class="prompt-container">
+            <textarea 
+              v-model="textPrompt" 
+              class="text-prompt-input" 
+              placeholder="输入文字描述，如：'一个晴朗的春日，樱花盛开的公园...'"></textarea>
+            <div class="prompt-buttons">
+              <button class="btn-primary generate-with-prompt-btn" @click="generateWithPrompt">
+                <span class="emoji">✨</span>生成图像
+              </button>
+              <button class="btn-secondary clear-prompt-btn" @click="clearPrompt">
+                <span class="emoji">🗑️</span>清空
+              </button>
+            </div>
+          </div>
         </div>
 
         <div class="preview-panel" v-if="uploadedPhoto">
@@ -1454,6 +1816,7 @@
         app.data.showValues = false;
         app.data.activePreset = null;
         app.data.selectedBox = null;
+        app.data.textPrompt = ""; // 添加文字提示变量
         
         // 添加加载动画方法
         const showLoading = function() {
@@ -1852,46 +2215,107 @@
           originalApplyPreset.call(this, presetName);
         };
         
+        // 清空文字提示
+        app.methods.clearPrompt = function() {
+          this.textPrompt = "";
+        };
+        
+        // 使用文字提示生成图像
+        app.methods.generateWithPrompt = function() {
+          if (!this.textPrompt.trim()) {
+            alert("请输入文字描述！");
+            return;
+          }
+          
+          showLoading();
+          
+          // 获取当前情绪数据
+          const emotionData = {
+            happiness: this.happiness,
+            anger: this.anger,
+            anticipation: this.anticipation,
+            disgust: this.disgust,
+            color: this.currentColor
+          };
+          
+          // 创建情绪描述
+          let emotionDescription = "";
+          if (emotionData.happiness > 70) emotionDescription += "快乐、";
+          else if (emotionData.happiness < 30) emotionDescription += "悲伤、";
+          
+          if (emotionData.anger > 70) emotionDescription += "愤怒、";
+          else if (emotionData.anger < 30) emotionDescription += "恐惧、";
+          
+          if (emotionData.anticipation > 70) emotionDescription += "期待、";
+          else if (emotionData.anticipation < 30) emotionDescription += "惊讶、";
+          
+          if (emotionData.disgust > 70) emotionDescription += "厌恶、";
+          else if (emotionData.disgust < 30) emotionDescription += "信任、";
+          
+          // 处理最后的逗号
+          if (emotionDescription) {
+            emotionDescription = emotionDescription.slice(0, -1);
+          } else {
+            emotionDescription = "平静";
+          }
+          
+          // 模拟API调用
+          setTimeout(() => {
+            // 这里是模拟生成图像，实际应用中应调用真实的API
+            // const apiPrompt = `${this.textPrompt}。风格：${emotionDescription}`;
+            // console.log("发送到API的提示词:", apiPrompt);
+            
+            // 模拟返回图像
+            const randomId = Math.floor(Math.random() * 1000);
+            this.generatedPhoto = `https://picsum.photos/800/800?random=${randomId}`;
+            
+            hideLoading();
+            
+            // 显示成功消息
+            alert(`已根据您的描述和情绪配置生成图像！\n\n文字描述: ${this.textPrompt}\n情绪风格: ${emotionDescription}`);
+          }, 2000);
+        };
+        
         // 更新滑块值显示的颜色
         app.methods.updateSliderValueColors = function() {
           // 快乐值的颜色 - 从蓝色到黄色
           let happyColor;
           if (this.happiness > 50) {
             const happyIntensity = (this.happiness - 50) / 50;
-            happyColor = this.getGradientColor([255, 255, 255], [241, 196, 15], happyIntensity);
+            happyColor = this.getGradientColor([255, 255, 255], [241, 196, 15], happyIntensity); // 黄色 #f1c40f
           } else {
             const sadIntensity = (50 - this.happiness) / 50;
-            happyColor = this.getGradientColor([255, 255, 255], [41, 128, 185], sadIntensity);
+            happyColor = this.getGradientColor([255, 255, 255], [52, 152, 219], sadIntensity); // 蓝色 #3498db
           }
           
-          // 生气值的颜色 - 从蓝色到红色
+          // 生气值的颜色 - 从绿色到红色
           let angerColor;
           if (this.anger > 50) {
             const angryIntensity = (this.anger - 50) / 50;
-            angerColor = this.getGradientColor([255, 255, 255], [231, 76, 60], angryIntensity);
+            angerColor = this.getGradientColor([255, 255, 255], [231, 76, 60], angryIntensity); // 红色 #e74c3c
           } else {
             const fearIntensity = (50 - this.anger) / 50;
-            angerColor = this.getGradientColor([255, 255, 255], [52, 152, 219], fearIntensity);
+            angerColor = this.getGradientColor([255, 255, 255], [46, 204, 113], fearIntensity); // 绿色 #2ecc71
           }
           
-          // 期待值的颜色 - 从蓝色到橙色
+          // 期待值的颜色 - 从青绿色到橘色
           let anticipationColor;
           if (this.anticipation > 50) {
             const antIntensity = (this.anticipation - 50) / 50;
-            anticipationColor = this.getGradientColor([255, 255, 255], [243, 156, 18], antIntensity);
+            anticipationColor = this.getGradientColor([255, 255, 255], [243, 156, 18], antIntensity); // 橘色 #f39c12
           } else {
             const surpriseIntensity = (50 - this.anticipation) / 50;
-            anticipationColor = this.getGradientColor([255, 255, 255], [41, 128, 185], surpriseIntensity);
+            anticipationColor = this.getGradientColor([255, 255, 255], [26, 188, 156], surpriseIntensity); // 青绿色 #1abc9c
           }
           
-          // 厌恶值的颜色 - 从紫色到灰色
+          // 厌恶值的颜色 - 从草绿色到紫色
           let disgustColor;
           if (this.disgust > 50) {
             const disgustIntensity = (this.disgust - 50) / 50;
-            disgustColor = this.getGradientColor([255, 255, 255], [142, 68, 173], disgustIntensity);
+            disgustColor = this.getGradientColor([255, 255, 255], [142, 68, 173], disgustIntensity); // 紫色 #8e44ad
           } else {
-            const worryIntensity = (50 - this.disgust) / 50;
-            disgustColor = this.getGradientColor([255, 255, 255], [127, 140, 141], worryIntensity);
+            const trustIntensity = (50 - this.disgust) / 50;
+            disgustColor = this.getGradientColor([255, 255, 255], [39, 174, 96], trustIntensity); // 草绿色 #27ae60
           }
           
           // 获取值显示元素并更新颜色
@@ -1928,6 +2352,87 @@
           return [r, g, b];
         };
       }
+    });
+    
+    // 添加图片查看器功能
+    document.addEventListener('DOMContentLoaded', function() {
+      const imageViewer = document.getElementById('imageViewer');
+      const viewerImage = document.getElementById('viewerImage');
+      const viewerCaption = document.getElementById('viewerCaption');
+      const closeViewer = document.getElementById('closeViewer');
+      const downloadImage = document.getElementById('downloadImage');
+      
+      // 为所有box中的图片添加点击事件
+      const boxes = document.querySelectorAll('.box');
+      boxes.forEach(box => {
+        const img = box.querySelector('img');
+        const caption = box.querySelector('span');
+        
+        img.addEventListener('click', function(e) {
+          e.stopPropagation(); // 阻止冒泡，避免触发box的点击事件
+          viewerImage.src = this.src;
+          viewerCaption.textContent = caption.textContent;
+          imageViewer.classList.add('active');
+          document.body.style.overflow = 'hidden'; // 禁止滚动
+        });
+      });
+      
+      // 关闭查看器的方法
+      function closeImageViewer() {
+        imageViewer.classList.remove('active');
+        document.body.style.overflow = ''; // 恢复滚动
+      }
+      
+      // 点击关闭按钮
+      closeViewer.addEventListener('click', closeImageViewer);
+      
+      // 点击背景关闭
+      imageViewer.addEventListener('click', function(e) {
+        if (e.target === this) {
+          closeImageViewer();
+        }
+      });
+      
+      // 下载图片功能
+      downloadImage.addEventListener('click', function() {
+        const imageUrl = viewerImage.src;
+        const imageName = viewerCaption.textContent || '情绪照片';
+        
+        // 创建一个临时的a元素来下载图片
+        const downloadLink = document.createElement('a');
+        downloadLink.href = imageUrl;
+        downloadLink.download = `${imageName}-情绪图片.jpg`;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+        
+        // 提示用户已下载（可选）
+        const notification = document.createElement('div');
+        notification.textContent = '图片已保存';
+        notification.style.position = 'fixed';
+        notification.style.bottom = '20px';
+        notification.style.left = '50%';
+        notification.style.transform = 'translateX(-50%)';
+        notification.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+        notification.style.color = 'white';
+        notification.style.padding = '10px 20px';
+        notification.style.borderRadius = '20px';
+        notification.style.zIndex = '10000';
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+          notification.style.opacity = '0';
+          notification.style.transition = 'opacity 0.5s ease';
+          setTimeout(() => document.body.removeChild(notification), 500);
+        }, 2000);
+      });
+      
+      // ESC键关闭
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && imageViewer.classList.contains('active')) {
+          closeImageViewer();
+        }
+      });
     });
   </script>
 </body>
