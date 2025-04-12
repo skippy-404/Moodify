@@ -71,7 +71,7 @@ body {
 .showcase-container {
   display: flex;
   max-width: 1200px;
-  width: 100%;
+  width: 90%;
   margin: 0 auto;
   align-items: center;
   gap: 40px;
