@@ -171,13 +171,13 @@
     .app-container {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1.8fr 0.7fr;
+      grid-template-rows: 3fr 0.8fr;  /* 原先是1.8fr 0.7fr，调大第一行的高度比例，增加调色板区域高度 */
       grid-template-areas:
         "emotion preview"
         "prompt preview";
       gap: 20px;
       height: calc(100vh - 150px);
-      min-height: 750px;
+      min-height: 800px;  /* 增加最小高度，原先是750px */
       box-sizing: border-box;
       max-width: 100%;
       overflow: hidden;
@@ -195,6 +195,7 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      min-height: 450px;  /* 添加最小高度确保内容不被压缩 */
     }
 
     .emotion-panel:hover {
@@ -400,19 +401,15 @@
       grid-area: preview;
       background-color: rgba(255, 255, 255, 0.15);
       border-radius: 20px;
-      padding: 18px;
+      padding: 20px;
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
       border: 1px solid rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       overflow: hidden;
-      width: 100%;
-      max-width: 100%;
-      justify-self: stretch;
-      transition: all 0.3s ease;
-      box-sizing: border-box;
+      min-height: 600px;  /* 添加最小高度确保预览区域不会被压缩 */
     }
 
     .preview-container:hover {
@@ -436,7 +433,7 @@
       flex-direction: column;
       justify-content: flex-start;
       align-items: stretch;
-      margin-bottom: 12px;
+      margin-bottom: 5px; /* 从12px减少到5px，减少与按钮的间距 */
       width: 100%;
       height: 100%;
     }
@@ -444,7 +441,7 @@
     .preview-image-container {
       width: 100%;
       height: 100%;
-      min-height: 350px;
+      min-height: 320px; /* 从350px减少到320px，让底部有更多空间 */
       border-radius: 15px;
       overflow: hidden;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
@@ -494,13 +491,12 @@
     .preview-controls {
       display: flex;
       flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 5px; /* 从15px减少到5px，减少上方间距 */
       justify-content: center;
-      gap: 8px;
-      margin-top: 0px;
-      padding: 10px 5px;
-      border-top: 1px solid rgba(255, 255, 255, 0.2);
-      width: 100%;
-      box-sizing: border-box;
+      padding: 8px 0; /* 从10px减少到8px，减少内部间距 */
+      position: relative; /* 添加相对定位 */
+      top: -5px; /* 向上移动5px */
     }
 
     button,
@@ -1977,7 +1973,7 @@
             <textarea class="text-prompt-input" id="textPromptInput" placeholder="描述你的情绪或想法..."></textarea>
             <div class="prompt-buttons">
               <button class="generate-with-prompt-btn">生成情绪分析</button>
-              <button class="generate-image-btn" id="generateImageBtn">生成AI图像</button>
+              <button class="generate-image-btn" id="generateImageBtnPanel">生成AI图像</button>
             </div>
           </div>
         </div>
@@ -2007,9 +2003,6 @@
               <span class="btn-text">上传照片</span>
               <input type="file" id="photoUpload" accept="image/*" @change="handlePhotoUpload">
             </label>
-            <button class="btn-secondary" onclick="home()">
-              <span class="emoji">🏠</span>返回首页
-            </button>
           </div>
         </div>
       </div>
@@ -2067,11 +2060,11 @@
 
     // Vue应用扩展
     document.addEventListener('DOMContentLoaded', function () {
-      // 获取生成图像按钮并将其添加到Vue实例中
+      // 获取两个生成图像按钮并将其添加到Vue实例中
       const generateImageBtn = document.getElementById('generateImageBtn');
-      if (generateImageBtn) {
-        generateImageBtn.addEventListener('click', generateImageFromEmotion);
-      }
+      const generateImageBtnPanel = document.getElementById('generateImageBtnPanel');
+      // 获取生成图像按钮并将其添加到Vue实例中
+      // 为两个按钮都添加点击事件
       
       // 现有Vue应用实例
       if (window.app) {
