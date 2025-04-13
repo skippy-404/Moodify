@@ -1834,6 +1834,12 @@
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
+
+    .error-message {
+      color: #f44336;
+      margin: 5px 0;
+      font-size: 14px;
+    }
   </style>
 </head>
 
@@ -2703,7 +2709,7 @@
       document.getElementById('loadingOverlay').classList.add('active');
       
       // 定义API端点
-      const url = 'http://localhost:7860/sdapi/v1/txt2img';
+      const url = 'http://localhost:7860/sdapi/v1/img2img';
       
       // 定义请求体
       const payload = {
@@ -2744,6 +2750,7 @@
       // 发送请求
       fetch(url, {
         method: 'POST',
+        mode: 'no-cors',
         headers: {
           'Content-Type': 'application/json'
         },
@@ -2898,6 +2905,223 @@
       // 调用生成图像函数，传入上传的图像（如果有）
       generateImage(promptText, uploadedImage);
     }
+
+    // 添加图片上传相关变量
+    let uploadedImage = null;
+    let imagePreview = null;
+
+    // 图片上传处理函数
+    function handleImageUpload(event) {
+        const file = event.target.files[0];
+        const errorElement = document.getElementById('uploadError');
+        errorElement.textContent = '';
+        
+        if (!file) {
+            return;
+        }
+
+        // 验证文件类型
+        const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        if (!validTypes.includes(file.type)) {
+            errorElement.textContent = '请上传JPG或PNG格式的图片';
+            return;
+        }
+
+        // 验证文件大小（限制为5MB）
+        const maxSize = 5 * 1024 * 1024; // 5MB
+        if (file.size > maxSize) {
+            errorElement.textContent = '图片大小不能超过5MB';
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            uploadedImage = e.target.result;
+            imagePreview = e.target.result;
+            
+            // 更新预览图片
+            const previewImage = document.querySelector('.preview-image');
+            if (previewImage) {
+                previewImage.src = e.target.result;
+            }
+            
+            // 显示成功提示
+            console.log('图片上传成功，将使用img2img模式');
+            alert('图片上传成功，将使用图片到图片模式生成');
+        };
+        reader.onerror = () => {
+            errorElement.textContent = '图片读取失败，请重试';
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // 清除上传的图片
+    function clearUploadedImage() {
+        uploadedImage = null;
+        imagePreview = null;
+        const fileInput = document.getElementById('photoUpload');
+        if (fileInput) {
+            fileInput.value = '';
+        }
+        const previewImage = document.querySelector('.preview-image');
+        if (previewImage) {
+            previewImage.src = '../assets/images/welcomeback.jpeg';
+        }
+        const errorElement = document.getElementById('uploadError');
+        if (errorElement) {
+            errorElement.textContent = '';
+        }
+    }
+
+    // 修改生成图像函数，连接初始加载的文件上传事件处理器
+    document.addEventListener('DOMContentLoaded', function() {
+        // 连接文件上传事件
+        const photoUpload = document.getElementById('photoUpload');
+        if (photoUpload) {
+            photoUpload.addEventListener('change', handleImageUpload);
+        }
+        
+        // 重新连接下载按钮事件
+        const downloadImageBtn = document.getElementById('downloadImage');
+        if (downloadImageBtn) {
+            downloadImageBtn.addEventListener('click', downloadGeneratedImage);
+        }
+        
+        // 重新连接关闭按钮事件
+        const closeViewerBtn = document.getElementById('closeViewer');
+        if (closeViewerBtn) {
+            closeViewerBtn.addEventListener('click', closeImageViewer);
+        }
+    });
+
+    // 优化生成图像函数
+    function generateImageFromEmotion() {
+        const generateImageBtn = document.getElementById('generateImageBtn');
+        generateImageBtn.disabled = true;
+        generateImageBtn.textContent = '生成中...';
+        document.getElementById('loadingOverlay').classList.add('active');
+        
+        const textPromptInput = document.getElementById('textPromptInput');
+        const prompt = textPromptInput ? textPromptInput.value.trim() : "";
+        
+        if (!prompt) {
+            alert('请输入提示词');
+            generateImageBtn.disabled = false;
+            generateImageBtn.textContent = '生成AI图像';
+            document.getElementById('loadingOverlay').classList.remove('active');
+            return;
+        }
+
+        const payload = {
+            prompt: prompt,
+            negative_prompt: "模糊的，低质量的，草稿，粗糙的，不完整的",
+            styles: [],
+            seed: -1,
+            batch_size: 1,
+            n_iter: 1,
+            steps: 30,
+            cfg_scale: 7,
+            width: 512,
+            height: 512,
+            restore_faces: true,
+            tiling: false,
+            sampler_index: "Euler a",
+            send_images: true,
+            save_images: false
+        };
+
+        let url = 'http://localhost:7860/sdapi/v1/txt2img';
+        
+        // 检查是否使用了上传的图片
+        if (uploadedImage) {
+            url = 'http://localhost:7860/sdapi/v1/img2img';
+            let cleanBase64 = uploadedImage;
+            if (cleanBase64.startsWith('data:image')) {
+                cleanBase64 = cleanBase64.split(',')[1];
+            }
+            
+            payload.init_images = [cleanBase64];
+            payload.denoising_strength = 0.7;
+            payload.resize_mode = 0;
+            
+            console.log('使用img2img API，基于上传的图片生成');
+        } else {
+            console.log('使用txt2img API，纯文本生成');
+        }
+
+        console.log("API URL:", url);
+        console.log("是否有上传图片:", !!uploadedImage);
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP错误！状态: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('成功:', data);
+            
+            if (data.images && data.images.length > 0) {
+                const imageViewer = document.getElementById('imageViewer');
+                const viewerImage = imageViewer.querySelector('.image-viewer-img');
+                const viewerCaption = imageViewer.querySelector('.image-viewer-caption');
+                
+                viewerImage.src = `data:image/png;base64,${data.images[0]}`;
+                viewerCaption.textContent = prompt;
+                imageViewer.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        })
+        .catch(error => {
+            console.error('错误:', error);
+            alert('生成图像失败: ' + error.message);
+        })
+        .finally(() => {
+            generateImageBtn.disabled = false;
+            generateImageBtn.textContent = '生成AI图像';
+            document.getElementById('loadingOverlay').classList.remove('active');
+        });
+    }
+
+    // 优化图片查看器功能
+    function closeImageViewer() {
+        const imageViewer = document.getElementById('imageViewer');
+        imageViewer.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // 优化下载图片功能
+    function downloadGeneratedImage() {
+        const viewerImage = document.querySelector('.image-viewer-img');
+        const viewerCaption = document.querySelector('.image-viewer-caption');
+        
+        if (viewerImage.src) {
+            const link = document.createElement('a');
+            link.href = viewerImage.src;
+            link.download = `${viewerCaption.textContent || 'AI生成图像'}-${new Date().getTime()}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    }
+
+    // 添加错误提示元素
+    document.addEventListener('DOMContentLoaded', function() {
+        const uploadSection = document.querySelector('.btn-photo-upload');
+        if (uploadSection) {
+            const errorElement = document.createElement('div');
+            errorElement.id = 'uploadError';
+            errorElement.className = 'error-message';
+            uploadSection.parentNode.insertBefore(errorElement, uploadSection.nextSibling);
+        }
+    });
   </script>
 </body>
 
