@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function initVueApp() {
-  new Vue({
+  const appInstance = new Vue({
     el: '#app',
     data: {
       happiness: 50,
@@ -266,4 +266,7 @@ ${Object.entries(this.emotionPercentages).map(([name, value]) => `${name}: ${val
       }
     }
   });
+  
+  // 将Vue实例暴露为全局变量，以便DeepSeek分析脚本可以访问
+  window.app = appInstance;
 }
