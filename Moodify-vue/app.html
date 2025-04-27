@@ -1813,6 +1813,14 @@
     body.dark-mode .analysis-content {
       color: rgba(255, 255, 255, 0.85);
     }
+
+    /* 情绪分析按钮容器 */
+    .emotion-controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      justify-content: center;
+    }
   </style>
 </head>
 
@@ -1952,6 +1960,9 @@
               <!-- 添加DeepSeek情绪分析按钮 -->
               <button class="btn-primary analyze-emotion-btn" id="analyzeEmotionBtn">
                 <span class="emoji">🧠</span>AI情绪分析
+              </button>
+              <button class="btn-primary analyze-emotion-btn" id="generateMoodImageBtn">
+                <span class="emoji">🎨</span> 生成情绪图像
               </button>
             </div>
             
@@ -2816,7 +2827,214 @@
         
         return `你当前的情绪状态表现为"${mood}"。\n\n主要由${dominant}和${secondary}组成，同时伴随着其他情绪的影响。这种情绪组合表现出一种独特的心理状态，可能会影响你的行为和决策方式。`;
       }
+      
+      // 添加生成情绪图像按钮事件
+      const generateMoodImageBtn = document.getElementById('generateMoodImageBtn');
+      if (generateMoodImageBtn) {
+        generateMoodImageBtn.addEventListener('click', function() {
+          // 显示加载动画
+          document.getElementById('loadingOverlay').classList.add('active');
+          
+          // 获取当前的情绪值
+          const happiness = app.happiness;
+          const anger = app.anger;
+          const anticipation = app.anticipation;
+          const disgust = app.disgust;
+          
+          // 获取情绪分析内容（如果有）
+          let moodDescription = "";
+          if (analysisContent && analysisContent.textContent.trim()) {
+            moodDescription = analysisContent.textContent;
+          } else {
+            // 如果没有分析结果，使用当前情绪值构建描述
+            moodDescription = `
+              当前情绪状态:
+              - 快乐-悲伤: ${happiness}（0代表极度悲伤，100代表极度快乐）
+              - 愤怒-恐惧: ${anger}（0代表极度恐惧，100代表极度愤怒）
+              - 期待-惊讶: ${anticipation}（0代表极度惊讶，100代表极度期待）
+              - 厌恶-信任: ${disgust}（0代表极度信任，100代表极度厌恶）
+            `;
+          }
+          
+          // 调用OpenAI生成图像
+          generateMoodImage(moodDescription);
+        });
+      }
     });
+    
+    // 生成情绪图像函数
+    async function generateMoodImage(moodDescription) {
+      try {
+        console.log("生成情绪图像，情绪描述:", moodDescription);
+        
+        // 显示加载动画
+        document.getElementById('loadingOverlay').classList.add('active');
+        
+        // 构建提示词
+        const generatePrompt = `根据以下情绪分析，生成一副能够表达这种情绪状态的艺术图像：
+        
+${moodDescription}
+
+请使用合适的色彩、构图和风格来表现这种情绪，可以是抽象的或具象的艺术表达。`;
+        
+        // 调用OpenAI API
+        const response = await fetch('https://api.openai-hub.com/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer sk-6eTQmEK4vXfvE82bJd9HSeJezPnrg0tBT7zo9a5A7RQs6wEh',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            model: 'gpt-4o-image-vip',
+            messages: [
+              {
+                role: 'user',
+                content: [
+                  {
+                    type: 'text',
+                    text: generatePrompt
+                  }
+                ]
+              }
+            ]
+          })
+        });
+        
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('API响应错误:', errorText);
+          throw new Error(`API请求失败: ${response.status}`);
+        }
+        
+        // 解析响应
+        const data = await response.json();
+        console.log('API响应:', data);
+        
+        // 从响应中提取图像URL
+        const content = data.choices[0].message.content;
+        console.log('返回内容:', content);
+        
+        // 解析图像URL - 匹配Markdown图片格式或直接URL
+        let imageUrl = null;
+        const markdownMatch = content.match(/\!\[(.*?)\]\((https:\/\/.*?\.png)\)/);
+        if (markdownMatch && markdownMatch[2]) {
+          imageUrl = markdownMatch[2];
+        } else {
+          // 尝试匹配直接URL
+          const urlMatch = content.match(/(https:\/\/.*?\.png)/);
+          if (urlMatch && urlMatch[1]) {
+            imageUrl = urlMatch[1];
+          }
+        }
+        
+        if (imageUrl) {
+          console.log('提取到的图像URL:', imageUrl);
+          
+          // 提取情绪名称
+          let moodName = '情绪图像';
+          const nameMatch = moodDescription.match(/表现为"([^"]+)"/);
+          if (nameMatch && nameMatch[1]) {
+            moodName = nameMatch[1];
+          }
+          
+          // 下载图像并保存
+          downloadAndSaveImage(imageUrl, '../assets/images/welcomeback.jpeg');
+          
+          // 更新预览图像
+          updatePreviewImage(imageUrl, moodName);
+          
+          // 显示成功消息
+          showNotification('情绪图像已生成');
+        } else {
+          console.error('无法从响应中提取图像URL');
+          alert('无法生成图像，请稍后再试');
+        }
+      } catch (error) {
+        console.error('生成图像时出错:', error);
+        alert('生成图像失败: ' + error.message);
+      } finally {
+        // 隐藏加载动画
+        document.getElementById('loadingOverlay').classList.remove('active');
+      }
+    }
+
+    // 下载并保存图像到本地
+    async function downloadAndSaveImage(imageUrl, savePath) {
+      try {
+        // 先在前端下载图像
+        const response = await fetch(imageUrl);
+        const blob = await response.blob();
+        
+        // 添加到预览图像
+        const previewImage = document.querySelector('.preview-image');
+        if (previewImage) {
+          previewImage.src = imageUrl;
+          console.log('预览图像已更新');
+          
+          // 更新Vue应用数据
+          if (window.app) {
+            app.generatedPhoto = imageUrl;
+          }
+        }
+        
+        // 创建一个临时的a元素进行下载
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'welcomeback.jpeg';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        
+        console.log('图像已下载到默认下载位置');
+        showNotification('情绪图像已生成并保存');
+      } catch (error) {
+        console.error('下载图像失败:', error);
+        showNotification('图像生成成功但下载失败');
+      }
+    }
+
+    // 更新预览图像
+    function updatePreviewImage(imageUrl, moodName) {
+      const previewImage = document.querySelector('.preview-image');
+      if (previewImage) {
+        previewImage.src = imageUrl;
+        
+        // 更新图像说明
+        const caption = document.querySelector('.preview-image-caption');
+        if (caption) {
+          caption.textContent = moodName;
+        }
+        
+        // 更新Vue应用数据（如果存在）
+        if (window.app) {
+          app.generatedPhoto = imageUrl;
+          app.currentMoodText = moodName;
+        }
+      }
+    }
+
+    // 显示通知
+    function showNotification(message) {
+      const notification = document.createElement('div');
+      notification.textContent = message;
+      notification.style.position = 'fixed';
+      notification.style.bottom = '20px';
+      notification.style.left = '50%';
+      notification.style.transform = 'translateX(-50%)';
+      notification.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+      notification.style.color = 'white';
+      notification.style.padding = '10px 20px';
+      notification.style.borderRadius = '20px';
+      notification.style.zIndex = '10000';
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transition = 'opacity 0.5s ease';
+        setTimeout(() => document.body.removeChild(notification), 500);
+      }, 2000);
+    }
   </script>
 </body>
 
